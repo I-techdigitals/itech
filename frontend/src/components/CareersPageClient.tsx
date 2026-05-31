@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-
-const API_BASE = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000").replace(/\/$/, "");
+import API_URL from "@/config/api";
 
 const JOBS = [
   {
@@ -127,7 +126,7 @@ export default function CareersPageClient() {
     payload.append("resume", resume);
 
     try {
-      const response = await fetch(`${API_BASE}/api/careers`, {
+      const response = await fetch(`${API_URL}/api/careers`, {
         method: "POST",
         body: payload,
       });

@@ -1,5 +1,4 @@
 const express = require("express");
-const fs = require("fs/promises");
 const path = require("path");
 const multer = require("multer");
 const CareerApplication = require("../models/CareerApplication");
@@ -27,35 +26,17 @@ const POSITIONS = [
 ];
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const UPLOAD_DIR = path.join(__dirname, "..", "uploads", "careers");
 const allowedTypes = new Map([
   ["application/pdf", ".pdf"],
   ["application/msword", ".doc"],
   ["application/vnd.openxmlformats-officedocument.wordprocessingml.document", ".docx"],
 ]);
 
-const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
-    try {
-      await fs.mkdir(UPLOAD_DIR, { recursive: true });
-      cb(null, UPLOAD_DIR);
-    } catch (error) {
-      cb(error);
-    }
-  },
-  filename: (req, file, cb) => {
-    const safeBase = path
-      .basename(file.originalname, path.extname(file.originalname))
-      .replace(/[^a-z0-9-]+/gi, "-")
-      .replace(/^-+|-+$/g, "")
-      .slice(0, 48);
-    const ext = allowedTypes.get(file.mimetype) || path.extname(file.originalname).toLowerCase();
-    cb(null, `${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeBase || "resume"}${ext}`);
-  },
-});
-
+// Use memoryStorage so resume files are kept in RAM as req.file.buffer.
+// diskStorage is NOT suitable for Vercel and other serverless platforms
+// because the filesystem is read-only (writes will throw EROFS / ENOENT).
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE, files: 1 },
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
@@ -68,10 +49,8 @@ const upload = multer({
   },
 });
 
-async function cleanupUploadedFile(file) {
-  if (!file?.path) return;
-  await fs.unlink(file.path).catch(() => {});
-}
+// No cleanup needed — memoryStorage keeps files in RAM only; they are
+// automatically discarded when the serverless function finishes.
 
 function handleUpload(req, res, next) {
   upload.single("resume")(req, res, (error) => {
@@ -90,12 +69,10 @@ router.post("/", handleUpload, async (req, res) => {
     const { fullName, email, phone, position, experience, coverLetter, website } = req.body;
 
     if (website) {
-      await cleanupUploadedFile(req.file);
       return res.status(400).json({ error: "Application could not be submitted." });
     }
 
     if (!fullName || !email || !phone || !position || !experience || !coverLetter) {
-      await cleanupUploadedFile(req.file);
       return res.status(400).json({ error: "Please complete all required fields." });
     }
 
@@ -105,7 +82,6 @@ router.post("/", handleUpload, async (req, res) => {
 
     const cleanPosition = sanitize(position);
     if (!POSITIONS.includes(cleanPosition)) {
-      await cleanupUploadedFile(req.file);
       return res.status(400).json({ error: "Please select a valid position." });
     }
 
@@ -119,8 +95,6 @@ router.post("/", handleUpload, async (req, res) => {
       coverLetter: sanitize(coverLetter),
       resume: {
         originalName: sanitize(req.file.originalname),
-        filename: req.file.filename,
-        path: req.file.path,
         mimetype: req.file.mimetype,
         size: req.file.size,
       },
@@ -133,8 +107,14 @@ router.post("/", handleUpload, async (req, res) => {
     try {
       application = await CareerApplication.create(applicationPayload);
     } catch (dbErr) {
-      console.warn("Career DB save failed; saving fallback:", dbErr.message);
-      fallbackId = await saveFallbackSubmission("career-applications", applicationPayload);
+      console.warn("Career DB save failed; trying file fallback:", dbErr.message);
+      try {
+        fallbackId = await saveFallbackSubmission("career-applications", applicationPayload);
+      } catch (fsErr) {
+        // Vercel and other serverless platforms have a read-only filesystem.
+        // Log the error but continue — emails are the primary notification channel.
+        console.warn("File fallback also failed (likely read-only fs on serverless):", fsErr.message);
+      }
     }
 
     const adminBody = `
@@ -171,8 +151,9 @@ router.post("/", handleUpload, async (req, res) => {
         html: brandedWrapper(adminBody, `Resume attached: ${escapeHtml(req.file.originalname)}`),
         attachments: [
           {
+            // Use in-memory buffer (memoryStorage) — no file path needed
             filename: req.file.originalname,
-            path: req.file.path,
+            content: req.file.buffer,
             contentType: req.file.mimetype,
           },
         ],

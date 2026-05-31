@@ -1,12 +1,12 @@
+import API_URL from "@/config/api";
+
 export type ApiResult<T> =
   | { ok: true; data: T }
   | { ok: false; error: string };
 
-const API_BASE = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000").replace(/\/$/, "");
-
 export async function postJson<T>(path: string, payload: unknown): Promise<ApiResult<T>> {
   try {
-    const response = await fetch(`${API_BASE}${path}`, {
+    const response = await fetch(`${API_URL}${path}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -28,7 +28,7 @@ export async function postJson<T>(path: string, payload: unknown): Promise<ApiRe
   } catch {
     return {
       ok: false,
-      error: "Could not reach the server. Please check that the backend is running.",
+      error: "Something went wrong. Please try again later or contact us directly.",
     };
   }
 }

@@ -93,18 +93,24 @@ router.post("/", async (req, res) => {
         ip: req.ip,
       });
     } catch (dbErr) {
-      console.warn("Booking DB save failed; continuing with email:", dbErr.message);
-      fallbackId = await saveFallbackSubmission("bookings", {
-        name: sanitize(name),
-        email: sEmail,
-        phone: sanitize(phone || ""),
-        service: cleanService,
-        preferredDate: cleanDate,
-        preferredTime: cleanTime,
-        budget: sanitize(budget || ""),
-        message: sanitize(message || ""),
-        ip: req.ip,
-      });
+      console.warn("Booking DB save failed; trying file fallback:", dbErr.message);
+      try {
+        fallbackId = await saveFallbackSubmission("bookings", {
+          name: sanitize(name),
+          email: sEmail,
+          phone: sanitize(phone || ""),
+          service: cleanService,
+          preferredDate: cleanDate,
+          preferredTime: cleanTime,
+          budget: sanitize(budget || ""),
+          message: sanitize(message || ""),
+          ip: req.ip,
+        });
+      } catch (fsErr) {
+        // Vercel and other serverless platforms have a read-only filesystem.
+        // Log the error but continue — emails are the primary notification channel.
+        console.warn("File fallback also failed (likely read-only fs on serverless):", fsErr.message);
+      }
     }
 
     const adminBody = `
