@@ -1,6 +1,8 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const Lead = require("../models/Lead");
+const { formatKuwaitTime } = require("../utils/formatDate");
 const {
   brandedWrapper,
   infoRow,
@@ -31,19 +33,9 @@ router.post("/", async (req, res) => {
 
     let lead = null;
     let fallbackId = null;
-    try {
-      lead = await Lead.create({
-        name: sanitize(name),
-        email: sEmail,
-        phone: sanitize(phone || ""),
-        service: sanitize(service || ""),
-        message: sanitize(message),
-        ip: req.ip,
-      });
-    } catch (dbErr) {
-      console.warn("Contact DB save failed; trying file fallback:", dbErr.message);
+    if (mongoose.connection.readyState === 1) {
       try {
-        fallbackId = await saveFallbackSubmission("leads", {
+        lead = await Lead.create({
           name: sanitize(name),
           email: sEmail,
           phone: sanitize(phone || ""),
@@ -51,10 +43,22 @@ router.post("/", async (req, res) => {
           message: sanitize(message),
           ip: req.ip,
         });
-      } catch (fsErr) {
-        // Vercel and other serverless platforms have a read-only filesystem.
-        // Log the error but continue — emails are the primary notification channel.
-        console.warn("File fallback also failed (likely read-only fs on serverless):", fsErr.message);
+      } catch (dbErr) {
+        console.warn("Contact DB save failed; trying file fallback:", dbErr.message);
+        try {
+          fallbackId = await saveFallbackSubmission("leads", {
+            name: sanitize(name),
+            email: sEmail,
+            phone: sanitize(phone || ""),
+            service: sanitize(service || ""),
+            message: sanitize(message),
+            ip: req.ip,
+          });
+        } catch (fsErr) {
+          // Vercel and other serverless platforms have a read-only filesystem.
+          // Log the error but continue — emails are the primary notification channel.
+          console.warn("File fallback also failed (likely read-only fs on serverless):", fsErr.message);
+        }
       }
     }
 
@@ -75,7 +79,7 @@ router.post("/", async (req, res) => {
       </div>
 
       <p style="color:#999;font-size:12px;margin-top:20px;">
-        Submitted: ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kuwait" })} (Kuwait Time) - Lead ID: ${lead?._id || "not saved"}
+        Submitted: ${formatKuwaitTime()} (Kuwait Time) - Lead ID: ${lead?._id || "not saved"}
       </p>`;
 
     const userBody = `
@@ -142,7 +146,7 @@ router.post("/", async (req, res) => {
       const errors = Object.values(err.errors).map((e) => e.message);
       return res.status(400).json({ error: errors.join(". ") });
     }
-    console.error("Contact route error:", err);
+    console.error("Contact route error:", err.message, err.stack);
     res.status(500).json({ error: "Server error. Please try again or email us directly." });
   }
 });

@@ -13,6 +13,9 @@ const careersRouter = require("./routes/careers");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Required on Vercel/proxies so rate limiting and req.ip work correctly.
+app.set("trust proxy", 1);
+
 // ── CORS ───────────────────────────────────────────────────────────────────────
 // Allow both the production domain and localhost for local development.
 const ALLOWED_ORIGINS = [
@@ -85,24 +88,41 @@ app.use((err, req, res, next) => {
 });
 
 // ── MongoDB + Server start ────────────────────────────────────────────────────
+mongoose.set("bufferCommands", false);
+
 const mongoUri = process.env.MONGO_URI;
 
-if (!mongoUri) {
-  console.warn("⚠️  MONGO_URI is not set. Database features will not work.");
+if (mongoUri) {
+  mongoose
+    .connect(mongoUri, {
+      serverSelectionTimeoutMS: 3000,
+    })
+    .then(() => {
+      console.log("✅ MongoDB connected");
+      app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+    })
+    .catch((err) => {
+      console.error("❌ MongoDB connection error:", err.message);
+      console.log("⚠️ Starting server anyway (DB features will not work without a connection).");
+      app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} (No DB)`));
+    });
+} else if (process.env.NODE_ENV !== "production") {
+  console.log("Connecting to local MongoDB for development...");
+  mongoose
+    .connect("mongodb://127.0.0.1:27017/itech-digitals", {
+      serverSelectionTimeoutMS: 2000,
+    })
+    .then(() => {
+      console.log("✅ Local MongoDB connected");
+      app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+    })
+    .catch((err) => {
+      console.warn("❌ Local MongoDB connection failed:", err.message);
+      app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} (No DB)`));
+    });
+} else {
+  console.warn("⚠️  MONGO_URI is not set in production. Database features disabled.");
+  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} (No DB)`));
 }
-
-mongoose
-  .connect(mongoUri || "mongodb://127.0.0.1:27017/itech-digitals", {
-    serverSelectionTimeoutMS: 5000,
-  })
-  .then(() => {
-    console.log("✅ MongoDB connected");
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-  })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err.message);
-    console.log("⚠️ Starting server anyway (DB features will not work without a connection).");
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} (No DB)`));
-  });
 
 module.exports = app;
