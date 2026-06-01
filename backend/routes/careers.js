@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const multer = require("multer");
-const CareerApplication = require("../models/CareerApplication");
 const {
   brandedWrapper,
   emailLink,
@@ -12,7 +11,6 @@ const {
   sendEmail,
   stripTags,
 } = require("../utils/mailer");
-const { saveFallbackSubmission } = require("../utils/submissionStore");
 
 const router = express.Router();
 const sanitize = stripTags;
@@ -32,9 +30,6 @@ const allowedTypes = new Map([
   ["application/vnd.openxmlformats-officedocument.wordprocessingml.document", ".docx"],
 ]);
 
-// Use memoryStorage so resume files are kept in RAM as req.file.buffer.
-// diskStorage is NOT suitable for Vercel and other serverless platforms
-// because the filesystem is read-only (writes will throw EROFS / ENOENT).
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE, files: 1 },
@@ -48,9 +43,6 @@ const upload = multer({
     cb(null, true);
   },
 });
-
-// No cleanup needed — memoryStorage keeps files in RAM only; they are
-// automatically discarded when the serverless function finishes.
 
 function handleUpload(req, res, next) {
   upload.single("resume")(req, res, (error) => {
@@ -86,36 +78,6 @@ router.post("/", handleUpload, async (req, res) => {
     }
 
     const cleanEmail = sanitize(email).toLowerCase();
-    const applicationPayload = {
-      fullName: sanitize(fullName),
-      email: cleanEmail,
-      phone: sanitize(phone),
-      position: cleanPosition,
-      experience: sanitize(experience),
-      coverLetter: sanitize(coverLetter),
-      resume: {
-        originalName: sanitize(req.file.originalname),
-        mimetype: req.file.mimetype,
-        size: req.file.size,
-      },
-      ip: req.ip,
-    };
-
-    let application = null;
-    let fallbackId = null;
-
-    try {
-      application = await CareerApplication.create(applicationPayload);
-    } catch (dbErr) {
-      console.warn("Career DB save failed; trying file fallback:", dbErr.message);
-      try {
-        fallbackId = await saveFallbackSubmission("career-applications", applicationPayload);
-      } catch (fsErr) {
-        // Vercel and other serverless platforms have a read-only filesystem.
-        // Log the error but continue — emails are the primary notification channel.
-        console.warn("File fallback also failed (likely read-only fs on serverless):", fsErr.message);
-      }
-    }
 
     const adminBody = `
       <h2 style="color:#1a237e;font-size:20px;margin:0 0 6px;">New Career Application</h2>
@@ -130,8 +92,7 @@ router.post("/", handleUpload, async (req, res) => {
       <div style="margin-top:20px;padding:20px;background:#fff3e0;border-radius:10px;border-left:4px solid #ff6b35;">
         <div style="font-weight:600;color:#ff6b35;margin-bottom:8px;font-size:14px;">Cover Letter</div>
         <p style="color:#444;line-height:1.7;margin:0;font-size:14px;">${escapeHtml(coverLetter)}</p>
-      </div>
-      <p style="color:#999;font-size:12px;margin-top:20px;">Application ID: ${application?._id || fallbackId}</p>`;
+      </div>`;
 
     const userBody = `
       <h2 style="color:#1a237e;font-size:22px;margin:0 0 8px;">Thanks for applying, ${escapeHtml(fullName)}.</h2>
@@ -142,56 +103,44 @@ router.post("/", handleUpload, async (req, res) => {
         - The i-TECH Digitals Team
       </p>`;
 
-    await Promise.all([
-      sendEmail({
-        from: `"i-TECH Digitals Careers" <${getSenderAddress()}>`,
-        to: process.env.NOTIFY_EMAIL || getCompanyEmail(),
-        replyTo: cleanEmail,
-        subject: "New Career Application",
-        html: brandedWrapper(adminBody, `Resume attached: ${escapeHtml(req.file.originalname)}`),
-        attachments: [
-          {
-            // Use in-memory buffer (memoryStorage) — no file path needed
-            filename: req.file.originalname,
-            content: req.file.buffer,
-            contentType: req.file.mimetype,
-          },
-        ],
-      }),
-      sendEmail({
-        from: `"i-TECH Digitals Careers" <${getSenderAddress()}>`,
-        to: cleanEmail,
-        subject: "We received your application - i-TECH Digitals",
-        html: brandedWrapper(userBody, "You're receiving this because you applied through the i-TECH Digitals careers page."),
-      }),
-    ]);
+    try {
+      await Promise.all([
+        sendEmail({
+          from: `"i-TECH Digitals Careers" <${getSenderAddress()}>`,
+          to: process.env.NOTIFY_EMAIL || getCompanyEmail(),
+          replyTo: cleanEmail,
+          subject: "New Career Application",
+          html: brandedWrapper(adminBody, `Resume attached: ${escapeHtml(req.file.originalname)}`),
+          attachments: [
+            {
+              filename: req.file.originalname,
+              content: req.file.buffer,
+              contentType: req.file.mimetype,
+            },
+          ],
+        }),
+        sendEmail({
+          from: `"i-TECH Digitals Careers" <${getSenderAddress()}>`,
+          to: cleanEmail,
+          subject: "We received your application - i-TECH Digitals",
+          html: brandedWrapper(userBody, "You're receiving this because you applied through the i-TECH Digitals careers page."),
+        }),
+      ]);
+    } catch (mailErr) {
+      console.warn("Careers email failed:", mailErr.message);
+      return res.status(201).json({
+        success: true,
+        message: "Application received. Email confirmation could not be sent, but our team has your application.",
+      });
+    }
 
     res.status(201).json({
       success: true,
       message: "Application submitted successfully. Please check your email for confirmation.",
-      applicationId: application?._id || fallbackId,
     });
   } catch (error) {
     console.error("Careers route error:", error);
     res.status(500).json({ error: "Application could not be submitted. Please try again." });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const adminKey = req.headers["x-admin-key"];
-    if (adminKey !== process.env.ADMIN_KEY) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
-    const applications = await CareerApplication.find()
-      .sort({ createdAt: -1 })
-      .limit(100)
-      .select("-resume.path");
-
-    res.json({ total: applications.length, applications });
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
   }
 });
 

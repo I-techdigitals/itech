@@ -29,10 +29,9 @@ function parseAddress(value) {
 }
 
 function createTransporter() {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) return null;
-
-  const smtpUser = process.env.SMTP_USER.trim();
-  const smtpPass = process.env.SMTP_PASS.trim();
+  const smtpUser = String(process.env.SMTP_USER || "").trim();
+  const smtpPass = String(process.env.SMTP_PASS || "").trim();
+  if (!smtpUser || !smtpPass) return null;
   const isGmail = !process.env.SMTP_HOST && (smtpUser.endsWith("@gmail.com") || process.env.SMTP_SERVICE === "gmail");
   const password = isGmail ? smtpPass.replace(/\s/g, "") : smtpPass;
 

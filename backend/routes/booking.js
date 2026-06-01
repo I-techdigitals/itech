@@ -1,7 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
-const Booking = require("../models/Booking");
 const { formatKuwaitTime } = require("../utils/formatDate");
 const {
   brandedWrapper,
@@ -13,7 +11,6 @@ const {
   getSenderAddress,
   sendEmail,
 } = require("../utils/mailer");
-const { saveFallbackSubmission } = require("../utils/submissionStore");
 
 const sanitize = stripTags;
 
@@ -80,43 +77,6 @@ router.post("/", async (req, res) => {
     const sBudget = escapeHtml(budget || "Not specified");
     const sMessage = escapeHtml(message || "");
 
-    let booking = null;
-    let fallbackId = null;
-    if (mongoose.connection.readyState === 1) {
-      try {
-        booking = await Booking.create({
-          name: sanitize(name),
-          email: sEmail,
-          phone: sanitize(phone || ""),
-          service: cleanService,
-          preferredDate: cleanDate,
-          preferredTime: cleanTime,
-          budget: sanitize(budget || ""),
-          message: sanitize(message || ""),
-          ip: req.ip,
-        });
-      } catch (dbErr) {
-        console.warn("Booking DB save failed; trying file fallback:", dbErr.message);
-        try {
-          fallbackId = await saveFallbackSubmission("bookings", {
-            name: sanitize(name),
-            email: sEmail,
-            phone: sanitize(phone || ""),
-            service: cleanService,
-            preferredDate: cleanDate,
-            preferredTime: cleanTime,
-            budget: sanitize(budget || ""),
-            message: sanitize(message || ""),
-            ip: req.ip,
-          });
-        } catch (fsErr) {
-          // Vercel and other serverless platforms have a read-only filesystem.
-          // Log the error but continue — emails are the primary notification channel.
-          console.warn("File fallback also failed (likely read-only fs on serverless):", fsErr.message);
-        }
-      }
-    }
-
     const adminBody = `
       <h2 style="color:#1a237e;font-size:20px;margin:0 0 6px;">New Booking Request</h2>
       <p style="color:#666;font-size:14px;margin:0 0 24px;">A new consultation booking was submitted on the website.</p>
@@ -133,9 +93,6 @@ router.post("/", async (req, res) => {
       </table>
 
       <div style="margin-top:28px;padding:16px 20px;background:#fff3e0;border-radius:10px;border-left:4px solid #ff6b35;">
-        <p style="margin:0;color:#e65100;font-size:13px;font-weight:600;">
-          Booking ID: ${booking?._id || "not saved"}
-        </p>
         <p style="margin:6px 0 0;color:#bf360c;font-size:12px;">
           Submitted: ${formatKuwaitTime()} (Kuwait Time)
         </p>
@@ -176,7 +133,7 @@ router.post("/", async (req, res) => {
           to: getCompanyEmail(),
           replyTo: sEmail,
           subject: `New Booking: ${sanitize(name)} - ${cleanService} on ${cleanDate}`,
-          html: brandedWrapper(adminBody, `Booking ID: ${booking?._id || "not saved"}`),
+          html: brandedWrapper(adminBody),
         }),
         sendEmail({
           from: `"i-TECH Digitals" <${getSenderAddress()}>`,
@@ -192,7 +149,6 @@ router.post("/", async (req, res) => {
         success: true,
         emailSent: false,
         message: "Booking received. Email confirmation could not be sent, but our team has your request.",
-        bookingId: booking?._id || fallbackId,
       });
     }
 
@@ -200,28 +156,10 @@ router.post("/", async (req, res) => {
       success: true,
       emailSent: true,
       message: "Booking received! Check your email for a confirmation.",
-      bookingId: booking?._id || fallbackId,
     });
   } catch (err) {
-    if (err.name === "ValidationError") {
-      const errors = Object.values(err.errors).map((e) => e.message);
-      return res.status(400).json({ error: errors.join(". ") });
-    }
     console.error("Booking route error:", err);
     res.status(500).json({ error: "Server error. Please try again." });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const adminKey = req.headers["x-admin-key"];
-    if (adminKey !== process.env.ADMIN_KEY) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    const bookings = await Booking.find().sort({ createdAt: -1 }).limit(100);
-    res.json({ total: bookings.length, bookings });
-  } catch (err) {
-    res.status(500).json({ error: "Server error" });
   }
 });
 

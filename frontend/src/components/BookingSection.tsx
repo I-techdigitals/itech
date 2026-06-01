@@ -66,7 +66,7 @@ export default function BookingSection() {
     setStatus("loading");
     setErrorMsg("");
 
-    const result = await postJson<{ success: boolean; message: string; bookingId: string; emailSent?: boolean }>(
+    const result = await postJson<{ success: boolean; message: string; emailSent?: boolean }>(
       "/api/booking",
       form
     );

@@ -28,7 +28,7 @@ export default function ContactSection() {
     setStatus("loading");
     setErrorMsg("");
 
-    const result = await postJson<{ success: boolean; message: string; leadId: string; emailSent?: boolean }>(
+    const result = await postJson<{ success: boolean; message: string; emailSent?: boolean }>(
       "/api/contact",
       form
     );

@@ -1,7 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
-const Lead = require("../models/Lead");
 const { formatKuwaitTime } = require("../utils/formatDate");
 const {
   brandedWrapper,
@@ -13,7 +11,6 @@ const {
   getSenderAddress,
   sendEmail,
 } = require("../utils/mailer");
-const { saveFallbackSubmission } = require("../utils/submissionStore");
 
 const sanitize = stripTags;
 
@@ -30,37 +27,6 @@ router.post("/", async (req, res) => {
     const sPhone = escapeHtml(phone || "");
     const sService = escapeHtml(service || "General Inquiry");
     const sMessage = escapeHtml(message);
-
-    let lead = null;
-    let fallbackId = null;
-    if (mongoose.connection.readyState === 1) {
-      try {
-        lead = await Lead.create({
-          name: sanitize(name),
-          email: sEmail,
-          phone: sanitize(phone || ""),
-          service: sanitize(service || ""),
-          message: sanitize(message),
-          ip: req.ip,
-        });
-      } catch (dbErr) {
-        console.warn("Contact DB save failed; trying file fallback:", dbErr.message);
-        try {
-          fallbackId = await saveFallbackSubmission("leads", {
-            name: sanitize(name),
-            email: sEmail,
-            phone: sanitize(phone || ""),
-            service: sanitize(service || ""),
-            message: sanitize(message),
-            ip: req.ip,
-          });
-        } catch (fsErr) {
-          // Vercel and other serverless platforms have a read-only filesystem.
-          // Log the error but continue — emails are the primary notification channel.
-          console.warn("File fallback also failed (likely read-only fs on serverless):", fsErr.message);
-        }
-      }
-    }
 
     const adminBody = `
       <h2 style="color:#1a237e;font-size:20px;margin:0 0 6px;">New Contact Form Submission</h2>
@@ -79,7 +45,7 @@ router.post("/", async (req, res) => {
       </div>
 
       <p style="color:#999;font-size:12px;margin-top:20px;">
-        Submitted: ${formatKuwaitTime()} (Kuwait Time) - Lead ID: ${lead?._id || "not saved"}
+        Submitted: ${formatKuwaitTime()} (Kuwait Time)
       </p>`;
 
     const userBody = `
@@ -131,7 +97,6 @@ router.post("/", async (req, res) => {
         success: true,
         emailSent: false,
         message: "Message received. Email confirmation could not be sent, but our team has your request.",
-        leadId: lead?._id || fallbackId,
       });
     }
 
@@ -139,28 +104,15 @@ router.post("/", async (req, res) => {
       success: true,
       emailSent: true,
       message: "Thank you! Your message has been received. Check your email for confirmation.",
-      leadId: lead?._id || fallbackId,
     });
   } catch (err) {
-    if (err.name === "ValidationError") {
-      const errors = Object.values(err.errors).map((e) => e.message);
-      return res.status(400).json({ error: errors.join(". ") });
-    }
     console.error("Contact route error:", err.message, err.stack);
-    res.status(500).json({ error: "Server error. Please try again or email us directly." });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const adminKey = req.headers["x-admin-key"];
-    if (adminKey !== process.env.ADMIN_KEY) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    const leads = await Lead.find().sort({ createdAt: -1 }).limit(100);
-    res.json({ total: leads.length, leads });
-  } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(201).json({
+      success: true,
+      emailSent: false,
+      message:
+        "Message received. Our team will follow up shortly. If you need immediate help, email itechkw.business@gmail.com.",
+    });
   }
 });
 
