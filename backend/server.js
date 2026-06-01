@@ -73,6 +73,8 @@ app.get("/api/health", (req, res) => {
     status: "ok",
     timestamp: new Date().toISOString(),
     service: "ITech Digitals API",
+    build: "email-only-v2",
+    commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || "local",
     email: hasSmtp || Boolean(process.env.BREVO_API_KEY) ? "configured" : "missing",
   });
 });
@@ -86,6 +88,9 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message || "Internal server error" });
 });
 
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log("🚀 Server running on port", PORT);
+  console.log("📦 Backend build: email-only-v2 (no MongoDB, no file storage)");
+});
 
 module.exports = app;
