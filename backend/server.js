@@ -72,7 +72,7 @@ app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
     timestamp: new Date().toISOString(),
-    service: "ITech Digitals API",
+    service: "I-TECH Digitals API",
     build: "email-only-v2",
     commit: process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || "local",
     email: hasSmtp || Boolean(process.env.BREVO_API_KEY) ? "configured" : "missing",

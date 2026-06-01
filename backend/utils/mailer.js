@@ -20,12 +20,12 @@ function parseAddress(value) {
   const bracketMatch = raw.match(/^(?:"?([^"]*)"?\s*)?<([^>]+)>$/);
   if (bracketMatch) {
     return {
-      name: stripTags(bracketMatch[1] || "i-TECH Digitals") || "i-TECH Digitals",
+      name: stripTags(bracketMatch[1] || "I-TECH Digitals") || "I-TECH Digitals",
       email: stripTags(bracketMatch[2]),
     };
   }
 
-  return { name: "i-TECH Digitals", email: stripTags(raw) };
+  return { name: "I-TECH Digitals", email: stripTags(raw) };
 }
 
 function createTransporter() {
@@ -97,7 +97,7 @@ async function sendViaBrevoApi(message) {
     throw new Error("No valid recipient email address.");
   }
 
-  const from = parseAddress(message.from || `"i-TECH Digitals" <${fromEmail}>`);
+  const from = parseAddress(message.from || `"I-TECH Digitals" <${fromEmail}>`);
   if (!from.email) {
     throw new Error("Invalid sender address.");
   }
@@ -144,7 +144,7 @@ async function sendViaSmtp(message) {
     throw new Error("SMTP is not configured. Set SMTP_USER and SMTP_PASS.");
   }
 
-  const from = message.from || `"i-TECH Digitals" <${getSenderAddress() || process.env.SMTP_USER}>`;
+  const from = message.from || `"I-TECH Digitals" <${getSenderAddress() || process.env.SMTP_USER}>`;
   return transporter.sendMail({ ...message, from });
 }
 
@@ -180,11 +180,11 @@ function brandedWrapper(bodyHtml, footerNote = "") {
   <body style="margin:0;padding:0;background:#f0f2f5;font-family:'Segoe UI',Arial,sans-serif;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f2f5;padding:40px 20px;">
       <tr><td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(108,107,176,0.10);">
           <tr>
-            <td style="background:linear-gradient(135deg,#ff6b35 0%,#e64a19 50%,#1a237e 100%);padding:36px 40px;text-align:center;">
+            <td style="background:linear-gradient(135deg,#6C6BB0 0%,#5d5ca3 100%);padding:36px 40px;text-align:center;">
               <div style="font-size:28px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;">
-                i-TECH <span style="color:#ffcc80;">Digitals</span>
+                I-TECH <span style="color:#ffcc80;">Digitals</span>
               </div>
               <div style="color:rgba(255,255,255,0.75);font-size:13px;margin-top:6px;letter-spacing:1px;text-transform:uppercase;">
                 Creative Digital Agency - Kuwait
@@ -200,7 +200,7 @@ function brandedWrapper(bodyHtml, footerNote = "") {
           <tr>
             <td style="padding:24px 40px;text-align:center;background:#fafafa;">
               <p style="color:#999;font-size:12px;margin:0 0 8px;">
-                ${footerNote || "This email was sent automatically from the i-TECH Digitals website."}
+                ${footerNote || "This email was sent automatically from the I-TECH Digitals website."}
               </p>
               <p style="margin:0;">
                 <a href="https://itech-digitals.com" style="color:#ff6b35;text-decoration:none;font-size:12px;">itech-digitals.com</a>
@@ -222,7 +222,7 @@ function infoRow(label, value, isLast = false) {
     <td style="padding:12px 0;font-weight:600;color:#ff6b35;width:140px;font-size:14px;border-bottom:${isLast ? "none" : "1px solid #f5f5f5"};">
       ${escapeHtml(label)}
     </td>
-    <td style="padding:12px 0;color:#333;font-size:14px;border-bottom:${isLast ? "none" : "1px solid #f5f5f5"};">
+    <td style="padding:12px 0;color:#433f7a;font-size:14px;border-bottom:${isLast ? "none" : "1px solid #f5f5f5"};">
       ${value || "-"}
     </td>
   </tr>`;

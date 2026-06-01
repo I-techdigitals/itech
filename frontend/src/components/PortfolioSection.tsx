@@ -13,7 +13,7 @@ const projects = [
 export default function PortfolioSection() {
   return (
     <>
-      <section id="portfolio" className="bg-navy-pattern section-py" style={{ paddingBottom: 60 }}>
+      <section id="portfolio" className="bg-brand-pattern section-py" style={{ paddingBottom: 60 }}>
         <div className="container">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 60, flexWrap: "wrap", gap: 20 }}>
             <div>
@@ -22,7 +22,7 @@ export default function PortfolioSection() {
                 Explore Our Recent <span style={{ color: "#fff" }}>Projects</span>
               </h2>
             </div>
-            <Link href="/our-work" className="btn-primary">
+            <Link href="/our-work" className="btn-on-brand">
               View All Projects
             </Link>
           </div>
@@ -32,19 +32,19 @@ export default function PortfolioSection() {
               <div key={i} style={{ 
                 borderRadius: 16, 
                 overflow: "hidden", 
-                background: "linear-gradient(145deg, #151c35, #0d142a)", 
+                background: "linear-gradient(145deg, #5d5ca3, #6c6bb0)", 
                 border: "1px solid rgba(255,255,255,0.05)",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                boxShadow: "0 10px 30px rgba(108, 107, 176,0.3)",
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 cursor: "pointer"
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-8px)";
-                e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.4)";
+                e.currentTarget.style.boxShadow = "0 20px 40px rgba(108, 107, 176,0.4)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.3)";
+                e.currentTarget.style.boxShadow = "0 10px 30px rgba(108, 107, 176,0.3)";
               }}
               >
                 {/* Image */}
@@ -69,7 +69,7 @@ export default function PortfolioSection() {
       </section>
 
       {/* Orange Stats Band */}
-      <div style={{ background: "var(--primary)", padding: "40px 0" }}>
+      <div className="section-on-brand" style={{ padding: "40px 0" }}>
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 30, textAlign: "center", color: "#fff" }}>
             {[

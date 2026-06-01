@@ -78,7 +78,7 @@ router.post("/", async (req, res) => {
     const sMessage = escapeHtml(message || "");
 
     const adminBody = `
-      <h2 style="color:#1a237e;font-size:20px;margin:0 0 6px;">New Booking Request</h2>
+      <h2 style="color:#6C6BB0;font-size:20px;margin:0 0 6px;">New Booking Request</h2>
       <p style="color:#666;font-size:14px;margin:0 0 24px;">A new consultation booking was submitted on the website.</p>
 
       <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
@@ -99,9 +99,9 @@ router.post("/", async (req, res) => {
       </div>`;
 
     const userBody = `
-      <h2 style="color:#1a237e;font-size:22px;margin:0 0 8px;">Hi ${sName}, your booking request was received.</h2>
+      <h2 style="color:#6C6BB0;font-size:22px;margin:0 0 8px;">Hi ${sName}, your booking request was received.</h2>
       <p style="color:#555;font-size:15px;line-height:1.7;margin:0 0 28px;">
-        Thank you for reaching out to <strong>i-TECH Digitals</strong>. Our team will contact you within <strong>24 hours</strong> to confirm your appointment.
+        Thank you for reaching out to <strong>I-TECH Digitals</strong>. Our team will contact you within <strong>24 hours</strong> to confirm your appointment.
       </p>
 
       <div style="background:#f9f9f9;border-radius:12px;padding:24px;margin-bottom:28px;">
@@ -123,22 +123,22 @@ router.post("/", async (req, res) => {
 
       <p style="color:#888;font-size:13px;line-height:1.7;margin:0;">
         We look forward to working with you and helping bring your vision to life!<br>
-        <strong style="color:#1a237e;">- The i-TECH Digitals Team</strong>
+        <strong style="color:#6C6BB0;">- The I-TECH Digitals Team</strong>
       </p>`;
 
     try {
       await Promise.all([
         sendEmail({
-          from: `"i-TECH Digitals Website" <${getSenderAddress()}>`,
+          from: `"I-TECH Digitals Website" <${getSenderAddress()}>`,
           to: getCompanyEmail(),
           replyTo: sEmail,
           subject: `New Booking: ${sanitize(name)} - ${cleanService} on ${cleanDate}`,
           html: brandedWrapper(adminBody),
         }),
         sendEmail({
-          from: `"i-TECH Digitals" <${getSenderAddress()}>`,
+          from: `"I-TECH Digitals" <${getSenderAddress()}>`,
           to: sEmail,
-          subject: "Booking request received - i-TECH Digitals",
+          subject: "Booking request received - I-TECH Digitals",
           html: brandedWrapper(userBody, "You're receiving this because you submitted a booking on our website."),
         }),
       ]);

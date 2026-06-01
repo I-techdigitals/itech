@@ -26,7 +26,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" style={{ background: "#060b19", position: "relative", overflow: "hidden", padding: "100px 0", fontFamily: "var(--font-inter), sans-serif" }}>
+    <section id="testimonials" className="bg-brand-pattern" style={{ position: "relative", overflow: "hidden", padding: "100px 0", fontFamily: "var(--font-inter), sans-serif" }}>
       {/* Subtle dotted background overlay to simulate map */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundImage: "radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)", backgroundSize: "24px 24px", opacity: 0.4 }} />
       
@@ -54,7 +54,7 @@ export default function TestimonialsSection() {
               
               {/* Card */}
               <div style={{
-                background: "#121927", 
+                background: "rgba(255,255,255,0.08)", 
                 borderRadius: 16,
                 padding: "40px 30px",
                 textAlign: "center",
@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
                 alignItems: "center",
                 width: "100%",
                 minHeight: 260,
-                boxShadow: "0 10px 40px rgba(0,0,0,0.4)"
+                boxShadow: "0 10px 40px rgba(108, 107, 176,0.4)"
               }}>
                 {/* Outline Quote Icon */}
                 <div style={{ color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>
@@ -72,7 +72,7 @@ export default function TestimonialsSection() {
                   </svg>
                 </div>
                 
-                <p style={{ color: "#9ca3af", fontSize: "0.85rem", lineHeight: 1.8, marginBottom: 24, flex: 1 }}>
+                <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.85rem", lineHeight: 1.8, marginBottom: 24, flex: 1 }}>
                   {t.quote}
                 </p>
 
@@ -99,7 +99,7 @@ export default function TestimonialsSection() {
                   left: 0, 
                   right: 0, 
                   height: 1, 
-                  background: "linear-gradient(90deg, transparent, rgba(101,80,161,0.4) 30%, rgba(101,80,161,0.4) 70%, transparent)" 
+                  background: "linear-gradient(90deg, transparent, rgba(108, 107, 176,0.4) 30%, rgba(108, 107, 176,0.4) 70%, transparent)" 
                 }} />
                 
                 {/* Avatar cutting through the line */}
@@ -112,8 +112,8 @@ export default function TestimonialsSection() {
                   height: 48,
                   borderRadius: "50%",
                   overflow: "hidden",
-                  border: "6px solid #060b19", /* matches section bg perfectly to simulate gap */
-                  background: "#060b19",
+                  border: "6px solid var(--primary)",
+                  background: "var(--primary)",
                   zIndex: 2
                 }}>
                   <img 

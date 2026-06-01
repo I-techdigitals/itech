@@ -34,7 +34,7 @@ export default function AboutSection() {
               Essential IT Solutions For Modern <span>Businesses.</span>
             </h2>
             <p className="section-subtitle">
-              i-TECH Digitals is a leading tech & design agency. We blend technical expertise with creative artistry to craft experiences that captivate, convert, and endure across Kuwait and Pakistan.
+              I-TECH Digitals is a leading tech & design agency. We blend technical expertise with creative artistry to craft experiences that captivate, convert, and endure across Kuwait and Pakistan.
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
@@ -43,7 +43,7 @@ export default function AboutSection() {
                 { title: "Precision", desc: "Meticulous attention to quality and pixel-perfect work." }
               ].map((item, idx) => (
                 <div key={idx} style={{ display: "flex", gap: 16 }}>
-                  <div style={{ width: 24, height: 24, borderRadius: "50%", background: "rgba(101,80,161,0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 4 }}>
+                  <div style={{ width: 24, height: 24, borderRadius: "50%", background: "rgba(108, 107, 176,0.1)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 4 }}>
                     <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                   </div>
                   <div>

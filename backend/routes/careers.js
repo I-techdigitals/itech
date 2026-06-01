@@ -80,7 +80,7 @@ router.post("/", handleUpload, async (req, res) => {
     const cleanEmail = sanitize(email).toLowerCase();
 
     const adminBody = `
-      <h2 style="color:#1a237e;font-size:20px;margin:0 0 6px;">New Career Application</h2>
+      <h2 style="color:#6C6BB0;font-size:20px;margin:0 0 6px;">New Career Application</h2>
       <p style="color:#666;font-size:14px;margin:0 0 24px;">A candidate submitted the careers form on the website.</p>
       <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
         ${infoRow("Name", escapeHtml(fullName))}
@@ -95,18 +95,18 @@ router.post("/", handleUpload, async (req, res) => {
       </div>`;
 
     const userBody = `
-      <h2 style="color:#1a237e;font-size:22px;margin:0 0 8px;">Thanks for applying, ${escapeHtml(fullName)}.</h2>
+      <h2 style="color:#6C6BB0;font-size:22px;margin:0 0 8px;">Thanks for applying, ${escapeHtml(fullName)}.</h2>
       <p style="color:#555;font-size:15px;line-height:1.7;margin:0 0 24px;">
         We received your application for <strong>${escapeHtml(cleanPosition)}</strong>. Our team will review your profile and contact you if there is a strong match.
       </p>
       <p style="color:#888;font-size:13px;line-height:1.7;margin:0;">
-        - The i-TECH Digitals Team
+        - The I-TECH Digitals Team
       </p>`;
 
     try {
       await Promise.all([
         sendEmail({
-          from: `"i-TECH Digitals Careers" <${getSenderAddress()}>`,
+          from: `"I-TECH Digitals Careers" <${getSenderAddress()}>`,
           to: process.env.NOTIFY_EMAIL || getCompanyEmail(),
           replyTo: cleanEmail,
           subject: "New Career Application",
@@ -120,10 +120,10 @@ router.post("/", handleUpload, async (req, res) => {
           ],
         }),
         sendEmail({
-          from: `"i-TECH Digitals Careers" <${getSenderAddress()}>`,
+          from: `"I-TECH Digitals Careers" <${getSenderAddress()}>`,
           to: cleanEmail,
-          subject: "We received your application - i-TECH Digitals",
-          html: brandedWrapper(userBody, "You're receiving this because you applied through the i-TECH Digitals careers page."),
+          subject: "We received your application - I-TECH Digitals",
+          html: brandedWrapper(userBody, "You're receiving this because you applied through the I-TECH Digitals careers page."),
         }),
       ]);
     } catch (mailErr) {

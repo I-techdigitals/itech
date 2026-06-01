@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import ContactSection from "@/components/ContactSection";
 
 export const metadata: Metadata = {
-  title: "Contact i-TECH Digitals",
-  description: "Send us a message. i-TECH Digitals responds within 24 hours. Based in Kuwait, serving clients worldwide.",
+  title: "Contact I-TECH Digitals",
+  description: "Send us a message. I-TECH Digitals responds within 24 hours. Based in Kuwait, serving clients worldwide.",
 };
 
 export default function ContactPage() {
@@ -11,7 +11,7 @@ export default function ContactPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Page Hero */}
       <div style={{
-        background: "linear-gradient(rgba(10,17,40,0.82), rgba(10,17,40,0.95)), url('/images/about2.png')",
+        background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/about2.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         padding: "120px 0 100px",
@@ -34,7 +34,7 @@ export default function ContactPage() {
           <h1 className="section-title" style={{ color: "#fff" }}>
             Let&apos;s <span style={{ color: "#fff" }}>Work Together</span>
           </h1>
-          <p className="section-subtitle" style={{ margin: "0 auto", color: "#e5e7eb" }}>
+          <p className="section-subtitle" style={{ margin: "0 auto", color: "rgba(255,255,255,0.85)" }}>
             Send us a message. We&apos;d love to hear from you.
           </p>
         </div>

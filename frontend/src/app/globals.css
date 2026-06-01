@@ -3,23 +3,24 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #6550A1;
-  --primary-dark: #543f8e;
-  --primary-light: #a89ae5;
-  --secondary: #0a1128;
-  /* Deep Navy */
-  --secondary-light: #162447;
+  --primary: #6c6bb0;
+  --primary-dark: #5d5ca3;
+  --primary-light: #9a99cc;
+  --secondary: #6c6bb0;
+  --secondary-light: #8281c0;
+  --hero-bg: #605ea9;
+  --feature-active: #6c6bb0;
   --bg: #f8f9fa;
   --bg-card: #ffffff;
-  --text-dark: #1f2937;
-  --text-muted: #6b7280;
+  --text-dark: #433f7a;
+  --text-muted: #6b6a8f;
   --border: #e5e7eb;
   --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   --gradient-hero: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  --shadow-primary: 0 10px 25px -5px rgba(101, 80, 161, 0.4);
+  --shadow-sm: 0 4px 6px -1px rgba(108, 107, 176, 0.08);
+  --shadow-md: 0 10px 15px -3px rgba(108, 107, 176, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(108, 107, 176, 0.15);
+  --shadow-primary: 0 10px 25px -5px rgba(108, 107, 176, 0.4);
   --radius: 8px;
   --radius-lg: 16px;
   --logo-scale: 2.2;
@@ -150,6 +151,30 @@ h6 {
   transform: translateY(-2px);
 }
 
+/* White buttons on brand (#6c6bb0) backgrounds */
+.btn-on-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff !important;
+  color: var(--primary) !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 14px 32px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(108, 107, 176, 0.2);
+}
+
+.btn-on-brand:hover {
+  background: rgba(255, 255, 255, 0.92) !important;
+  transform: translateY(-2px);
+}
+
 .btn-outline {
   display: inline-flex;
   align-items: center;
@@ -191,10 +216,47 @@ h6 {
 }
 
 /* Patterns */
-.bg-navy-pattern {
-  background-color: var(--secondary);
+.bg-brand-pattern {
+  background-color: var(--hero-bg);
   background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 30px 30px;
+  color: #ffffff;
+}
+
+.bg-brand-pattern .section-tag {
+  color: #ffffff;
+}
+
+.bg-brand-pattern .section-tag::before {
+  background-color: #ffffff;
+}
+
+.bg-brand-pattern .section-title,
+.bg-brand-pattern .section-title span {
+  color: #ffffff;
+}
+
+.bg-brand-pattern a:not(.btn-primary):not(.btn-on-brand) {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Brand gradient sections (same contrast rules as solid brand bg) */
+.section-on-brand {
+  background: var(--gradient-primary);
+  color: #ffffff;
+}
+
+.section-on-brand .section-title,
+.section-on-brand .section-title span,
+.section-on-brand h1,
+.section-on-brand h2,
+.section-on-brand h3,
+.section-on-brand p {
+  color: #ffffff;
+}
+
+.section-on-brand .section-subtitle {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* ── Form Focus Styles ──────────────────────────────────────── */
@@ -205,15 +267,15 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px rgba(101, 80, 161, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(108, 107, 176, 0.15) !important;
 }
 
 /* Dark form inputs (BookingSection — dark glass cards) */
 #booking input:focus,
 #booking textarea:focus,
 #booking select:focus {
-  border-color: rgba(101, 80, 161, 0.7) !important;
-  box-shadow: 0 0 0 3px rgba(101, 80, 161, 0.18) !important;
+  border-color: rgba(108, 107, 176, 0.7) !important;
+  box-shadow: 0 0 0 3px rgba(108, 107, 176, 0.18) !important;
   background: rgba(255, 255, 255, 0.11) !important;
 }
 
@@ -225,7 +287,7 @@ select:focus {
 
 /* Dark input option color (select dropdown) */
 #booking select option {
-  background: #1a237e;
+  background: var(--primary-dark);
   color: #ffffff;
 }
 
@@ -297,10 +359,10 @@ select:focus {
   position: absolute;
   top: 20%;
   right: -12%;
-  background: var(--primary);
+  background: #ffffff;
   padding: 16px;
   border-radius: 12px;
-  color: #fff;
+  color: var(--primary);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -634,6 +696,32 @@ select:focus {
   gap: 16px;
 }
 
+.footer-whatsapp-icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #ffffff;
+  color: var(--primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.footer-whatsapp-icon-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--primary-dark);
+}
+
+.footer-whatsapp-icon-btn:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   .footer-cta {
     flex-direction: column !important;
@@ -650,5 +738,45 @@ select:focus {
   .footer-cta>a {
     width: 100% !important;
     text-align: center !important;
+  }
+}
+
+/* Floating WhatsApp button — official WhatsApp green */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  background: #25d366;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  text-decoration: none;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  background: #20bd5a;
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
+  color: #ffffff;
+}
+
+.whatsapp-float:focus-visible {
+  outline: 3px solid rgba(37, 211, 102, 0.5);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .whatsapp-float {
+    bottom: 16px;
+    right: 16px;
+    width: 52px;
+    height: 52px;
   }
 }

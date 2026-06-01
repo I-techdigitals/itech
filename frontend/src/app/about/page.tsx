@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us – ITech Digitals",
-  description: "Learn about ITech Digitals — a leading tech and design agency with offices in Kuwait and Pakistan, delivering creative excellence since 2016.",
+  title: "About Us – I-TECH Digitals",
+  description: "Learn about I-TECH Digitals — a leading tech and design agency with offices in Kuwait and Pakistan, delivering creative excellence since 2016.",
 };
 
 const team = [
@@ -28,7 +28,7 @@ export default function AboutPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Hero */}
       <div style={{ 
-        background: "linear-gradient(rgba(10,17,40,0.85), rgba(10,17,40,0.95)), url('/images/about1.png')", 
+        background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/about1.png')", 
         backgroundSize: "cover", 
         backgroundPosition: "center",
         padding: "120px 0 100px", 
@@ -38,8 +38,8 @@ export default function AboutPage() {
       }}>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div className="section-tag" style={{ color: "#fff" }}>Our Story</div>
-          <h1 className="section-title" style={{ color: "#fff" }}>About <span style={{ color: "#fff" }}>i-TECH Digitals</span></h1>
-          <p className="section-subtitle" style={{ margin: "0 auto", color: "#e5e7eb" }}>
+          <h1 className="section-title" style={{ color: "#fff" }}>About <span style={{ color: "#fff" }}>I-TECH Digitals</span></h1>
+          <p className="section-subtitle" style={{ margin: "0 auto", color: "rgba(255,255,255,0.85)" }}>
             We are a passionate team of designers, developers, and storytellers — united by a love for creating exceptional digital experiences.
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function AboutPage() {
                     <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.7 }}>{m.event}</p>
                   </div>
                 </div>
-                <div style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%,-50%)", width: 16, height: 16, background: "var(--gradient-primary)", borderRadius: "50%", border: "3px solid #fff", boxShadow: "0 0 0 3px rgba(101,80,161,0.2)", zIndex: 1 }} />
+                <div style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%,-50%)", width: 16, height: 16, background: "var(--gradient-primary)", borderRadius: "50%", border: "3px solid #fff", boxShadow: "0 0 0 3px rgba(108, 107, 176,0.2)", zIndex: 1 }} />
                 <div style={{ flex: 1 }} />
               </div>
             ))}
@@ -120,11 +120,11 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "var(--gradient-primary)", padding: "70px 0", textAlign: "center" }}>
+      <section className="section-on-brand" style={{ padding: "70px 0", textAlign: "center" }}>
         <div className="container">
           <h2 style={{ fontFamily: "'Baskervville',serif", fontSize: "clamp(1.8rem,4vw,2.8rem)", color: "#fff", marginBottom: 14 }}>Ready to Work With Us?</h2>
           <p style={{ color: "rgba(255,255,255,0.75)", marginBottom: 32 }}>Let&apos;s create something extraordinary together.</p>
-          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "var(--primary)", padding: "14px 32px", borderRadius: 50, fontWeight: 600, textDecoration: "none" }}>
+          <Link href="/contact" className="btn-on-brand">
             Start a Conversation
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </Link>

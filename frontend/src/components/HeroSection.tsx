@@ -13,7 +13,7 @@ export default function HeroSection() {
   return (
     <section id="hero" style={{ position: "relative" }}>
       {/* Dark Top Section */}
-      <div className="bg-navy-pattern" style={{ padding: "180px 0 160px", position: "relative", overflow: "hidden" }}>
+      <div className="bg-brand-pattern" style={{ padding: "180px 0 160px", position: "relative", overflow: "hidden" }}>
         {/* Decorative elements */}
         <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--primary)", opacity: 0.1, filter: "blur(80px)", borderRadius: "50%" }} />
         <div style={{ position: "absolute", bottom: -50, left: -50, width: 300, height: 300, background: "#fff", opacity: 0.05, filter: "blur(60px)", borderRadius: "50%" }} />
@@ -23,13 +23,13 @@ export default function HeroSection() {
           <div>
             <div className="section-tag" style={{ color: "#fff" }}>LEADING TECH & DESIGN AGENCY</div>
             <h1 style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "#fff", fontWeight: 800, lineHeight: 1.2, marginBottom: 24 }}>
-              Itech Digitals: Pioneering Design Excellence for Your Success
+              I-TECH Digitals: Pioneering Design Excellence for Your Success
             </h1>
-            <p className="hero-desc" style={{ color: "#9ca3af", fontSize: "1.1rem", marginBottom: 40, maxWidth: 500, lineHeight: 1.8 }}>
+            <p className="hero-desc" style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.1rem", marginBottom: 40, maxWidth: 500, lineHeight: 1.8 }}>
               We redefine design excellence, transforming your vision into captivating reality. Elevate your brand with our bespoke solutions crafted for success.
             </p>
             <div className="hero-btn-container">
-              <Link href="/contact" className="btn-primary">
+              <Link href="/contact" className="btn-on-brand">
                 Learn More
               </Link>
               <div style={{ display: "flex", alignItems: "center", gap: 12, cursor: "pointer", color: "#fff", fontWeight: 600 }}>
@@ -44,9 +44,9 @@ export default function HeroSection() {
           {/* Right Content (Image) */}
           <div className="hero-image-container">
             <div style={{ position: "absolute", inset: 0, border: "2px dashed rgba(255,255,255,0.1)", borderRadius: "50%", transform: "scale(0.95)" }} />
-            <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(101,80,161,0.3)", borderRadius: "50%", transform: "scale(0.75)" }} />
+            <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(108, 107, 176,0.3)", borderRadius: "50%", transform: "scale(0.75)" }} />
 
-            <img src="/images/hero.png" alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))" }} />
+            <img src="/images/hero.png" alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(108, 107, 176,0.5))" }} />
 
             {/* Floating cards */}
             <div className="floating-card-1">
@@ -58,7 +58,7 @@ export default function HeroSection() {
             </div>
 
             <div className="floating-card-2">
-              <div style={{ width: 40, height: 40, background: "rgba(101,80,161,0.1)", color: "var(--primary)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ width: 40, height: 40, background: "rgba(108, 107, 176,0.1)", color: "var(--primary)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               </div>
               <div>
@@ -75,7 +75,7 @@ export default function HeroSection() {
         <div className="features-grid">
           {features.map((f, i) => (
             <div key={i} className={`feature-card ${f.active ? "active" : ""}`} style={{
-              background: f.active ? "var(--primary)" : "#fff",
+              background: f.active ? "var(--feature-active)" : "#fff",
               color: f.active ? "#fff" : "var(--text-dark)",
               padding: "32px 20px",
               borderRadius: 16,
@@ -85,7 +85,7 @@ export default function HeroSection() {
               <div style={{
                 width: 56, height: 56,
                 margin: "0 auto 20px",
-                background: f.active ? "rgba(255,255,255,0.2)" : "rgba(101,80,161,0.1)",
+                background: f.active ? "rgba(255,255,255,0.2)" : "rgba(108, 107, 176,0.1)",
                 borderRadius: "50%",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "1.5rem"

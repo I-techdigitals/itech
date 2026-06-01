@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     const sMessage = escapeHtml(message);
 
     const adminBody = `
-      <h2 style="color:#1a237e;font-size:20px;margin:0 0 6px;">New Contact Form Submission</h2>
+      <h2 style="color:#6C6BB0;font-size:20px;margin:0 0 6px;">New Contact Form Submission</h2>
       <p style="color:#666;font-size:14px;margin:0 0 24px;">Someone filled out the contact form on the website.</p>
 
       <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
@@ -49,9 +49,9 @@ router.post("/", async (req, res) => {
       </p>`;
 
     const userBody = `
-      <h2 style="color:#1a237e;font-size:22px;margin:0 0 8px;">We got your message, ${sName}!</h2>
+      <h2 style="color:#6C6BB0;font-size:22px;margin:0 0 8px;">We got your message, ${sName}!</h2>
       <p style="color:#555;font-size:15px;line-height:1.7;margin:0 0 24px;">
-        Thank you for contacting <strong>i-TECH Digitals</strong>. We have received your message and our team will get back to you within <strong>24 hours</strong>.
+        Thank you for contacting <strong>I-TECH Digitals</strong>. We have received your message and our team will get back to you within <strong>24 hours</strong>.
       </p>
 
       <div style="background:#f9f9f9;border-radius:12px;padding:24px;margin-bottom:28px;">
@@ -71,21 +71,21 @@ router.post("/", async (req, res) => {
 
       <p style="color:#888;font-size:13px;line-height:1.7;margin:0;">
         We look forward to working with you!<br>
-        <strong style="color:#1a237e;">- The i-TECH Digitals Team</strong>
+        <strong style="color:#6C6BB0;">- The I-TECH Digitals Team</strong>
       </p>`;
 
     await Promise.all([
       sendEmail({
-        from: `"i-TECH Digitals Website" <${getSenderAddress()}>`,
+        from: `"I-TECH Digitals Website" <${getSenderAddress()}>`,
         to: getCompanyEmail(),
         replyTo: sEmail,
         subject: `New Lead: ${sanitize(name)} - ${sanitize(service || "General Inquiry")}`,
         html: brandedWrapper(adminBody),
       }),
       sendEmail({
-        from: `"i-TECH Digitals" <${getSenderAddress()}>`,
+        from: `"I-TECH Digitals" <${getSenderAddress()}>`,
         to: sEmail,
-        subject: "We received your message - i-TECH Digitals",
+        subject: "We received your message - I-TECH Digitals",
         html: brandedWrapper(userBody, "You're receiving this because you contacted us on our website."),
       }),
     ]);

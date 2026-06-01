@@ -51,8 +51,7 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section ref={ref} id="stats" style={{
-      background: "var(--gradient-primary)",
+    <section ref={ref} id="stats" className="section-on-brand" style={{
       padding: "80px 0",
       position: "relative",
       overflow: "hidden",

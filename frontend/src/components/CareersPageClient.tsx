@@ -156,7 +156,7 @@ export default function CareersPageClient() {
     <main style={{ background: "#ffffff", paddingTop: 72 }}>
       <section
         style={{
-          background: "linear-gradient(rgba(10,17,40,0.82), rgba(10,17,40,0.95)), url('/images/about2.png')",
+          background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/about2.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           padding: "120px 0 100px",
@@ -190,11 +190,11 @@ export default function CareersPageClient() {
           <h1 className="section-title" style={{ color: "#fff" }}>
             Join Our Team & <span style={{ color: "#fff" }}>Grow With Us</span>
           </h1>
-          <p className="section-subtitle" style={{ margin: "0 auto", color: "#e5e7eb" }}>
+          <p className="section-subtitle" style={{ margin: "0 auto", color: "rgba(255,255,255,0.85)" }}>
             We are always looking for passionate, creative, and driven individuals to join our team and help us build impactful digital solutions.
           </p>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center", marginTop: 34 }}>
-            <a href="#application-form" className="btn-primary">Apply Now</a>
+            <a href="#application-form" className="btn-on-brand">Apply Now</a>
           </div>
         </div>
       </section>
@@ -266,7 +266,7 @@ export default function CareersPageClient() {
                     </div>
                     <div>
                       <div style={contactLabelStyle}>Phone Number</div>
-                      <div style={contactValueStyle}>+965 9090 9075</div>
+                      <div style={contactValueStyle}>+96599402446</div>
                     </div>
                   </div>
 
@@ -379,7 +379,7 @@ export default function CareersPageClient() {
                     textAlign: "center",
                     cursor: "pointer",
                     backgroundColor: isDragging
-                      ? "rgba(101, 80, 161, 0.04)"
+                      ? "rgba(108, 107, 176, 0.04)"
                       : resume
                       ? "rgba(34, 197, 94, 0.02)"
                       : "#fafafa",
@@ -422,7 +422,7 @@ export default function CareersPageClient() {
                           </svg>
                         </div>
                         <div style={{ textAlign: "left" }}>
-                          <div style={{ color: "#1f2937", fontWeight: 600, fontSize: "0.9rem", maxWidth: "220px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          <div style={{ color: "var(--text-dark)", fontWeight: 600, fontSize: "0.9rem", maxWidth: "220px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                             {resume.name}
                           </div>
                           <div style={{ color: "#6b7280", fontSize: "0.78rem" }}>
@@ -463,7 +463,7 @@ export default function CareersPageClient() {
                         width: 52,
                         height: 52,
                         borderRadius: "50%",
-                        backgroundColor: "rgba(101, 80, 161, 0.08)",
+                        backgroundColor: "rgba(108, 107, 176, 0.08)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -516,10 +516,10 @@ export default function CareersPageClient() {
         </div>
       </section>
 
-      <section className="section-py" style={{ background: "#0a1128" }}>
+      <section className="section-py bg-brand-pattern">
         <div className="container">
           <div style={{ ...sectionHeaderStyle, marginBottom: 34 }}>
-            <div style={{ ...eyebrowStyle, margin: "0 auto 16px" }}>Company Benefits</div>
+            <div style={{ ...eyebrowStyle, margin: "0 auto 16px", color: "#ffffff" }}>Company Benefits</div>
             <h2 className="section-title" style={{ color: "#fff" }}>What you can expect here.</h2>
           </div>
           <div style={benefitsGridStyle}>
@@ -538,7 +538,7 @@ export default function CareersPageClient() {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(10, 17, 40, 0.6)",
+          backgroundColor: "rgba(108, 107, 176, 0.6)",
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
           display: "flex",
@@ -553,7 +553,7 @@ export default function CareersPageClient() {
             backgroundColor: "#ffffff",
             borderRadius: 24,
             padding: "44px 36px",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+            boxShadow: "0 25px 50px -12px rgba(108, 107, 176, 0.25)",
             textAlign: "center",
             display: "flex",
             flexDirection: "column",
@@ -573,7 +573,7 @@ export default function CareersPageClient() {
                 position: "absolute",
                 top: 20,
                 right: 20,
-                background: "rgba(0,0,0,0.04)",
+                background: "rgba(108, 107, 176,0.04)",
                 border: "none",
                 borderRadius: "50%",
                 width: 32,
@@ -679,7 +679,7 @@ export default function CareersPageClient() {
               style={{
                 width: "100%",
                 justifyContent: "center",
-                boxShadow: "0 10px 25px -5px rgba(101, 80, 161, 0.4)",
+                boxShadow: "0 10px 25px -5px rgba(108, 107, 176, 0.4)",
               }}
             >
               Close & Go Back
@@ -756,7 +756,7 @@ export default function CareersPageClient() {
 
         .file-upload-zone:hover {
           border-color: var(--primary) !important;
-          background-color: rgba(101, 80, 161, 0.02) !important;
+          background-color: rgba(108, 107, 176, 0.02) !important;
         }
 
         .file-remove-btn:hover {
@@ -764,7 +764,7 @@ export default function CareersPageClient() {
         }
 
         .modal-close-btn:hover {
-          background-color: rgba(0, 0, 0, 0.08) !important;
+          background-color: rgba(108, 107, 176, 0.08) !important;
         }
 
         input, select, textarea {
@@ -874,7 +874,7 @@ const contactIconContainerStyle: React.CSSProperties = {
   width: 44,
   height: 44,
   borderRadius: "50%",
-  background: "rgba(101,80,161,0.15)",
+  background: "rgba(108, 107, 176,0.15)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

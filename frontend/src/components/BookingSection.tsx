@@ -87,8 +87,9 @@ export default function BookingSection() {
   return (
     <section
       id="booking"
+      className="section-on-brand"
       style={{
-        background: "linear-gradient(160deg, #0d1b4b 0%, #1a237e 50%, #0d1b4b 100%)",
+        background: "var(--gradient-hero)",
         padding: "100px 0",
         position: "relative",
         overflow: "hidden",
@@ -97,12 +98,12 @@ export default function BookingSection() {
       {/* Background blobs */}
       <div style={{
         position: "absolute", top: -100, right: -100, width: 400, height: 400,
-        background: "radial-gradient(circle, rgba(101,80,161,0.15) 0%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(108, 107, 176,0.15) 0%, transparent 70%)",
         borderRadius: "50%", pointerEvents: "none",
       }} />
       <div style={{
         position: "absolute", bottom: -80, left: -80, width: 350, height: 350,
-        background: "radial-gradient(circle, rgba(101,80,161,0.10) 0%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(108, 107, 176,0.10) 0%, transparent 70%)",
         borderRadius: "50%", pointerEvents: "none",
       }} />
 
@@ -111,10 +112,10 @@ export default function BookingSection() {
         {/* Section Header */}
         <div style={{ textAlign: "center", marginBottom: 60 }}>
           <div style={{
-            display: "inline-block", background: "rgba(101,80,161,0.15)",
-            border: "1px solid rgba(101,80,161,0.4)", borderRadius: 50,
+            display: "inline-block", background: "rgba(108, 107, 176,0.15)",
+            border: "1px solid rgba(108, 107, 176,0.4)", borderRadius: 50,
             padding: "6px 18px", fontSize: "0.8rem", fontWeight: 600,
-            color: "#8f7cce", letterSpacing: "1.5px", textTransform: "uppercase",
+            color: "#ffffff", letterSpacing: "1.5px", textTransform: "uppercase",
             marginBottom: 20,
           }}>
             Book a Consultation
@@ -124,10 +125,7 @@ export default function BookingSection() {
             color: "#ffffff", margin: "0 0 16px", lineHeight: 1.15,
           }}>
             Schedule Your Free{" "}
-            <span style={{
-              background: "linear-gradient(90deg, #8f7cce, #d2c6ff)",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-            }}>
+            <span style={{ color: "#ffffff" }}>
               Discovery Call
             </span>
           </h2>
@@ -258,15 +256,16 @@ export default function BookingSection() {
                   <button
                     type="submit"
                     disabled={status === "loading"}
+                    className="btn-on-brand"
                     style={{
                       background: status === "loading"
-                        ? "rgba(101,80,161,0.5)"
-                        : "linear-gradient(135deg, #6550A1, #543f8e)",
-                      color: "#fff", border: "none", padding: "16px 40px",
+                        ? "rgba(255,255,255,0.6)"
+                        : "#ffffff",
+                      color: "var(--primary)", border: "none", padding: "16px 40px",
                       borderRadius: 50, fontSize: "1rem", fontWeight: 700,
                       cursor: status === "loading" ? "not-allowed" : "pointer",
                       display: "flex", alignItems: "center", gap: 10,
-                      boxShadow: status === "loading" ? "none" : "0 8px 30px rgba(101,80,161,0.4)",
+                      boxShadow: status === "loading" ? "none" : "0 8px 30px rgba(108, 107, 176,0.4)",
                       transition: "all 0.3s ease",
                       fontFamily: "inherit",
                     }}
@@ -367,13 +366,8 @@ function SuccessCard({
       </p>
       <button
         onClick={onReset}
-        style={{
-          background: "linear-gradient(135deg, #6550A1, #543f8e)",
-          color: "#fff", border: "none", padding: "14px 36px",
-          borderRadius: 50, fontSize: "0.95rem", fontWeight: 700,
-          cursor: "pointer", fontFamily: "inherit",
-          boxShadow: "0 8px 30px rgba(101,80,161,0.4)",
-        }}
+        className="btn-on-brand"
+        style={{ padding: "14px 36px", fontFamily: "inherit" }}
       >
         Book Another Consultation
       </button>

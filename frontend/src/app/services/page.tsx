@@ -3,55 +3,55 @@ import ServicesSection from "@/components/ServicesSection";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Our Services – ITech Digitals",
-  description: "Explore ITech Digitals full range of services: web development, branding, animations, social media, photography, videography, printing, and studio rental.",
+  title: "Our Services – I-TECH Digitals",
+  description: "Explore I-TECH Digitals full range of services: web development, branding, animations, social media, photography, videography, printing, and studio rental.",
 };
 
 const serviceDetails = [
   {
-    num: "01", title: "Web & App Development", color: "#6550A1",
+    num: "01", title: "Web & App Development", color: "#6c6bb0",
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
     description: "We craft high-performance websites and mobile applications tailored to your business goals. From landing pages to complex enterprise platforms, we deliver pixel-perfect, scalable solutions using the latest technologies.",
     features: ["Custom Website Design & Development", "Mobile App Development (iOS & Android)", "E-Commerce Platforms", "CMS Integration", "API Development & Integration", "Performance Optimization & SEO"],
   },
   {
-    num: "02", title: "Interior Design", color: "#0a1128",
+    num: "02", title: "Interior Design", color: "#5d5ca3",
     image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80",
     description: "We create stunning, functional environments that reflect your brand identity. Our interior design team blends aesthetics with practicality to transform any space into an inspiring experience.",
     features: ["Commercial Space Design", "Office & Retail Design", "3D Visualization & Rendering", "Space Planning", "Material & Furniture Selection", "Project Management"],
   },
   {
-    num: "03", title: "Animations", color: "#6550A1",
+    num: "03", title: "Animations", color: "#6c6bb0",
     image: "https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=800&q=80",
     description: "From explainer videos to full brand motion campaigns, our animation team produces visually stunning 2D and 3D animations that engage your audience and communicate your message powerfully.",
     features: ["2D & 3D Animation", "Motion Graphics", "Explainer Videos", "Product Animations", "Logo Animations", "Social Media Reels & Stories"],
   },
   {
-    num: "04", title: "Social Media Management", color: "#0a1128",
+    num: "04", title: "Social Media Management", color: "#5d5ca3",
     image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80",
     description: "We manage your brand's entire social media presence — from content creation and scheduling to community engagement and paid advertising — so you can focus on running your business.",
     features: ["Content Strategy & Planning", "Graphic Design & Copywriting", "Community Management", "Paid Advertising Campaigns", "Analytics & Reporting", "Influencer Collaboration"],
   },
   {
-    num: "05", title: "Photography & Videography", color: "#6550A1",
+    num: "05", title: "Photography & Videography", color: "#6c6bb0",
     image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80",
     description: "Our professional visual team captures your brand story through stunning photography and cinematic videography. We handle everything from product shoots to full corporate video productions.",
     features: ["Product & Commercial Photography", "Brand Storytelling Videos", "Event Coverage", "Corporate Headshots", "Real Estate Photography", "Drone Aerial Footage"],
   },
   {
-    num: "06", title: "Printing", color: "#0a1128",
+    num: "06", title: "Printing", color: "#5d5ca3",
     image: "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=800&q=80",
     description: "We deliver high-quality print materials that make lasting impressions. From business cards to large-format banners, our printing services ensure your physical touchpoints match your digital brand.",
     features: ["Business Cards & Stationery", "Brochures & Flyers", "Banners & Signage", "Packaging Design & Print", "Branded Merchandise", "Large Format Printing"],
   },
   {
-    num: "07", title: "Branding", color: "#6550A1",
+    num: "07", title: "Branding", color: "#6c6bb0",
     image: "https://images.unsplash.com/photo-1493421419110-74f4e85ba126?w=800&q=80",
     description: "We build complete brand identities from scratch — logo design, color systems, typography, and comprehensive brand guidelines — ensuring your brand communicates the right message at every touchpoint.",
     features: ["Logo Design & Identity", "Brand Strategy & Positioning", "Brand Guidelines Manual", "Marketing Collateral Design", "Brand Refresh & Rebranding", "Packaging & Label Design"],
   },
   {
-    num: "08", title: "Studio Rental", color: "#0a1128",
+    num: "08", title: "Studio Rental", color: "#5d5ca3",
     image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
     description: "Access our state-of-the-art production studio equipped with professional lighting, backdrops, and equipment for photography, videography, and content creation sessions.",
     features: ["Professional Lighting Setup", "Multiple Backdrop Options", "Photography Equipment", "Videography Rigs & Monitors", "Podcast & Interview Setup", "Flexible Half/Full Day Bookings"],
@@ -63,7 +63,7 @@ export default function ServicesPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Hero */}
       <div style={{ 
-        background: "linear-gradient(rgba(10,17,40,0.85), rgba(10,17,40,0.95)), url('/images/about2.png')", 
+        background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/about2.png')", 
         backgroundSize: "cover", 
         backgroundPosition: "center",
         padding: "120px 0 100px", 
@@ -84,7 +84,7 @@ export default function ServicesPage() {
             </span>
           </div>
           <h1 className="section-title" style={{ color: "#fff" }}>Our <span style={{ color: "#fff" }}>Services</span></h1>
-          <p className="section-subtitle" style={{ margin: "0 auto", color: "#e5e7eb" }}>
+          <p className="section-subtitle" style={{ margin: "0 auto", color: "rgba(255,255,255,0.85)" }}>
             End-to-end digital and creative services — from strategy to execution — all under one roof.
           </p>
         </div>
@@ -149,11 +149,11 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "var(--gradient-primary)", padding: "80px 0", textAlign: "center" }}>
+      <section className="section-on-brand" style={{ padding: "80px 0", textAlign: "center" }}>
         <div className="container">
           <h2 style={{ fontFamily: "'Baskervville',serif", fontSize: "clamp(1.8rem,4vw,2.8rem)", color: "#fff", marginBottom: 16 }}>Not Sure Which Service You Need?</h2>
           <p style={{ color: "rgba(255,255,255,0.75)", marginBottom: 32, fontSize: "1.05rem" }}>Let&apos;s have a conversation. We&apos;ll help you find the best solution for your goals.</p>
-          <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "var(--primary)", padding: "14px 32px", borderRadius: 50, fontWeight: 600, textDecoration: "none", fontSize: "0.9rem", boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}>
+          <Link href="/contact" className="btn-on-brand" style={{ fontSize: "0.9rem" }}>
             Talk to an Expert
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </Link>
