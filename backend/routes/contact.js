@@ -74,44 +74,32 @@ router.post("/", async (req, res) => {
         <strong style="color:#1a237e;">- The i-TECH Digitals Team</strong>
       </p>`;
 
-    try {
-      await Promise.all([
-        sendEmail({
-          from: `"i-TECH Digitals Website" <${getSenderAddress()}>`,
-          to: getCompanyEmail(),
-          replyTo: sEmail,
-          subject: `New Lead: ${sanitize(name)} - ${sanitize(service || "General Inquiry")}`,
-          html: brandedWrapper(adminBody),
-        }),
-        sendEmail({
-          from: `"i-TECH Digitals" <${getSenderAddress()}>`,
-          to: sEmail,
-          subject: "We received your message - i-TECH Digitals",
-          html: brandedWrapper(userBody, "You're receiving this because you contacted us on our website."),
-        }),
-      ]);
-      console.log(`Contact emails sent for: ${sEmail}`);
-    } catch (mailErr) {
-      console.warn("Email notification failed:", mailErr.message);
-      return res.status(201).json({
-        success: true,
-        emailSent: false,
-        message: "Message received. Email confirmation could not be sent, but our team has your request.",
-      });
-    }
+    await Promise.all([
+      sendEmail({
+        from: `"i-TECH Digitals Website" <${getSenderAddress()}>`,
+        to: getCompanyEmail(),
+        replyTo: sEmail,
+        subject: `New Lead: ${sanitize(name)} - ${sanitize(service || "General Inquiry")}`,
+        html: brandedWrapper(adminBody),
+      }),
+      sendEmail({
+        from: `"i-TECH Digitals" <${getSenderAddress()}>`,
+        to: sEmail,
+        subject: "We received your message - i-TECH Digitals",
+        html: brandedWrapper(userBody, "You're receiving this because you contacted us on our website."),
+      }),
+    ]);
 
-    res.status(201).json({
+    console.log(`Contact emails sent for: ${sEmail}`);
+
+    return res.status(201).json({
       success: true,
-      emailSent: true,
       message: "Thank you! Your message has been received. Check your email for confirmation.",
     });
   } catch (err) {
     console.error("Contact route error:", err.message, err.stack);
-    return res.status(201).json({
-      success: true,
-      emailSent: false,
-      message:
-        "Message received. Our team will follow up shortly. If you need immediate help, email itechkw.business@gmail.com.",
+    return res.status(500).json({
+      error: err.message || "Email could not be sent. Please try again or email us directly.",
     });
   }
 });
