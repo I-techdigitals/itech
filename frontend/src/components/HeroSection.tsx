@@ -32,12 +32,18 @@ export default function HeroSection() {
               <Link href="/contact" className="btn-on-brand">
                 Learn More
               </Link>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, cursor: "pointer", color: "#fff", fontWeight: 600 }}>
-                <div style={{ width: 50, height: 50, borderRadius: "50%", border: "2px solid rgba(255,255,255,0.3)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
-                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                </div>
+              <a
+                href="#intro-video"
+                className="hero-watch-video"
+                aria-label="Watch I-TECH Digitals introduction video"
+              >
+                <span className="hero-watch-video__icon" aria-hidden>
+                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
                 Watch Video
-              </div>
+              </a>
             </div>
           </div>
 
