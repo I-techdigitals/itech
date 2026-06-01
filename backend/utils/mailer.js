@@ -32,7 +32,10 @@ function createTransporter() {
   const smtpUser = String(process.env.SMTP_USER || "").trim();
   const smtpPass = String(process.env.SMTP_PASS || "").trim();
   if (!smtpUser || !smtpPass) return null;
-  const isGmail = !process.env.SMTP_HOST && (smtpUser.endsWith("@gmail.com") || process.env.SMTP_SERVICE === "gmail");
+
+  const isGmail =
+    !process.env.SMTP_HOST &&
+    (smtpUser.endsWith("@gmail.com") || process.env.SMTP_SERVICE === "gmail");
   const password = isGmail ? smtpPass.replace(/\s/g, "") : smtpPass;
 
   if (process.env.SMTP_HOST) {
@@ -43,10 +46,7 @@ function createTransporter() {
       connectionTimeout: 10000,
       greetingTimeout: 10000,
       socketTimeout: 15000,
-      auth: {
-        user: smtpUser,
-        pass: password,
-      },
+      auth: { user: smtpUser, pass: password },
     });
   }
 
@@ -55,48 +55,60 @@ function createTransporter() {
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
-    auth: {
-      user: smtpUser,
-      pass: password,
-    },
+    auth: { user: smtpUser, pass: password },
   });
 }
 
+/** Verified sender for Brevo API (not the SMTP login address). */
 function getSenderAddress() {
-  return process.env.SMTP_FROM || process.env.COMPANY_EMAIL || process.env.SMTP_USER;
+  return (
+    process.env.SMTP_FROM ||
+    process.env.COMPANY_EMAIL ||
+    process.env.NOTIFY_EMAIL ||
+    ""
+  ).trim();
 }
 
 function getCompanyEmail() {
-  return process.env.COMPANY_EMAIL || process.env.NOTIFY_EMAIL || process.env.SMTP_USER;
+  return (process.env.COMPANY_EMAIL || process.env.NOTIFY_EMAIL || "").trim();
 }
 
-async function sendEmail(message) {
-  const transporter = createTransporter();
+function parseRecipients(to) {
+  return String(to || "")
+    .split(",")
+    .map((email) => stripTags(email).toLowerCase())
+    .filter((email) => email && /^\S+@\S+\.\S+$/.test(email))
+    .map((email) => ({ email }));
+}
 
-  if (transporter) {
-    try {
-      return await transporter.sendMail(message);
-    } catch (error) {
-      if (!process.env.BREVO_API_KEY) throw error;
-      console.warn("SMTP send failed; trying Brevo API fallback:", error.code || error.message);
-    }
+async function sendViaBrevoApi(message) {
+  const apiKey = String(process.env.BREVO_API_KEY || "").trim();
+  if (!apiKey) {
+    throw new Error("BREVO_API_KEY is not set.");
   }
 
-  if (!process.env.BREVO_API_KEY) {
-    throw new Error("Email is not configured. Set SMTP credentials or BREVO_API_KEY.");
+  const fromEmail = getSenderAddress();
+  if (!fromEmail) {
+    throw new Error("Set SMTP_FROM or COMPANY_EMAIL to a verified Brevo sender address.");
   }
 
-  const from = parseAddress(message.from || getSenderAddress());
+  const to = parseRecipients(message.to);
+  if (!to.length) {
+    throw new Error("No valid recipient email address.");
+  }
+
+  const from = parseAddress(message.from || `"i-TECH Digitals" <${fromEmail}>`);
+  if (!from.email) {
+    throw new Error("Invalid sender address.");
+  }
+
   const attachments = await Promise.all(
     (message.attachments || []).map(async (attachment) => {
       const content = attachment.content
         ? Buffer.from(attachment.content).toString("base64")
         : (await require("fs/promises").readFile(attachment.path)).toString("base64");
 
-      return {
-        name: attachment.filename,
-        content,
-      };
+      return { name: attachment.filename, content };
     })
   );
 
@@ -104,15 +116,12 @@ async function sendEmail(message) {
     method: "POST",
     headers: {
       accept: "application/json",
-      "api-key": process.env.BREVO_API_KEY,
+      "api-key": apiKey,
       "content-type": "application/json",
     },
     body: JSON.stringify({
       sender: from,
-      to: String(message.to)
-        .split(",")
-        .map((email) => ({ email: stripTags(email) }))
-        .filter((item) => item.email),
+      to,
       replyTo: message.replyTo ? { email: stripTags(message.replyTo) } : undefined,
       subject: message.subject,
       htmlContent: message.html,
@@ -123,10 +132,44 @@ async function sendEmail(message) {
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(data.message || `Brevo API send failed with status ${response.status}`);
+    throw new Error(data.message || `Brevo API failed (${response.status})`);
   }
 
   return data;
+}
+
+async function sendViaSmtp(message) {
+  const transporter = createTransporter();
+  if (!transporter) {
+    throw new Error("SMTP is not configured. Set SMTP_USER and SMTP_PASS.");
+  }
+
+  const from = message.from || `"i-TECH Digitals" <${getSenderAddress() || process.env.SMTP_USER}>`;
+  return transporter.sendMail({ ...message, from });
+}
+
+async function sendEmail(message) {
+  const brevoKey = String(process.env.BREVO_API_KEY || "").trim();
+
+  // Brevo HTTP API is more reliable on Vercel than SMTP (no EAUTH / firewall issues).
+  if (brevoKey) {
+    try {
+      return await sendViaBrevoApi(message);
+    } catch (brevoErr) {
+      console.warn("Brevo API send failed:", brevoErr.message);
+      if (!createTransporter()) throw brevoErr;
+      console.warn("Falling back to SMTP...");
+    }
+  }
+
+  try {
+    return await sendViaSmtp(message);
+  } catch (smtpErr) {
+    if (brevoKey) {
+      throw new Error(`SMTP failed: ${smtpErr.message}. Brevo API also failed earlier.`);
+    }
+    throw smtpErr;
+  }
 }
 
 function brandedWrapper(bodyHtml, footerNote = "") {

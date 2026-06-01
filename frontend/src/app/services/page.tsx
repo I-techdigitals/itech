@@ -109,7 +109,7 @@ export default function ServicesPage() {
                 {i % 2 !== 0 && (
                   <div className="services-page-card-visual" style={{ order: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
                     <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25` }}>
-                      <img src={s.image} alt={s.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <img src={s.image} alt={s.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                     </div>
                   </div>
                 )}
@@ -138,7 +138,7 @@ export default function ServicesPage() {
                 {i % 2 === 0 && (
                   <div className="services-page-card-visual" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
                     <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25` }}>
-                      <img src={s.image} alt={s.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <img src={s.image} alt={s.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                     </div>
                   </div>
                 )}

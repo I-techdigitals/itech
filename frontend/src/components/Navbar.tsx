@@ -53,6 +53,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={link.href === "/services" ? false : undefined}
                 style={{
                   fontWeight: 600,
                   fontSize: "0.95rem",
@@ -140,6 +141,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={link.href === "/services" ? false : undefined}
                 onClick={() => setMenuOpen(false)}
                 style={{
                   color: active ? "var(--primary)" : "var(--secondary)",
