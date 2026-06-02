@@ -70,10 +70,23 @@ export default function Footer() {
             <div>
               <h4 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: 20 }}>IT Services</h4>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12 }}>
-                {["Web Development", "App Development", "Branding & Identity", "Digital Marketing", "Photography", "Animations"].map(item => (
+                {[
+                  "Web & App Development",
+                  "Social Media Account Management",
+                  "Photography & Videography",
+                  "3D Design",
+                  "Animation",
+                  "Interior Design",
+                  "Digital Marketing",
+                ].map((item) => (
                   <li key={item}>
                     <Link href="/services" style={{ color: "rgba(255,255,255,0.75)", textDecoration: "none", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8 }}>
-                      <span style={{ color: "rgba(255,255,255,0.6)" }}>›</span> {item}
+                      <span style={{ color: "rgba(255,255,255,0.6)", display: "inline-flex" }}>
+                        <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                          <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                      {item}
                     </Link>
                   </li>
                 ))}
@@ -87,7 +100,12 @@ export default function Footer() {
                 {[["About Us", "/about"], ["Our Work", "/our-work"], ["Contact Us", "/contact"], ["Privacy Policy", "/"], ["Terms & Conditions", "/"]].map(([label, href]) => (
                   <li key={label}>
                     <Link href={href} style={{ color: "rgba(255,255,255,0.75)", textDecoration: "none", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8 }}>
-                      <span style={{ color: "rgba(255,255,255,0.6)" }}>›</span> {label}
+                      <span style={{ color: "rgba(255,255,255,0.6)", display: "inline-flex" }}>
+                        <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                          <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                      {label}
                     </Link>
                   </li>
                 ))}
@@ -99,21 +117,36 @@ export default function Footer() {
               <h4 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: 20 }}>Contact Info</h4>
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div style={{ display: "flex", gap: 12 }}>
-                  <div style={{ color: "rgba(255,255,255,0.7)", marginTop: 4 }}>📍</div>
+                  <div style={{ color: "rgba(255,255,255,0.7)", marginTop: 4, display: "inline-flex" }}>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                      <path d="M12 21s-6-5.1-6-10a6 6 0 1112 0c0 4.9-6 10-6 10z" strokeLinecap="round" strokeLinejoin="round" />
+                      <circle cx="12" cy="11" r="2.2" />
+                    </svg>
+                  </div>
                   <div>
                     <div style={{ color: "#fff", fontWeight: 600, fontSize: "0.95rem", marginBottom: 4 }}>Kuwait Office</div>
                     <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.75)" }}>Zawya Complex, Hawally</div>
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 12 }}>
-                  <div style={{ color: "rgba(255,255,255,0.7)", marginTop: 4 }}>📍</div>
+                  <div style={{ color: "rgba(255,255,255,0.7)", marginTop: 4, display: "inline-flex" }}>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                      <path d="M12 21s-6-5.1-6-10a6 6 0 1112 0c0 4.9-6 10-6 10z" strokeLinecap="round" strokeLinejoin="round" />
+                      <circle cx="12" cy="11" r="2.2" />
+                    </svg>
+                  </div>
                   <div>
                     <div style={{ color: "#fff", fontWeight: 600, fontSize: "0.95rem", marginBottom: 4 }}>Pakistan Office</div>
                     <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.75)" }}>E-11/3, Islamabad</div>
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 12 }}>
-                  <div style={{ color: "rgba(255,255,255,0.7)", marginTop: 4 }}>✉️</div>
+                  <div style={{ color: "rgba(255,255,255,0.7)", marginTop: 4, display: "inline-flex" }}>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                      <path d="M4 6h16v12H4z" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M4 8l8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
                   <div>
                     <div style={{ color: "#fff", fontWeight: 600, fontSize: "0.95rem", marginBottom: 4 }}>Email Us</div>
                     <div style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.75)" }}>itechkw.business@gmail.com</div>

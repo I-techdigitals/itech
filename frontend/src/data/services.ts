@@ -1,0 +1,206 @@
+export interface ServiceCard {
+  title: string;
+  description: string;
+}
+
+export interface ServiceDetail extends ServiceCard {
+  num: string;
+  color: string;
+  image: string;
+  features: string[];
+}
+
+export const serviceCards: ServiceCard[] = [
+  {
+    title: "Web & App Development",
+    description: "Custom websites, mobile apps, and e-commerce platforms built for performance and scale.",
+  },
+  {
+    title: "Social Media Account Management",
+    description: "Strategy, content creation, posting, and community growth across your social channels.",
+  },
+  {
+    title: "Photography & Videography",
+    description: "Professional photo and video production for brands, products, events, and campaigns.",
+  },
+  {
+    title: "3D Design",
+    description: "High-quality 3D modeling, rendering, and visual assets that bring your concepts to life.",
+  },
+  {
+    title: "Animation",
+    description: "Engaging motion graphics and animated content crafted for campaigns, products, and brand stories.",
+  },
+  {
+    title: "Illustration",
+    description: "Creative custom illustrations for brands, campaigns, packaging, and visual storytelling.",
+  },
+  {
+    title: "Interior Design",
+    description: "Functional, beautiful spaces for offices, retail, and commercial environments.",
+  },
+  {
+    title: "Printing",
+    description: "High-quality business printing solutions for marketing, branding, packaging, and events.",
+  },
+  {
+    title: "Digital Marketing",
+    description: "SEO and paid media campaigns that grow visibility, traffic, and qualified leads.",
+  },
+];
+
+export const serviceFormOptions = [...serviceCards.map((s) => s.title), "Other"];
+
+export const serviceDetails: ServiceDetail[] = [
+  {
+    num: "01",
+    title: "Web & App Development",
+    color: "#6c6bb0",
+    image: "/images/portfolio/Afreya Website Development.png",
+    description:
+      "We craft high-performance websites and mobile applications tailored to your business goals. From landing pages to complex enterprise platforms, we deliver scalable solutions using modern technologies.",
+    features: [
+      "Custom Website Design & Development",
+      "Mobile App Development (iOS & Android)",
+      "E-Commerce Platforms",
+      "CMS Integration",
+      "API Development & Integration",
+      "Performance Optimization",
+    ],
+  },
+  {
+    num: "02",
+    title: "Social Media Account Management",
+    color: "#5d5ca3",
+    image: "/images/portfolio/Afreya Social Media Management.png",
+    description:
+      "We manage your brand's social presence end to end — content planning, creative design, publishing, engagement, and reporting so your accounts stay active and on-brand.",
+    features: [
+      "Content Strategy & Calendars",
+      "Post Design & Copywriting",
+      "Account Setup & Optimization",
+      "Community Management",
+      "Analytics & Monthly Reports",
+      "Influencer & Collaboration Support",
+    ],
+  },
+  {
+    num: "03",
+    title: "Photography & Videography",
+    color: "#6c6bb0",
+    image: "/images/portfolio/Afreya Scented Product Photography.png",
+    description:
+      "Our visual team captures your story through professional photography and cinematic video — from product shoots and events to full brand campaigns.",
+    features: [
+      "Product & Commercial Photography",
+      "Brand & Corporate Video",
+      "Event Coverage",
+      "Social Media Reels & Shorts",
+      "Drone & Aerial Footage",
+      "Post-Production & Editing",
+    ],
+  },
+  {
+    num: "04",
+    title: "3D Design",
+    color: "#5d5ca3",
+    image: "/images/portfolio/Afreya Product Illustration.png",
+    description:
+      "From product renders to environment visualizations, we create high-quality 3D assets that elevate your presentations, campaigns, and digital experiences.",
+    features: [
+      "3D Modeling & Rendering",
+      "Product Visualization",
+      "3D Environment Design",
+      "Lighting & Material Setup",
+      "Concept-to-Render Workflow",
+      "AR-Ready Assets",
+      "3D Asset Optimization",
+    ],
+  },
+  {
+    num: "05",
+    title: "Animation",
+    color: "#5d5ca3",
+    image: "/images/portfolio/Protect Me Illustration Design.png",
+    description:
+      "We produce motion-first content that helps brands communicate clearly and capture attention across digital platforms.",
+    features: [
+      "2D & 3D Animation",
+      "Motion Graphics",
+      "Explainer Videos",
+      "Logo & Brand Animations",
+      "Social Media Animated Content",
+      "Storyboarding & Timing",
+    ],
+  },
+  {
+    num: "06",
+    title: "Illustration",
+    color: "#6c6bb0",
+    image: "/images/portfolio/Story Book Illustrations.png",
+    description:
+      "We create hand-crafted and digital illustrations tailored to your brand, products, and campaigns — from character art to editorial and packaging visuals.",
+    features: [
+      "Brand & Mascot Illustration",
+      "Product & Packaging Illustration",
+      "Editorial & Storybook Art",
+      "Social Media Illustration Sets",
+      "Campaign Visual Concepts",
+      "Custom Icon & Asset Packs",
+    ],
+  },
+  {
+    num: "07",
+    title: "Interior Design",
+    color: "#6c6bb0",
+    image: "/images/portfolio/Out Of Blue Branding.png",
+    description:
+      "We design inspiring interiors that reflect your brand — balancing aesthetics, flow, and practicality for offices, retail, and commercial spaces.",
+    features: [
+      "Commercial & Office Design",
+      "Retail & Showroom Layouts",
+      "3D Visualization & Rendering",
+      "Space Planning",
+      "Material & Furniture Selection",
+      "Project Coordination",
+    ],
+  },
+  {
+    num: "08",
+    title: "Printing",
+    color: "#5350a2",
+    image: "/images/portfolio/Teni Time Branding.png",
+    description:
+      "From everyday business materials to large-format promotional assets, we deliver professional printing that keeps your brand consistent and impactful.",
+    features: [
+      "Business Cards & Stationery",
+      "Brochures, Flyers & Menus",
+      "Posters, Banners & Signage",
+      "Packaging & Label Printing",
+      "Branded Merchandise Support",
+      "Large Format Printing",
+    ],
+  },
+  {
+    num: "09",
+    title: "Digital Marketing",
+    color: "#5d5ca3",
+    image: "/images/portfolio/SEO Campaign.avif",
+    description:
+      "We combine technical SEO with paid media strategy to improve rankings, increase quality traffic, and deliver measurable lead growth across search and social platforms.",
+    features: [
+      "Technical SEO Audits",
+      "On-Page Optimization",
+      "Keyword Research & Strategy",
+      "Local SEO",
+      "Content & Blog SEO",
+      "Analytics & Ranking Reports",
+      "Google Ads (Search & Display)",
+      "Meta & Instagram Ads",
+      "Campaign Strategy & Setup",
+      "Audience & Keyword Targeting",
+      "A/B Testing & Optimization",
+      "Conversion Tracking & Reporting",
+    ],
+  },
+];

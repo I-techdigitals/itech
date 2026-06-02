@@ -2,17 +2,7 @@
 import { useState } from "react";
 import { postJson } from "@/lib/api";
 
-const SERVICES = [
-  "Web & App Development",
-  "Branding",
-  "Social Media Management",
-  "Photography & Videography",
-  "Animations",
-  "Interior Design",
-  "Printing",
-  "Studio Rental",
-  "Other",
-];
+import { serviceFormOptions } from "@/data/services";
 
 const BUDGETS = [
   "Under $500",
@@ -200,7 +190,7 @@ export default function BookingSection() {
                       style={{ ...inputStyle, cursor: "pointer" }}
                     >
                       <option value="">Select a service...</option>
-                      {SERVICES.map((s) => (
+                      {serviceFormOptions.map((s) => (
                         <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
@@ -276,12 +266,22 @@ export default function BookingSection() {
                       </>
                     ) : (
                       <>
-                        📅 Book My Consultation
+                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                          <rect x="3" y="4" width="18" height="17" rx="2" />
+                          <path d="M8 2v4M16 2v4M3 9h18" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        Book My Consultation
                       </>
                     )}
                   </button>
                   <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.82rem", margin: 0 }}>
-                    🔒 Your info is safe. We never spam.
+                    <span style={{ display: "inline-flex", verticalAlign: "middle", marginRight: 6 }}>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                        <rect x="5" y="10" width="14" height="10" rx="2" />
+                        <path d="M8 10V7a4 4 0 118 0v3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                    Your info is safe. We never spam.
                   </p>
                 </div>
 
@@ -296,16 +296,42 @@ export default function BookingSection() {
           maxWidth: 820, margin: "32px auto 0",
         }}>
           {[
-            { icon: "⚡", title: "Instant Confirmation", desc: "Get a confirmation email the moment you book." },
-            { icon: "🎯", title: "No Commitment", desc: "A free discovery call — no pressure, no obligation." },
-            { icon: "🌍", title: "We're Available Online", desc: "Remote & in-person consultations available." },
+            {
+              icon: (
+                <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                  <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              ),
+              title: "Instant Confirmation",
+              desc: "Get a confirmation email the moment you book.",
+            },
+            {
+              icon: (
+                <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                  <circle cx="12" cy="12" r="8" />
+                  <circle cx="12" cy="12" r="4" />
+                </svg>
+              ),
+              title: "No Commitment",
+              desc: "A free discovery call — no pressure, no obligation.",
+            },
+            {
+              icon: (
+                <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              ),
+              title: "We're Available Online",
+              desc: "Remote & in-person consultations available.",
+            },
           ].map((card) => (
             <div key={card.title} style={{
               background: "rgba(255,255,255,0.04)",
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: 14, padding: "20px 24px", textAlign: "center",
             }}>
-              <div style={{ fontSize: "1.8rem", marginBottom: 8 }}>{card.icon}</div>
+              <div style={{ color: "#dcd6ff", marginBottom: 8, display: "inline-flex" }}>{card.icon}</div>
               <div style={{ color: "#fff", fontWeight: 600, fontSize: "0.9rem", marginBottom: 6 }}>{card.title}</div>
               <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", lineHeight: 1.5 }}>{card.desc}</div>
             </div>

@@ -1,62 +1,12 @@
 import type { Metadata } from "next";
-import ServicesSection from "@/components/ServicesSection";
 import Link from "next/link";
+import { serviceDetails } from "@/data/services";
 
 export const metadata: Metadata = {
   title: "Our Services – I-TECH Digitals",
-  description: "Explore I-TECH Digitals full range of services: web development, branding, animations, social media, photography, videography, printing, and studio rental.",
+  description:
+    "Explore I-TECH Digitals services: web & app development, social media management, photography & videography, 3D design, animation, interior design, printing, and digital marketing.",
 };
-
-const serviceDetails = [
-  {
-    num: "01", title: "Web & App Development", color: "#6c6bb0",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
-    description: "We craft high-performance websites and mobile applications tailored to your business goals. From landing pages to complex enterprise platforms, we deliver pixel-perfect, scalable solutions using the latest technologies.",
-    features: ["Custom Website Design & Development", "Mobile App Development (iOS & Android)", "E-Commerce Platforms", "CMS Integration", "API Development & Integration", "Performance Optimization & SEO"],
-  },
-  {
-    num: "02", title: "Interior Design", color: "#5d5ca3",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80",
-    description: "We create stunning, functional environments that reflect your brand identity. Our interior design team blends aesthetics with practicality to transform any space into an inspiring experience.",
-    features: ["Commercial Space Design", "Office & Retail Design", "3D Visualization & Rendering", "Space Planning", "Material & Furniture Selection", "Project Management"],
-  },
-  {
-    num: "03", title: "Animations", color: "#6c6bb0",
-    image: "https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=800&q=80",
-    description: "From explainer videos to full brand motion campaigns, our animation team produces visually stunning 2D and 3D animations that engage your audience and communicate your message powerfully.",
-    features: ["2D & 3D Animation", "Motion Graphics", "Explainer Videos", "Product Animations", "Logo Animations", "Social Media Reels & Stories"],
-  },
-  {
-    num: "04", title: "Social Media Management", color: "#5d5ca3",
-    image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80",
-    description: "We manage your brand's entire social media presence — from content creation and scheduling to community engagement and paid advertising — so you can focus on running your business.",
-    features: ["Content Strategy & Planning", "Graphic Design & Copywriting", "Community Management", "Paid Advertising Campaigns", "Analytics & Reporting", "Influencer Collaboration"],
-  },
-  {
-    num: "05", title: "Photography & Videography", color: "#6c6bb0",
-    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&q=80",
-    description: "Our professional visual team captures your brand story through stunning photography and cinematic videography. We handle everything from product shoots to full corporate video productions.",
-    features: ["Product & Commercial Photography", "Brand Storytelling Videos", "Event Coverage", "Corporate Headshots", "Real Estate Photography", "Drone Aerial Footage"],
-  },
-  {
-    num: "06", title: "Printing", color: "#5d5ca3",
-    image: "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=800&q=80",
-    description: "We deliver high-quality print materials that make lasting impressions. From business cards to large-format banners, our printing services ensure your physical touchpoints match your digital brand.",
-    features: ["Business Cards & Stationery", "Brochures & Flyers", "Banners & Signage", "Packaging Design & Print", "Branded Merchandise", "Large Format Printing"],
-  },
-  {
-    num: "07", title: "Branding", color: "#6c6bb0",
-    image: "https://images.unsplash.com/photo-1493421419110-74f4e85ba126?w=800&q=80",
-    description: "We build complete brand identities from scratch — logo design, color systems, typography, and comprehensive brand guidelines — ensuring your brand communicates the right message at every touchpoint.",
-    features: ["Logo Design & Identity", "Brand Strategy & Positioning", "Brand Guidelines Manual", "Marketing Collateral Design", "Brand Refresh & Rebranding", "Packaging & Label Design"],
-  },
-  {
-    num: "08", title: "Studio Rental", color: "#5d5ca3",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
-    description: "Access our state-of-the-art production studio equipped with professional lighting, backdrops, and equipment for photography, videography, and content creation sessions.",
-    features: ["Professional Lighting Setup", "Multiple Backdrop Options", "Photography Equipment", "Videography Rigs & Monitors", "Podcast & Interview Setup", "Flexible Half/Full Day Bookings"],
-  },
-];
 
 export default function ServicesPage() {
   return (
@@ -108,8 +58,18 @@ export default function ServicesPage() {
                 {/* Visual (order flips on even/odd) */}
                 {i % 2 !== 0 && (
                   <div className="services-page-card-visual" style={{ order: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-                    <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25` }}>
-                      <img src={s.image} alt={s.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    <div style={{ width: "min(100%, 380px)", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25`, background: "#ffffff" }}>
+                      <img
+                        src={s.image}
+                        alt={s.title}
+                        loading="lazy"
+                        decoding="async"
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          display: "block",
+                        }}
+                      />
                     </div>
                   </div>
                 )}
@@ -137,8 +97,18 @@ export default function ServicesPage() {
 
                 {i % 2 === 0 && (
                   <div className="services-page-card-visual" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-                    <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25` }}>
-                      <img src={s.image} alt={s.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    <div style={{ width: "min(100%, 380px)", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25`, background: "#ffffff" }}>
+                      <img
+                        src={s.image}
+                        alt={s.title}
+                        loading="lazy"
+                        decoding="async"
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          display: "block",
+                        }}
+                      />
                     </div>
                   </div>
                 )}

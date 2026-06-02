@@ -2,17 +2,7 @@
 import { useState } from "react";
 import { postJson } from "@/lib/api";
 
-const SERVICES = [
-  "Web & App Development",
-  "Branding",
-  "Social Media Management",
-  "Photography & Videography",
-  "Animations",
-  "Interior Design",
-  "Printing",
-  "Studio Rental",
-  "Other",
-];
+import { serviceFormOptions } from "@/data/services";
 
 export default function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
@@ -87,7 +77,7 @@ export default function ContactSection() {
                 <input name="phone" type="tel" placeholder="Phone Number" value={form.phone} onChange={handle} style={inputStyle} />
                 <select name="service" value={form.service} onChange={handle} style={inputStyle}>
                   <option value="">Select a service (optional)</option>
-                  {SERVICES.map((service) => (
+                  {serviceFormOptions.map((service) => (
                     <option key={service} value={service}>{service}</option>
                   ))}
                 </select>

@@ -3,13 +3,13 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #6c6bb0;
-  --primary-dark: #5d5ca3;
-  --primary-light: #9a99cc;
-  --secondary: #6c6bb0;
-  --secondary-light: #8281c0;
-  --hero-bg: #605ea9;
-  --feature-active: #6c6bb0;
+  --primary: #5350a2;
+  --primary-dark: #48468b;
+  --primary-light: #8381c4;
+  --secondary: #5350a2;
+  --secondary-light: #6a67b4;
+  --hero-bg: #5350a2;
+  --feature-active: #5350a2;
   --bg: #f8f9fa;
   --bg-card: #ffffff;
   --text-dark: #433f7a;
@@ -17,10 +17,10 @@
   --border: #e5e7eb;
   --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   --gradient-hero: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
-  --shadow-sm: 0 4px 6px -1px rgba(108, 107, 176, 0.08);
-  --shadow-md: 0 10px 15px -3px rgba(108, 107, 176, 0.1);
-  --shadow-lg: 0 20px 25px -5px rgba(108, 107, 176, 0.15);
-  --shadow-primary: 0 10px 25px -5px rgba(108, 107, 176, 0.4);
+  --shadow-sm: 0 4px 6px -1px rgba(83, 80, 162, 0.08);
+  --shadow-md: 0 10px 15px -3px rgba(83, 80, 162, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(83, 80, 162, 0.15);
+  --shadow-primary: 0 10px 25px -5px rgba(83, 80, 162, 0.4);
   --radius: 8px;
   --radius-lg: 16px;
   --logo-scale: 2.2;
@@ -63,6 +63,32 @@ body {
   color: var(--text-dark);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* Brand icon system */
+.icon-brand {
+  color: var(--primary);
+}
+
+.icon-brand svg {
+  color: inherit;
+  stroke: currentColor;
+}
+
+.icon-brand-chip {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(83, 80, 162, 0.12);
+  color: var(--primary);
+}
+
+.icon-brand-chip svg {
+  color: inherit;
+  stroke: currentColor;
 }
 
 h1,
@@ -151,7 +177,7 @@ h6 {
   transform: translateY(-2px);
 }
 
-/* White buttons on brand (#6c6bb0) backgrounds */
+/* White buttons on brand backgrounds */
 .btn-on-brand {
   display: inline-flex;
   align-items: center;
@@ -167,7 +193,7 @@ h6 {
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
-  box-shadow: 0 8px 24px rgba(108, 107, 176, 0.2);
+  box-shadow: 0 8px 24px rgba(83, 80, 162, 0.2);
 }
 
 .btn-on-brand:hover {
@@ -267,15 +293,15 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 3px rgba(108, 107, 176, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(83, 80, 162, 0.15) !important;
 }
 
 /* Dark form inputs (BookingSection — dark glass cards) */
 #booking input:focus,
 #booking textarea:focus,
 #booking select:focus {
-  border-color: rgba(108, 107, 176, 0.7) !important;
-  box-shadow: 0 0 0 3px rgba(108, 107, 176, 0.18) !important;
+  border-color: rgba(83, 80, 162, 0.7) !important;
+  box-shadow: 0 0 0 3px rgba(83, 80, 162, 0.18) !important;
   background: rgba(255, 255, 255, 0.11) !important;
 }
 
@@ -309,7 +335,272 @@ select:focus {
   }
 }
 
-/* ── Portfolio Grid ── */
+/* ── Services section (home) ── */
+.services-section {
+  background: #ffffff;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.services-see-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.services-see-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 1200px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.service-card {
+  background: #f8f9fa;
+  color: var(--text-dark);
+  padding: 40px 30px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card--active {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  box-shadow: var(--shadow-primary);
+}
+
+.service-card__icon {
+  margin: 0 0 24px;
+  display: inline-block;
+  color: var(--primary);
+}
+
+.service-card--active .service-card__icon {
+  color: #ffffff;
+}
+
+.service-card__title {
+  font-size: 1.2rem;
+  margin: 0 0 16px;
+  color: var(--secondary);
+}
+
+.service-card--active .service-card__title {
+  color: #ffffff;
+}
+
+.service-card__desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0 0 24px;
+}
+
+.service-card--active .service-card__desc {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.service-card__link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-card--active .service-card__link {
+  color: #ffffff;
+}
+
+/* ── Portfolio ── */
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.portfolio-filter-btn {
+  padding: 9px 20px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.portfolio-filter-btn:hover {
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #ffffff;
+}
+
+.portfolio-filter-btn--active {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--primary);
+}
+
+.portfolio-filter-count {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+}
+
+.portfolio-filter-count strong {
+  color: #ffffff;
+}
+
+.portfolio-grouped {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.portfolio-category-block {
+  scroll-margin-top: 100px;
+}
+
+.portfolio-category-block__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.portfolio-category-block__header h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.portfolio-category-block__count {
+  margin: 8px 0 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.portfolio-category-block__link {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.portfolio-category-block__link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.portfolio-page-grouped {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.portfolio-page-category {
+  scroll-margin-top: 100px;
+}
+
+.portfolio-page-category__header {
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.portfolio-page-category__header h2 {
+  margin: 0;
+  font-family: "Baskervville", serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--text-dark);
+}
+
+.portfolio-page-category__count {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.portfolio-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+.portfolio-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #48468b, #5350a2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(83, 80, 162, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.portfolio-card__image {
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-card__body {
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.portfolio-card__body h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0 0 10px;
+}
+
+.portfolio-card__body p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -325,6 +616,10 @@ select:focus {
 @media (max-width: 640px) {
   .portfolio-grid {
     grid-template-columns: 1fr;
+  }
+
+  .portfolio-filters {
+    justify-content: center;
   }
 }
 

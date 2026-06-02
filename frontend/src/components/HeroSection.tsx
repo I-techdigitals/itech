@@ -50,13 +50,19 @@ export default function HeroSection() {
           {/* Right Content (Image) */}
           <div className="hero-image-container">
             <div style={{ position: "absolute", inset: 0, border: "2px dashed rgba(255,255,255,0.1)", borderRadius: "50%", transform: "scale(0.95)" }} />
-            <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(108, 107, 176,0.3)", borderRadius: "50%", transform: "scale(0.75)" }} />
+            <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(83, 80, 162,0.3)", borderRadius: "50%", transform: "scale(0.75)" }} />
 
-            <img src="/images/hero.png" alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(108, 107, 176,0.5))" }} />
+            <img src="/images/hero.png" alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))" }} />
 
             {/* Floating cards */}
             <div className="floating-card-1">
-              <div style={{ fontSize: "2rem" }}>🏆</div>
+              <div className="icon-brand-chip" style={{ width: 40, height: 40, borderRadius: 8 }}>
+                <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden>
+                  <path d="M8 4h8v3a4 4 0 01-8 0V4z" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M6 7H4a2 2 0 002 2M18 7h2a2 2 0 01-2 2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 11v4M9 19h6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
               <div>
                 <div style={{ fontWeight: 800, fontSize: "1.2rem" }}>670+</div>
                 <div style={{ fontSize: "0.8rem", opacity: 0.9 }}>Projects Done</div>
@@ -64,7 +70,7 @@ export default function HeroSection() {
             </div>
 
             <div className="floating-card-2">
-              <div style={{ width: 40, height: 40, background: "rgba(108, 107, 176,0.1)", color: "var(--primary)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div className="icon-brand-chip" style={{ width: 40, height: 40, borderRadius: 8 }}>
                 <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               </div>
               <div>
@@ -89,10 +95,7 @@ export default function HeroSection() {
               boxShadow: "var(--shadow-lg)",
             }}>
               <div style={{
-                width: 56, height: 56,
                 margin: "0 auto 20px",
-                background: f.active ? "rgba(255,255,255,0.2)" : "rgba(108, 107, 176,0.1)",
-                borderRadius: "50%",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 fontSize: "1.5rem"
               }}>
