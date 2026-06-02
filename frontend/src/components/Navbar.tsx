@@ -32,21 +32,23 @@ export default function Navbar() {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 1000,
+        zIndex: 10000,
+        isolation: "isolate",
+        pointerEvents: "auto",
         transition: "all 0.3s ease",
         background: scrolled ? "#ffffff" : "transparent",
         boxShadow: scrolled ? "0 4px 20px rgba(108, 107, 176,0.05)" : "none",
         padding: scrolled ? "10px 0" : "20px 0",
       }}
     >
-      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative", zIndex: 1, pointerEvents: "auto" }}>
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
           <img src="/images/Logo.png" alt="I-TECH Digitals" style={{ height: 40, objectFit: "contain", transform: "scale(var(--logo-scale))", transformOrigin: "left center", filter: isDarkBg ? "brightness(0) invert(1)" : "none", transition: "all 0.3s ease" }} />
         </Link>
 
         {/* Desktop Nav */}
-        <nav style={{ display: "flex", alignItems: "center", gap: 32 }} className="desktop-nav">
+        <nav style={{ display: "flex", alignItems: "center", gap: 32, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
@@ -60,6 +62,9 @@ export default function Navbar() {
                   color: active ? (isDarkBg ? "#ffffff" : "var(--primary)") : (isDarkBg ? "#ffffff" : "var(--text-dark)"),
                   textDecoration: "none",
                   transition: "all 0.2s ease",
+                  position: "relative",
+                  zIndex: 2,
+                  pointerEvents: "auto",
                 }}
                 onMouseEnter={(e) => {
                   if (!active) (e.currentTarget as HTMLElement).style.color = isDarkBg ? "rgba(255,255,255,0.85)" : "var(--primary)";

@@ -15,8 +15,8 @@ export default function HeroSection() {
       {/* Dark Top Section */}
       <div className="bg-brand-pattern" style={{ padding: "180px 0 160px", position: "relative", overflow: "hidden" }}>
         {/* Decorative elements */}
-        <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--primary)", opacity: 0.1, filter: "blur(80px)", borderRadius: "50%" }} />
-        <div style={{ position: "absolute", bottom: -50, left: -50, width: 300, height: 300, background: "#fff", opacity: 0.05, filter: "blur(60px)", borderRadius: "50%" }} />
+        <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--primary)", opacity: 0.1, filter: "blur(80px)", borderRadius: "50%", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: -50, left: -50, width: 300, height: 300, background: "#fff", opacity: 0.05, filter: "blur(60px)", borderRadius: "50%", pointerEvents: "none" }} />
 
         <div className="container hero-grid" style={{ position: "relative", zIndex: 2 }}>
           {/* Left Content */}
@@ -49,10 +49,10 @@ export default function HeroSection() {
 
           {/* Right Content (Image) */}
           <div className="hero-image-container">
-            <div style={{ position: "absolute", inset: 0, border: "2px dashed rgba(255,255,255,0.1)", borderRadius: "50%", transform: "scale(0.95)" }} />
-            <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(83, 80, 162,0.3)", borderRadius: "50%", transform: "scale(0.75)" }} />
+            <div style={{ position: "absolute", inset: 0, border: "2px dashed rgba(255,255,255,0.1)", borderRadius: "50%", transform: "scale(0.95)", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(83, 80, 162,0.3)", borderRadius: "50%", transform: "scale(0.75)", pointerEvents: "none" }} />
 
-            <img src="/images/hero.png" alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))" }} />
+            <img src="/images/hero.png" alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }} />
 
             {/* Floating cards */}
             <div className="floating-card-1">
