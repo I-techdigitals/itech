@@ -140,7 +140,7 @@ export default function OurWorkPage() {
     <div style={{ paddingTop: 72 }}>
       <div
         style={{
-          background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/about1.png')",
+          background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           padding: "120px 0 100px",

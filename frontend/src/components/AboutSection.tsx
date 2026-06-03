@@ -12,14 +12,11 @@ export default function AboutSection() {
             <div className="about-images-grid">
               {/* Image 1 */}
               <div className="about-img-1" style={{ borderRadius: 24, overflow: "hidden", position: "relative", boxShadow: "var(--shadow-lg)" }}>
-                <img src="/images/about1.png" alt="Team Collaboration" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", bottom: 0, right: 0, background: "var(--primary)", width: "80%", padding: "16px", borderTopLeftRadius: 24, color: "#fff", fontWeight: 700, zIndex: 2 }}>
-                  8+ Years Exp.
-                </div>
+                <img src="/images/4d40ec48-1229-4a4d-9afc-874fcc654642.png" alt="Team Collaboration" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
               {/* Image 2 */}
               <div className="about-img-2" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "var(--shadow-lg)" }}>
-                <img src="/images/about2.png" alt="IT Professional" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src="/images/creatopy-M35xxKGb_tA-unsplash.jpg" alt="IT Professional" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
             </div>
 

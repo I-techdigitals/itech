@@ -13,7 +13,7 @@ export default function ServicesPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Hero */}
       <div style={{ 
-        background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/about2.png')", 
+        background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg')", 
         backgroundSize: "cover", 
         backgroundPosition: "center",
         padding: "120px 0 100px", 
@@ -58,19 +58,7 @@ export default function ServicesPage() {
                 {/* Visual (order flips on even/odd) */}
                 {i % 2 !== 0 && (
                   <div className="services-page-card-visual" style={{ order: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-                    <div style={{ width: "min(100%, 380px)", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25`, background: "#ffffff" }}>
-                      <img
-                        src={s.image}
-                        alt={s.title}
-                        loading="lazy"
-                        decoding="async"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          display: "block",
-                        }}
-                      />
-                    </div>
+                    <ServiceVisual service={s} />
                   </div>
                 )}
 
@@ -97,19 +85,7 @@ export default function ServicesPage() {
 
                 {i % 2 === 0 && (
                   <div className="services-page-card-visual" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-                    <div style={{ width: "min(100%, 380px)", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${s.color}25`, background: "#ffffff" }}>
-                      <img
-                        src={s.image}
-                        alt={s.title}
-                        loading="lazy"
-                        decoding="async"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          display: "block",
-                        }}
-                      />
-                    </div>
+                    <ServiceVisual service={s} />
                   </div>
                 )}
               </div>
@@ -129,6 +105,43 @@ export default function ServicesPage() {
           </Link>
         </div>
       </section>
+    </div>
+  );
+}
+
+function ServiceVisual({ service }: { service: (typeof serviceDetails)[number] }) {
+  return (
+    <div style={{ width: "min(100%, 380px)", borderRadius: 14, overflow: "hidden", boxShadow: `0 8px 24px ${service.color}25`, background: "#ffffff" }}>
+      {service.video ? (
+        <video
+          src={service.video}
+          poster={service.image}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label={`${service.title} animated video`}
+          style={{
+            width: "100%",
+            aspectRatio: "1 / 1",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      ) : (
+        <img
+          src={service.image}
+          alt={service.title}
+          loading="lazy"
+          decoding="async"
+          style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+          }}
+        />
+      )}
     </div>
   );
 }

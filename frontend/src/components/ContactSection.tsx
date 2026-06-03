@@ -94,7 +94,7 @@ export default function ContactSection() {
 
           {/* Right Image */}
           <div className="contact-image-container">
-             <img src="/images/about1.png" alt="Contact Us" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+             <img src="/images/4d40ec48-1229-4a4d-9afc-874fcc654642.png" alt="Contact Us" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
              {/* Small accent circle */}
              <div style={{ position: "absolute", top: 30, left: 30, width: 60, height: 60, background: "var(--primary)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffffff", boxShadow: "var(--shadow-lg)" }}>
                 <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
