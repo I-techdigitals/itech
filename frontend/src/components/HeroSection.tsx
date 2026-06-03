@@ -9,14 +9,54 @@ const features = [
   { icon: <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>, title: "Digital Marketing", desc: "Data-driven growth." },
 ];
 
+const INTRO_VIDEO_SRC = "/video/I-Tech.mp4";
+
 export default function HeroSection() {
   return (
     <section id="hero" style={{ position: "relative" }}>
       {/* Dark Top Section */}
-      <div className="bg-brand-pattern" style={{ padding: "180px 0 160px", position: "relative", overflow: "hidden" }}>
+      <div className="bg-brand-pattern" style={{ padding: "150px 0 130px", position: "relative", overflow: "hidden" }}>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          tabIndex={-1}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+          }}
+        >
+          <source src={INTRO_VIDEO_SRC} type="video/mp4" />
+        </video>
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(90deg, rgba(83,80,162,0.62) 0%, rgba(83,80,162,0.44) 52%, rgba(83,80,162,0.56) 100%)",
+            zIndex: 1,
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "30px 30px",
+            zIndex: 1,
+            pointerEvents: "none",
+          }}
+        />
         {/* Decorative elements */}
-        <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--primary)", opacity: 0.1, filter: "blur(80px)", borderRadius: "50%", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: -50, left: -50, width: 300, height: 300, background: "#fff", opacity: 0.05, filter: "blur(60px)", borderRadius: "50%", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--primary)", opacity: 0.1, filter: "blur(80px)", borderRadius: "50%", pointerEvents: "none", zIndex: 1 }} />
+        <div style={{ position: "absolute", bottom: -50, left: -50, width: 300, height: 300, background: "#fff", opacity: 0.05, filter: "blur(60px)", borderRadius: "50%", pointerEvents: "none", zIndex: 1 }} />
 
         <div className="container hero-grid" style={{ position: "relative", zIndex: 2 }}>
           {/* Left Content */}
@@ -64,8 +104,8 @@ export default function HeroSection() {
                 </svg>
               </div>
               <div>
-                <div style={{ fontWeight: 800, fontSize: "1.2rem" }}>670+</div>
-                <div style={{ fontSize: "0.8rem", opacity: 0.9 }}>Projects Done</div>
+                <div style={{ fontWeight: 800, fontSize: "1.2rem" }}>100%</div>
+                <div style={{ fontSize: "0.8rem", opacity: 0.9 }}>Client Satisfaction</div>
               </div>
             </div>
 

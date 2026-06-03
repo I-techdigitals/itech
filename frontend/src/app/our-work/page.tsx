@@ -121,11 +121,13 @@ export default function OurWorkPage() {
   useEffect(() => {
     const category = new URLSearchParams(window.location.search).get("category");
     if (category && PORTFOLIO_CATEGORIES.includes(category as PortfolioCategoryFilter)) {
-      setActive(category as PortfolioCategoryFilter);
       const slug = category.toLowerCase().replace(/\s+/g, "-");
-      requestAnimationFrame(() => {
+      const frame = requestAnimationFrame(() => {
+        setActive(category as PortfolioCategoryFilter);
         document.getElementById(`work-${slug}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
+
+      return () => cancelAnimationFrame(frame);
     }
   }, []);
 
