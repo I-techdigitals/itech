@@ -156,7 +156,7 @@ export const serviceDetails: ServiceDetail[] = [
     num: "07",
     title: "Interior Design",
     color: "#6c6bb0",
-    image: "/images/portfolio/Out Of Blue Branding.png",
+    image: "/images/portfolio/Bavaria Tower.jpg",
     description:
       "We design inspiring interiors that reflect your brand — balancing aesthetics, flow, and practicality for offices, retail, and commercial spaces.",
     features: [

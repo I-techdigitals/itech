@@ -688,23 +688,6 @@ select:focus {
   }
 
   .hero-image-container {
-    height: 340px !important;
-    margin-top: 20px;
-  }
-
-  .floating-card-1 {
-    right: 5% !important;
-    top: 10% !important;
-  }
-
-  .floating-card-2 {
-    left: 5% !important;
-    bottom: 5% !important;
-  }
-}
-
-@media (max-width: 640px) {
-  .hero-image-container {
     display: none !important;
   }
 }

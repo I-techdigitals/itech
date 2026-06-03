@@ -139,7 +139,8 @@ function ServiceVisual({ service }: { service: (typeof serviceDetails)[number] }
           decoding="async"
           style={{
             width: "100%",
-            height: "auto",
+            aspectRatio: "1 / 1",
+            objectFit: "cover",
             display: "block",
           }}
         />
