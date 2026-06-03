@@ -47,16 +47,6 @@ const navItems = [
     ],
   },
   {
-    label: "HOW WE DELIVER",
-    href: "/services",
-    submenu: [
-      { label: "Our Approach", href: "/about#our-values" },
-      { label: "Agile Development", href: "/services#web-app-development" },
-      { label: "Quality Assurance", href: "/about#our-values" },
-      { label: "DevOps & Release", href: "/services#web-app-development" },
-    ],
-  },
-  {
     label: "JOIN I-TECH",
     href: "/careers",
     submenu: [
@@ -116,7 +106,7 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav style={{ display: "flex", alignItems: "center", gap: 28, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
-          {navItems.map((item, index) => {
+          {navItems.map((item) => {
             const isGrid = item.submenu && item.submenu.length > 4;
 
             return (
@@ -190,7 +180,7 @@ export default function Navbar() {
               border: isDarkBg ? "2px solid #ffffff" : "2px solid #5350a2",
             }}
           >
-            Let's Talk Business
+            Let&apos;s Talk Business
           </Link>
         </div>
 
@@ -336,7 +326,7 @@ export default function Navbar() {
                 textAlign: "center",
               }}
             >
-              Let's Talk Business
+              Let&apos;s Talk Business
             </Link>
           </div>
         </nav>
