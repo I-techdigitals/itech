@@ -46,6 +46,7 @@ export default function ServicesPage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
             {serviceDetails.map((s, i) => (
               <div key={s.num}
+                id={s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}
                 className="services-page-card"
                 style={{
                   background: i % 2 === 0 ? "#fff" : "linear-gradient(135deg,#f3f0fa 0%,#f8f9fa 100%)",
@@ -53,6 +54,7 @@ export default function ServicesPage() {
                   border: "1px solid var(--border)",
                   boxShadow: "var(--shadow-sm)",
                   overflow: "hidden",
+                  scrollMarginTop: "100px",
                 }}
               >
                 {/* Visual (order flips on even/odd) */}

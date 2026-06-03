@@ -2,19 +2,75 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164 } from "@/config/site";
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Portfolio", href: "/our-work" },
-  { label: "Careers", href: "/careers" },
-  { label: "Contact", href: "/contact" },
+const navItems = [
+  {
+    label: "WHAT WE DO",
+    href: "/services",
+    submenu: [
+      { label: "Web & App Development", href: "/services#web-app-development" },
+      { label: "Social Media Management", href: "/services#social-media-account-management" },
+      { label: "Photography & Videography", href: "/services#photography-videography" },
+      { label: "3D Design", href: "/services#3d-design" },
+      { label: "Animation", href: "/services#animation" },
+      { label: "Illustration", href: "/services#illustration" },
+      { label: "Interior Design", href: "/services#interior-design" },
+      { label: "Printing", href: "/services#printing" },
+      { label: "Digital Marketing", href: "/services#digital-marketing" },
+    ],
+  },
+  {
+    label: "WHO WE HELP",
+    href: "/our-work",
+    submenu: [
+      { label: "Web & App Projects", href: "/our-work?category=Web+%26+App+Development" },
+      { label: "Social Media Campaigns", href: "/our-work?category=Social+Media+Account+Manage" },
+      { label: "Photography & Video", href: "/our-work?category=Photography+%26+Videography" },
+      { label: "3D Design & Rendering", href: "/our-work?category=3D+Design" },
+      { label: "Animation & Motion", href: "/our-work?category=Animation" },
+      { label: "Illustration & Art", href: "/our-work?category=Illustration" },
+      { label: "Interior Spaces", href: "/our-work?category=Interior+Design" },
+      { label: "Print & Collaterals", href: "/our-work?category=Printing" },
+      { label: "Digital Marketing & SEO", href: "/our-work?category=Digital+Marketing" },
+      { label: "Branding & Identity", href: "/our-work?category=Branding" },
+    ],
+  },
+  {
+    label: "WHO WE ARE",
+    href: "/about",
+    submenu: [
+      { label: "Our Story", href: "/about" },
+      { label: "Our Mission", href: "/about#our-mission" },
+      { label: "Our Vision", href: "/about#our-vision" },
+      { label: "Our Values", href: "/about#our-values" },
+    ],
+  },
+  {
+    label: "HOW WE DELIVER",
+    href: "/services",
+    submenu: [
+      { label: "Our Approach", href: "/about#our-values" },
+      { label: "Agile Development", href: "/services#web-app-development" },
+      { label: "Quality Assurance", href: "/about#our-values" },
+      { label: "DevOps & Release", href: "/services#web-app-development" },
+    ],
+  },
+  {
+    label: "JOIN I-TECH",
+    href: "/careers",
+    submenu: [
+      { label: "Job Openings", href: "/careers#application-form" },
+      { label: "Benefits & Perks", href: "/careers#benefits" },
+      { label: "Why Work With Us", href: "/careers#why-us" },
+    ],
+  },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [expandedMobile, setExpandedMobile] = useState<number | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -44,66 +100,129 @@ export default function Navbar() {
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative", zIndex: 1, pointerEvents: "auto" }}>
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
-          <img src="/images/Logo.png" alt="I-TECH Digitals" style={{ height: 40, objectFit: "contain", transform: "scale(var(--logo-scale))", transformOrigin: "left center", filter: isDarkBg ? "brightness(0) invert(1)" : "none", transition: "all 0.3s ease" }} />
+          <img
+            src="/images/Logo.png"
+            alt="I-TECH Digitals"
+            style={{
+              height: 40,
+              objectFit: "contain",
+              transform: "scale(var(--logo-scale))",
+              transformOrigin: "left center",
+              filter: isDarkBg ? "brightness(0) invert(1)" : "none",
+              transition: "all 0.3s ease"
+            }}
+          />
         </Link>
 
         {/* Desktop Nav */}
-        <nav style={{ display: "flex", alignItems: "center", gap: 32, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
-          {navLinks.map((link) => {
-            const active = pathname === link.href;
+        <nav style={{ display: "flex", alignItems: "center", gap: 28, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
+          {navItems.map((item, index) => {
+            const isGrid = item.submenu && item.submenu.length > 4;
+
             return (
-              <Link
-                key={link.href}
-                href={link.href}
-                prefetch={link.href === "/services" ? false : undefined}
-                style={{
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
-                  color: active ? (isDarkBg ? "#ffffff" : "var(--primary)") : (isDarkBg ? "#ffffff" : "var(--text-dark)"),
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                  position: "relative",
-                  zIndex: 2,
-                  pointerEvents: "auto",
-                }}
-                onMouseEnter={(e) => {
-                  if (!active) (e.currentTarget as HTMLElement).style.color = isDarkBg ? "rgba(255,255,255,0.85)" : "var(--primary)";
-                }}
-                onMouseLeave={(e) => {
-                  if (!active) (e.currentTarget as HTMLElement).style.color = isDarkBg ? "#ffffff" : "var(--text-dark)";
-                }}
-              >
-                {link.label}
-              </Link>
+              <div key={item.label} className="nav-item">
+                <Link
+                  href={item.href}
+                  className="nav-link"
+                  style={{
+                    color: isDarkBg ? "#ffffff" : "#1f2937",
+                  }}
+                >
+                  {item.label}
+                </Link>
+
+                {/* Submenu Dropdown */}
+                {item.submenu && (
+                  <div className={`dropdown-menu ${isGrid ? "dropdown-col-2" : "dropdown-col-1"}`}>
+                    <div style={{ display: "grid", gridTemplateColumns: isGrid ? "1fr 1fr" : "1fr", gap: "8px 12px" }}>
+                      {item.submenu.map((sub) => (
+                        <Link
+                          key={sub.label}
+                          href={sub.href}
+                          className="dropdown-link"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>
 
-        {/* Right CTA & Info */}
-        <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <div>
-            <div style={{ fontSize: "0.9rem", fontWeight: 700, color: isDarkBg ? "#ffffff" : "var(--text-dark)" }}>+96599402446</div>
-          </div>
-
-          {/* Book Now CTA */}
-          <Link
-            href="/contact#contact"
-            className={isDarkBg ? "btn-on-brand" : "btn-primary"}
-            style={{ padding: "10px 22px", fontSize: "0.88rem", whiteSpace: "nowrap" }}
+        {/* Right CTA */}
+        <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <a
+            href={`tel:${COMPANY_PHONE_E164}`}
+            style={{
+              fontSize: "0.9rem",
+              fontWeight: 700,
+              color: isDarkBg ? "#ffffff" : "var(--text-dark)",
+              textDecoration: "none",
+              marginRight: 8,
+              transition: "color 0.25s ease",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#5350a2";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = isDarkBg ? "#ffffff" : "var(--text-dark)";
+            }}
           >
-            Book Now
+            {COMPANY_PHONE_DISPLAY}
+          </a>
+          <Link
+            href="/contact"
+            className={isDarkBg ? "btn-talk-dark" : "btn-talk-light"}
+            style={{
+              padding: "10px 22px",
+              fontSize: "0.85rem",
+              fontWeight: 700,
+              borderRadius: "50px",
+              textDecoration: "none",
+              transition: "all 0.3s ease",
+              whiteSpace: "nowrap",
+              backgroundColor: isDarkBg ? "transparent" : "#5350a2",
+              color: "#ffffff",
+              border: isDarkBg ? "2px solid #ffffff" : "2px solid #5350a2",
+            }}
+          >
+            Let's Talk Business
           </Link>
         </div>
 
         {/* Hamburger */}
-        <button className={`hamburger ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", cursor: "pointer", display: "none", flexDirection: "column", gap: 5 }}>
+        <button
+          className={`hamburger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            display: "none",
+            flexDirection: "column",
+            gap: 5
+          }}
+        >
           {[0, 1, 2].map(i => (
-            <span key={i} style={{ display: "block", width: 24, height: 2, background: isDarkBg ? "#fff" : "var(--secondary)", transition: "all 0.3s" }} />
+            <span
+              key={i}
+              style={{
+                display: "block",
+                width: 24,
+                height: 2,
+                background: isDarkBg ? "#fff" : "#1f2937",
+                transition: "all 0.3s"
+              }}
+            />
           ))}
         </button>
       </div>
 
-
+      {/* Mobile Menu */}
       {menuOpen && (
         <nav
           style={{
@@ -119,34 +238,107 @@ export default function Navbar() {
             gap: 4,
           }}
         >
-          {navLinks.map((link) => {
-            const active = pathname === link.href;
+          {navItems.map((item, index) => {
+            const isExpanded = expandedMobile === index;
             return (
-              <Link
-                key={link.href}
-                href={link.href}
-                prefetch={link.href === "/services" ? false : undefined}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  color: active ? "var(--primary)" : "var(--secondary)",
-                  textDecoration: "none",
-                  fontWeight: 700,
-                  padding: "12px 0",
-                  borderBottom: "1px solid #f1f5f9",
-                }}
-              >
-                {link.label}
-              </Link>
+              <div key={item.label} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                <button
+                  type="button"
+                  onClick={() => setExpandedMobile(isExpanded ? null : index)}
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    background: "none",
+                    border: "none",
+                    color: "var(--text-dark)",
+                    fontWeight: 700,
+                    fontSize: "0.92rem",
+                    padding: "14px 0",
+                    cursor: "pointer",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {item.label}
+                </button>
+                
+                {/* Mobile Submenu Accordion */}
+                {isExpanded && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 12,
+                      padding: "0 0 16px 12px",
+                      animation: "mobileFadeIn 0.25s ease",
+                    }}
+                  >
+                    {item.submenu.map((sub) => (
+                      <Link
+                        key={sub.label}
+                        href={sub.href}
+                        onClick={() => {
+                          setMenuOpen(false);
+                          setExpandedMobile(null);
+                        }}
+                        style={{
+                          color: "var(--text-muted)",
+                          textDecoration: "none",
+                          fontSize: "0.85rem",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             );
           })}
-          <Link
-            href="/contact#contact"
-            onClick={() => setMenuOpen(false)}
-            className="btn-primary"
-            style={{ marginTop: 12, width: "100%" }}
-          >
-            Book Now
-          </Link>
+
+          {/* Mobile CTA Buttons */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 16 }}>
+            <a
+              href={`tel:${COMPANY_PHONE_E164}`}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "#5350a2",
+                color: "#ffffff",
+                fontWeight: 700,
+                fontSize: "0.88rem",
+                padding: "12px",
+                borderRadius: "50px",
+                textDecoration: "none",
+                textAlign: "center",
+              }}
+            >
+              {COMPANY_PHONE_DISPLAY}
+            </a>
+            <Link
+              href="/contact"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "2px solid #5350a2",
+                color: "#5350a2",
+                fontWeight: 700,
+                fontSize: "0.88rem",
+                padding: "10px",
+                borderRadius: "50px",
+                textDecoration: "none",
+                textAlign: "center",
+              }}
+            >
+              Let's Talk Business
+            </Link>
+          </div>
         </nav>
       )}
     </header>

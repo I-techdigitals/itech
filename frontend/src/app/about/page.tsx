@@ -65,7 +65,7 @@ export default function AboutPage() {
                 text: "We believe in absolute transparency, relentless innovation, and a customer-first approach. Excellence is not just our goal—it is our standard in every single project.",
               },
             ].map(item => (
-              <div key={item.title} className="card" style={{ padding: "40px 44px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div key={item.title} id={item.title.toLowerCase().replace(" ", "-")} className="card" style={{ padding: "40px 44px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", scrollMarginTop: "100px" }}>
                 <div className="icon-brand" style={{ marginBottom: 16, lineHeight: 0 }}>{item.icon}</div>
                 <h2 style={{ fontFamily: "'Baskervville',serif", fontSize: "1.7rem", color: "var(--text-dark)", marginBottom: 14 }}>{item.title}</h2>
                 <p style={{ fontSize: "0.95rem", color: "var(--text-muted)", lineHeight: 1.85 }}>{item.text}</p>

@@ -199,7 +199,7 @@ export default function CareersPageClient() {
         </div>
       </section>
 
-      <section className="section-py" style={{ background: "#fff" }}>
+      <section className="section-py" style={{ background: "#fff", scrollMarginTop: "100px" }} id="why-us">
         <div className="container">
           <div style={sectionHeaderStyle}>
             <div className="section-tag">Why Work With Us</div>
@@ -516,7 +516,7 @@ export default function CareersPageClient() {
         </div>
       </section>
 
-      <section className="section-py bg-brand-pattern">
+      <section className="section-py bg-brand-pattern" style={{ scrollMarginTop: "100px" }} id="benefits">
         <div className="container">
           <div style={{ ...sectionHeaderStyle, marginBottom: 34 }}>
             <div style={{ ...eyebrowStyle, margin: "0 auto 16px", color: "#ffffff" }}>Company Benefits</div>
