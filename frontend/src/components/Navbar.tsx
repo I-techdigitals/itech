@@ -120,6 +120,10 @@ export default function Navbar() {
                   style={{
                     color: isDarkBg ? "#ffffff" : "#1f2937",
                   }}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setExpandedMobile(null);
+                  }}
                 >
                   {item.label}
                 </Link>
@@ -133,6 +137,10 @@ export default function Navbar() {
                           key={sub.label}
                           href={sub.href}
                           className="dropdown-link"
+                          onClick={() => {
+                            setMenuOpen(false);
+                            setExpandedMobile(null);
+                          }}
                         >
                           {sub.label}
                         </Link>
