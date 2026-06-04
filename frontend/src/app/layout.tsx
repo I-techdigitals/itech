@@ -3,6 +3,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { mediaUrl } from "@/lib/supabase";
+
+const LOGO_SRC = mediaUrl("/images/Logo.png");
+const BRAND_LOGO_SRC = mediaUrl("/images/Logo_brand.png");
 
 export const metadata: Metadata = {
   title: "I-TECH Digitals – Envision. Execute. Elevate.",
@@ -12,12 +16,12 @@ export const metadata: Metadata = {
     "I-TECH Digitals, digital agency Kuwait, web development, branding, social media, animations, videography, app development",
   icons: {
     icon: [
-      { url: "/images/Logo_brand.png", type: "image/png" },
+      { url: BRAND_LOGO_SRC, type: "image/png" },
     ],
     apple: [
-      { url: "/images/Logo.png", type: "image/png" },
+      { url: LOGO_SRC, type: "image/png" },
     ],
-    shortcut: "/images/Logo_brand.png",
+    shortcut: BRAND_LOGO_SRC,
   },
   openGraph: {
     title: "I-TECH Digitals – Envision. Execute. Elevate.",
@@ -26,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "I-TECH Digitals",
-    images: [{ url: "/images/Logo.png", width: 400, height: 300, alt: "I-TECH Digitals Logo" }],
+    images: [{ url: LOGO_SRC, width: 400, height: 300, alt: "I-TECH Digitals Logo" }],
   },
 };
 

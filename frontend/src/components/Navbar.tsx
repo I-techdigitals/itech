@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164 } from "@/config/site";
+import { mediaUrl } from "@/lib/supabase";
+
+const LOGO_SRC = mediaUrl("/images/Logo.png");
 
 const navItems = [
   {
@@ -91,7 +94,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
           <img
-            src="/images/Logo.png"
+            src={LOGO_SRC}
             alt="I-TECH Digitals"
             style={{
               height: 40,

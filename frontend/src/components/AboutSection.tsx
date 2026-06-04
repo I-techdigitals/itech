@@ -1,5 +1,9 @@
 "use client";
 import Link from "next/link";
+import { mediaUrl } from "@/lib/supabase";
+
+const TEAM_IMAGE_SRC = mediaUrl("/images/4d40ec48-1229-4a4d-9afc-874fcc654642.png");
+const PROFESSIONAL_IMAGE_SRC = mediaUrl("/images/creatopy-M35xxKGb_tA-unsplash.jpg");
 
 export default function AboutSection() {
   return (
@@ -12,11 +16,11 @@ export default function AboutSection() {
             <div className="about-images-grid">
               {/* Image 1 */}
               <div className="about-img-1" style={{ borderRadius: 24, overflow: "hidden", position: "relative", boxShadow: "var(--shadow-lg)" }}>
-                <img src="/images/4d40ec48-1229-4a4d-9afc-874fcc654642.png" alt="Team Collaboration" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src={TEAM_IMAGE_SRC} alt="Team Collaboration" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
               {/* Image 2 */}
               <div className="about-img-2" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "var(--shadow-lg)" }}>
-                <img src="/images/creatopy-M35xxKGb_tA-unsplash.jpg" alt="IT Professional" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img src={PROFESSIONAL_IMAGE_SRC} alt="IT Professional" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
             </div>
 

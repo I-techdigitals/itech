@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import ContactSection from "@/components/ContactSection";
+import { mediaUrl } from "@/lib/supabase";
+
+const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
 
 export const metadata: Metadata = {
   title: "Contact I-TECH Digitals",
@@ -11,7 +14,7 @@ export default function ContactPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Page Hero */}
       <div style={{
-        background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg')",
+        background: `linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('${PAGE_HERO_IMAGE_SRC}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         padding: "120px 0 100px",

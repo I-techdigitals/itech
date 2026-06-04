@@ -1,3 +1,5 @@
+import { mediaUrl } from "@/lib/supabase";
+
 export interface ServiceCard {
   title: string;
   description: string;
@@ -52,7 +54,7 @@ export const serviceCards: ServiceCard[] = [
 
 export const serviceFormOptions = [...serviceCards.map((s) => s.title), "Other"];
 
-export const serviceDetails: ServiceDetail[] = [
+const rawServiceDetails: ServiceDetail[] = [
   {
     num: "01",
     title: "Web & App Development",
@@ -207,3 +209,9 @@ export const serviceDetails: ServiceDetail[] = [
     ],
   },
 ];
+
+export const serviceDetails: ServiceDetail[] = rawServiceDetails.map((service) => ({
+  ...service,
+  image: mediaUrl(service.image),
+  video: service.video ? mediaUrl(service.video) : undefined,
+}));

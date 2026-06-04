@@ -2,6 +2,9 @@
 
 import { useState, useRef } from "react";
 import API_URL from "@/config/api";
+import { mediaUrl } from "@/lib/supabase";
+
+const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
 
 const JOBS = [
   {
@@ -156,7 +159,7 @@ export default function CareersPageClient() {
     <main style={{ background: "#ffffff", paddingTop: 72 }}>
       <section
         style={{
-          background: "linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg')",
+          background: `linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('${PAGE_HERO_IMAGE_SRC}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           padding: "120px 0 100px",

@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { mediaUrl } from "@/lib/supabase";
 
 const features = [
   { icon: <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>, title: "Branding", desc: "Crafting unique identities." },
@@ -9,7 +10,8 @@ const features = [
   { icon: <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>, title: "Digital Marketing", desc: "Data-driven growth." },
 ];
 
-const INTRO_VIDEO_SRC = "/video/I-Tech.mp4";
+const INTRO_VIDEO_SRC = mediaUrl("/video/I-Tech.mp4");
+const HERO_IMAGE_SRC = mediaUrl("/images/hero.webp");
 
 export default function HeroSection() {
   return (
@@ -92,7 +94,7 @@ export default function HeroSection() {
             <div style={{ position: "absolute", inset: 0, border: "2px dashed rgba(255,255,255,0.1)", borderRadius: "50%", transform: "scale(0.95)", pointerEvents: "none" }} />
             <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(83, 80, 162,0.3)", borderRadius: "50%", transform: "scale(0.75)", pointerEvents: "none" }} />
 
-            <img src="/images/hero.webp" alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }} />
+            <img src={HERO_IMAGE_SRC} alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }} />
 
             {/* Floating cards */}
             <div className="floating-card-1">

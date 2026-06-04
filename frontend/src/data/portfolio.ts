@@ -1,3 +1,5 @@
+import { mediaUrl } from "@/lib/supabase";
+
 export const PORTFOLIO_CATEGORIES = [
   "All",
   "Web & App Development",
@@ -39,7 +41,7 @@ function projectYearValue(project: PortfolioProject) {
   return Number.isNaN(year) ? 0 : year;
 }
 
-export const portfolioProjects: PortfolioProject[] = [
+const rawPortfolioProjects: PortfolioProject[] = [
   { title: "Afreya Kuwait Branding", cat: "Branding", desc: "Luxurious brand identity design, logo mark, and typography system for a perfume brand.", img: "/images/portfolio/Afreya Kuwait Branding.png", color: "#5d5ca3", year: "2023" },
   { title: "Afreya Product Illustration", cat: "Illustration", desc: "Creative 3D-style product visuals and motion-ready brand assets for premium fragrance campaigns.", img: "/images/portfolio/Afreya Product Illustration.png", color: "#6c6bb0", year: "2023" },
   { title: "Afreya Product Photography", cat: "Photography & Videography", desc: "Elegant, minimalist product photography campaign for the premium fragrance line.", img: "/images/portfolio/Afreya Scented Product Photography.png", color: "#5d5ca3", year: "2023" },
@@ -89,6 +91,11 @@ export const portfolioProjects: PortfolioProject[] = [
   { title: "Timeless Engagements", cat: "Photography & Videography", desc: "Capturing love, joy, and delicate details of engagement ceremonies.", img: "/images/portfolio/Timeless Engagements Photography.png", color: "#5d5ca3", year: "2023" },
   { title: "Twins Birthday Photography", cat: "Photography & Videography", desc: "Fun-filled, colorful outdoor double birthday bash coverage.", img: "/images/portfolio/Twins Birthday Photography.png", color: "#6c6bb0", year: "2024" },
 ];
+
+export const portfolioProjects: PortfolioProject[] = rawPortfolioProjects.map((project) => ({
+  ...project,
+  img: mediaUrl(project.img),
+}));
 
 export function getCuratedPortfolioProjects() {
   const bestByCategoryAndNiche = new Map<string, PortfolioProject>();

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { mediaUrl } from "@/lib/supabase";
 
-const INTRO_VIDEO_SRC = "/video/I-Tech.mp4";
+const INTRO_VIDEO_SRC = mediaUrl("/video/I-Tech.mp4");
 
 export default function IntroVideoBanner() {
   const videoRef = useRef<HTMLVideoElement>(null);

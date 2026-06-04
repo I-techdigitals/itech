@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164, WHATSAPP_URL } from "@/config/site";
+import { mediaUrl } from "@/lib/supabase";
+
+const LOGO_SRC = mediaUrl("/images/Logo.png");
 
 export default function Footer() {
   return (
@@ -45,7 +48,7 @@ export default function Footer() {
             {/* Brand Info */}
             <div>
               <div style={{ display: "flex", alignItems: "center", marginBottom: 20 }}>
-                <img src="/images/Logo.png" alt="I-TECH Digitals" style={{ height: 40, objectFit: "contain", transform: "scale(var(--logo-scale))", transformOrigin: "left center", filter: "brightness(0) invert(1)" }} />
+                <img src={LOGO_SRC} alt="I-TECH Digitals" style={{ height: 40, objectFit: "contain", transform: "scale(var(--logo-scale))", transformOrigin: "left center", filter: "brightness(0) invert(1)" }} />
               </div>
               <p style={{ fontSize: "0.95rem", lineHeight: 1.7, marginBottom: 24, color: "rgba(255,255,255,0.75)" }}>
                 Envision. Execute. Elevate. Pioneering design excellence and transforming your vision into captivating reality across Kuwait and Pakistan.
