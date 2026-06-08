@@ -30,7 +30,7 @@ function encodeStoragePath(path) {
 
 export function isResizableMediaImage(path) {
   const objectPath = getStorageObjectPath(path)
-  return Boolean(objectPath && imageExtensions.test(objectPath))
+  return Boolean(supabaseUrl && objectPath && imageExtensions.test(objectPath))
 }
 
 export function mediaUrl(path, transform = undefined) {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactSection from "@/components/ContactSection";
+import PageHeroImage from "@/components/PageHeroImage";
 import { mediaUrl } from "@/lib/supabase";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
@@ -14,14 +15,13 @@ export default function ContactPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Page Hero */}
       <div style={{
-        background: `linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('${PAGE_HERO_IMAGE_SRC}')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        background: "var(--hero-bg)",
         padding: "120px 0 100px",
         textAlign: "center",
         position: "relative",
         overflow: "hidden"
       }}>
+        <PageHeroImage src={PAGE_HERO_IMAGE_SRC} alt="" />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{
             display: "inline-block",

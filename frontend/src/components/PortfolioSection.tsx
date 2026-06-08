@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import OptimizedImage from "@/components/OptimizedImage";
 import { type PortfolioProject, getCuratedPortfolioProjects } from "@/data/portfolio";
 
 function PortfolioCard({ project }: { project: PortfolioProject }) {
@@ -30,9 +31,13 @@ function PortfolioCard({ project }: { project: PortfolioProject }) {
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         ) : (
-          <img
+          <OptimizedImage
             src={project.img}
             alt={project.title}
+            width={640}
+            height={480}
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, (max-width: 991px) 50vw, 33vw"
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
             }}

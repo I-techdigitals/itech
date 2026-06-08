@@ -2,6 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import ImagePrefetcher from "@/components/ImagePrefetcher";
+import OptimizedImage from "@/components/OptimizedImage";
+import PageHeroImage from "@/components/PageHeroImage";
 import {
   PORTFOLIO_CATEGORIES,
   type PortfolioCategoryFilter,
@@ -61,10 +64,13 @@ function OurWorkCard({
             }}
           />
         ) : (
-          <img
+          <OptimizedImage
             src={project.img}
             alt={project.title}
+            width={640}
+            height={480}
             loading="lazy"
+            sizes="(max-width: 720px) 100vw, (max-width: 1200px) 50vw, 380px"
             decoding="async"
             style={{
               width: "100%",
@@ -138,6 +144,15 @@ export default function OurWorkPage() {
     if (active === "All") return grouped;
     return grouped.filter((g) => g.category === active);
   }, [active, grouped]);
+  const prefetchedProjectImages = useMemo(
+    () =>
+      displayedGroups
+        .flatMap((group) => group.projects)
+        .map((project) => project.img)
+        .filter((src) => !/\.(mp4|webm|ogg)$/i.test(src))
+        .slice(0, 8),
+    [displayedGroups]
+  );
 
   const totalVisible = displayedGroups.reduce((sum, g) => sum + g.projects.length, 0);
 
@@ -145,15 +160,14 @@ export default function OurWorkPage() {
     <div style={{ paddingTop: 72 }}>
       <div
         style={{
-          background: `linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('${PAGE_HERO_IMAGE_SRC}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          background: "var(--hero-bg)",
           padding: "120px 0 100px",
           textAlign: "center",
           position: "relative",
           overflow: "hidden",
         }}
       >
+        <PageHeroImage src={PAGE_HERO_IMAGE_SRC} alt="" />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div
             style={{
@@ -178,6 +192,7 @@ export default function OurWorkPage() {
       </div>
 
       <section className="section-py" style={{ background: "#fff" }}>
+        <ImagePrefetcher images={prefetchedProjectImages} width={760} />
         <div className="container">
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center", marginBottom: 24 }}>
             {PORTFOLIO_CATEGORIES.map((cat) => (

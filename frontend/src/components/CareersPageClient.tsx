@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import API_URL from "@/config/api";
+import PageHeroImage from "@/components/PageHeroImage";
 import { mediaUrl } from "@/lib/supabase";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
@@ -159,15 +160,14 @@ export default function CareersPageClient() {
     <main style={{ background: "#ffffff", paddingTop: 72 }}>
       <section
         style={{
-          background: `linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('${PAGE_HERO_IMAGE_SRC}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          background: "var(--hero-bg)",
           padding: "120px 0 100px",
           textAlign: "center",
           position: "relative",
           overflow: "hidden",
         }}
       >
+        <PageHeroImage src={PAGE_HERO_IMAGE_SRC} alt="" />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div
             style={{
@@ -806,18 +806,6 @@ const eyebrowStyle: React.CSSProperties = {
   marginBottom: 20,
 };
 
-const heroSecondaryButtonStyle: React.CSSProperties = {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "12px 30px",
-  borderRadius: 50,
-  border: "1px solid rgba(255,255,255,0.45)",
-  color: "#fff",
-  textDecoration: "none",
-  fontWeight: 700,
-};
-
 const sectionHeaderStyle: React.CSSProperties = {
   textAlign: "center",
   maxWidth: 720,
@@ -935,11 +923,6 @@ const lightInputStyle: React.CSSProperties = {
   fontSize: "0.95rem",
   fontFamily: "inherit",
   outline: "none",
-};
-
-const fileInputStyle: React.CSSProperties = {
-  ...lightInputStyle,
-  padding: "12px 14px",
 };
 
 const benefitsGridStyle: React.CSSProperties = {

@@ -1,3 +1,5 @@
+"use client";
+
 import OptimizedImage from "@/components/OptimizedImage";
 
 type PageHeroImageProps = {

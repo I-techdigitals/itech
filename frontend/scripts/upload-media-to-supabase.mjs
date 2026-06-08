@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 
 const MEDIA_BUCKET = process.env.SUPABASE_MEDIA_BUCKET || 'media'
 const MAX_FILE_SIZE = Number(process.env.SUPABASE_MEDIA_FILE_SIZE_LIMIT || 1024 * 1024 * 100)
+const CACHE_CONTROL_SECONDS = process.env.SUPABASE_MEDIA_CACHE_CONTROL || '31536000'
 const PROJECT_ROOT = process.cwd()
 const UPLOAD_CACHE_DIR = path.join(PROJECT_ROOT, '.upload-cache')
 
@@ -67,7 +68,7 @@ async function main() {
     const { error } = await supabase.storage
       .from(MEDIA_BUCKET)
       .upload(file.bucketPath, fs.readFileSync(uploadPath), {
-        cacheControl: '31536000',
+        cacheControl: CACHE_CONTROL_SECONDS,
         contentType,
         upsert: true,
       })

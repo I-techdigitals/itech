@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHeroImage from "@/components/PageHeroImage";
 import { mediaUrl } from "@/lib/supabase";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
@@ -14,14 +15,13 @@ export default function AboutPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Hero */}
       <div style={{ 
-        background: `linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('${PAGE_HERO_IMAGE_SRC}')`, 
-        backgroundSize: "cover", 
-        backgroundPosition: "center",
+        background: "var(--hero-bg)",
         padding: "120px 0 100px", 
         textAlign: "center", 
         position: "relative", 
         overflow: "hidden" 
       }}>
+        <PageHeroImage src={PAGE_HERO_IMAGE_SRC} alt="" />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div className="section-tag" style={{ color: "#fff" }}>Our Story</div>
           <h1 className="section-title" style={{ color: "#fff" }}>About <span style={{ color: "#fff" }}>I-TECH Digitals</span></h1>

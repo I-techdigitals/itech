@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164 } from "@/config/site";
+import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
 
 const LOGO_SRC = mediaUrl("/images/Logo.png");
@@ -93,11 +94,17 @@ export default function Navbar() {
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative", zIndex: 1, pointerEvents: "auto" }}>
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
-          <img
+          <OptimizedImage
             src={LOGO_SRC}
             alt="I-TECH Digitals"
+            width={180}
+            height={40}
+            preload
+            fetchPriority="high"
+            sizes="180px"
             style={{
               height: 40,
+              width: "auto",
               objectFit: "contain",
               transform: "scale(var(--logo-scale))",
               transformOrigin: "left center",

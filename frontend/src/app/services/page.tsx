@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ImagePrefetcher from "@/components/ImagePrefetcher";
+import OptimizedImage from "@/components/OptimizedImage";
+import PageHeroImage from "@/components/PageHeroImage";
 import { serviceDetails } from "@/data/services";
-import { mediaUrl } from "@/lib/supabase";
+import { mediaTransformUrl, mediaUrl } from "@/lib/supabase";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
+const SERVICE_PREFETCH_IMAGES = serviceDetails
+  .map((service) => service.image)
+  .filter((src) => !/\.(mp4|webm|ogg)$/i.test(src))
+  .slice(0, 6);
 
 export const metadata: Metadata = {
   title: "Our Services – I-TECH Digitals",
@@ -16,14 +23,13 @@ export default function ServicesPage() {
     <div style={{ paddingTop: 72 }}>
       {/* Hero */}
       <div style={{ 
-        background: `linear-gradient(rgba(108, 107, 176,0.88), rgba(108, 107, 176,0.95)), url('${PAGE_HERO_IMAGE_SRC}')`, 
-        backgroundSize: "cover", 
-        backgroundPosition: "center",
+        background: "var(--hero-bg)",
         padding: "120px 0 100px", 
         textAlign: "center", 
         position: "relative", 
         overflow: "hidden" 
       }}>
+        <PageHeroImage src={PAGE_HERO_IMAGE_SRC} alt="" />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ 
             display: "inline-block", 
@@ -45,6 +51,7 @@ export default function ServicesPage() {
 
       {/* Detailed service cards */}
       <section className="section-py" style={{ background: "#fff" }}>
+        <ImagePrefetcher images={SERVICE_PREFETCH_IMAGES} width={760} />
         <div className="container">
           <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
             {serviceDetails.map((s, i) => (
@@ -120,7 +127,7 @@ function ServiceVisual({ service }: { service: (typeof serviceDetails)[number] }
       {service.video ? (
         <video
           src={service.video}
-          poster={service.image}
+          poster={mediaTransformUrl(service.image, { width: 760, height: 760 })}
           autoPlay
           muted
           loop
@@ -135,10 +142,13 @@ function ServiceVisual({ service }: { service: (typeof serviceDetails)[number] }
           }}
         />
       ) : (
-        <img
+        <OptimizedImage
           src={service.image}
           alt={service.title}
+          width={760}
+          height={760}
           loading="lazy"
+          sizes="(max-width: 991px) min(100vw, 380px), 380px"
           decoding="async"
           style={{
             width: "100%",

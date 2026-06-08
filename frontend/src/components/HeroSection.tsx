@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
 
 const features = [
@@ -94,7 +95,16 @@ export default function HeroSection() {
             <div style={{ position: "absolute", inset: 0, border: "2px dashed rgba(255,255,255,0.1)", borderRadius: "50%", transform: "scale(0.95)", pointerEvents: "none" }} />
             <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(83, 80, 162,0.3)", borderRadius: "50%", transform: "scale(0.75)", pointerEvents: "none" }} />
 
-            <img src={HERO_IMAGE_SRC} alt="IT Expert" style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }} />
+            <OptimizedImage
+              src={HERO_IMAGE_SRC}
+              alt="IT Expert"
+              width={900}
+              height={900}
+              preload
+              fetchPriority="high"
+              sizes="(max-width: 991px) 0px, 50vw"
+              style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }}
+            />
 
             {/* Floating cards */}
             <div className="floating-card-1">

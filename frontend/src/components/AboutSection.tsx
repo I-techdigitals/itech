@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
 
 const TEAM_IMAGE_SRC = mediaUrl("/images/4d40ec48-1229-4a4d-9afc-874fcc654642.png");
@@ -16,11 +17,25 @@ export default function AboutSection() {
             <div className="about-images-grid">
               {/* Image 1 */}
               <div className="about-img-1" style={{ borderRadius: 24, overflow: "hidden", position: "relative", boxShadow: "var(--shadow-lg)" }}>
-                <img src={TEAM_IMAGE_SRC} alt="Team Collaboration" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <OptimizedImage
+                  src={TEAM_IMAGE_SRC}
+                  alt="Team Collaboration"
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 991px) 90vw, 320px"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
               {/* Image 2 */}
-              <div className="about-img-2" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "var(--shadow-lg)" }}>
-                <img src={PROFESSIONAL_IMAGE_SRC} alt="IT Professional" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div className="about-img-2" style={{ borderRadius: 24, overflow: "hidden", position: "relative", boxShadow: "var(--shadow-lg)" }}>
+                <OptimizedImage
+                  src={PROFESSIONAL_IMAGE_SRC}
+                  alt="IT Professional"
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 991px) 90vw, 300px"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             </div>
 
