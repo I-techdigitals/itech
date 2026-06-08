@@ -52,10 +52,10 @@ export default function Footer() {
                 <OptimizedImage
                   src={LOGO_SRC}
                   alt="I-TECH Digitals"
-                  width={180}
-                  height={40}
+                  width={150}
+                  height={150}
                   loading="lazy"
-                  sizes="180px"
+                  sizes="150px"
                   style={{ height: 40, width: "auto", objectFit: "contain", transform: "scale(var(--logo-scale))", transformOrigin: "left center", filter: "brightness(0) invert(1)" }}
                 />
               </div>

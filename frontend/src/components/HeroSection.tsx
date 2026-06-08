@@ -98,12 +98,12 @@ export default function HeroSection() {
             <OptimizedImage
               src={HERO_IMAGE_SRC}
               alt="IT Expert"
-              width={900}
-              height={900}
+              width={1023}
+              height={1537}
               preload
               fetchPriority="high"
               sizes="(max-width: 991px) 0px, 50vw"
-              style={{ position: "absolute", top: "-20%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "150%", width: "150%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }}
+              style={{ position: "absolute", top: "-8%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "138%", width: "138%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }}
             />
 
             {/* Floating cards */}

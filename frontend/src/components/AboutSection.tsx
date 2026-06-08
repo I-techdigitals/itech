@@ -21,6 +21,7 @@ export default function AboutSection() {
                   src={TEAM_IMAGE_SRC}
                   alt="Team Collaboration"
                   fill
+                  transformAspectRatio={1447 / 1087}
                   loading="lazy"
                   sizes="(max-width: 991px) 90vw, 320px"
                   style={{ objectFit: "cover" }}
@@ -32,6 +33,7 @@ export default function AboutSection() {
                   src={PROFESSIONAL_IMAGE_SRC}
                   alt="IT Professional"
                   fill
+                  transformAspectRatio={6000 / 4000}
                   loading="lazy"
                   sizes="(max-width: 991px) 90vw, 300px"
                   style={{ objectFit: "cover" }}

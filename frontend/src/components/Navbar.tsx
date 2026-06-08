@@ -91,17 +91,17 @@ export default function Navbar() {
         padding: scrolled ? "10px 0" : "20px 0",
       }}
     >
-      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative", zIndex: 1, pointerEvents: "auto" }}>
+      <div className="container" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", position: "relative", zIndex: 1, pointerEvents: "auto" }}>
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
           <OptimizedImage
             src={LOGO_SRC}
             alt="I-TECH Digitals"
-            width={180}
-            height={40}
+            width={150}
+            height={150}
             preload
             fetchPriority="high"
-            sizes="180px"
+            sizes="150px"
             style={{
               height: 40,
               width: "auto",
@@ -115,7 +115,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav style={{ display: "flex", alignItems: "center", gap: 28, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
+        <nav style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 28, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
           {navItems.map((item) => {
             const isGrid = item.submenu && item.submenu.length > 4;
 
@@ -161,7 +161,7 @@ export default function Navbar() {
         </nav>
 
         {/* Right CTA */}
-        <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div className="desktop-nav" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 12 }}>
           <a
             href={`tel:${COMPANY_PHONE_E164}`}
             style={{
@@ -172,6 +172,7 @@ export default function Navbar() {
               marginRight: 8,
               transition: "color 0.25s ease",
               whiteSpace: "nowrap",
+              lineHeight: 1,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "#5350a2";
@@ -186,6 +187,8 @@ export default function Navbar() {
             href="/contact"
             className={isDarkBg ? "btn-talk-dark" : "btn-talk-light"}
             style={{
+              display: "inline-flex",
+              alignItems: "center",
               padding: "10px 22px",
               fontSize: "0.85rem",
               fontWeight: 700,
@@ -196,6 +199,7 @@ export default function Navbar() {
               backgroundColor: isDarkBg ? "transparent" : "#5350a2",
               color: "#ffffff",
               border: isDarkBg ? "2px solid #ffffff" : "2px solid #5350a2",
+              lineHeight: 1,
             }}
           >
             Let&apos;s Talk Business

@@ -63,11 +63,16 @@ export function mediaTransformUrl(path, transform = {}) {
     return mediaUrl(path)
   }
 
-  return mediaUrl(objectPath, {
+  const nextTransform = {
     quality: SUPABASE_IMAGE_QUALITY,
-    resize: 'cover',
     ...transform,
-  })
+  }
+
+  if (nextTransform.width && nextTransform.height && !nextTransform.resize) {
+    nextTransform.resize = 'cover'
+  }
+
+  return mediaUrl(objectPath, nextTransform)
 }
 
 export function mediaImageLoader({ src, width, quality }) {

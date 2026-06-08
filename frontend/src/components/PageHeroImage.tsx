@@ -14,6 +14,7 @@ export default function PageHeroImage({ src, alt }: PageHeroImageProps) {
         src={src}
         alt={alt}
         fill
+        transformAspectRatio={3354 / 6240}
         preload
         fetchPriority="high"
         sizes="100vw"
