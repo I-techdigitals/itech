@@ -70,7 +70,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isDarkBg = !scrolled;
+  const isDarkBg = !scrolled && !menuOpen;
 
   return (
     <header
@@ -83,13 +83,13 @@ export default function Navbar() {
         isolation: "isolate",
         pointerEvents: "auto",
         transition: "all 0.3s ease",
-        background: scrolled ? "#ffffff" : "transparent",
-        boxShadow: scrolled ? "0 4px 20px rgba(108, 107, 176,0.05)" : "none",
-        padding: scrolled ? "10px 0" : "20px 0",
+        background: (scrolled || menuOpen) ? "#ffffff" : "transparent",
+        boxShadow: (scrolled || menuOpen) ? "0 4px 20px rgba(108, 107, 176,0.05)" : "none",
+        padding: (scrolled || menuOpen) ? "10px 0" : "20px 0",
       }}
     >
       <div
-        className="container"
+        className="container navbar-container"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr auto 1fr",
@@ -255,6 +255,8 @@ export default function Navbar() {
             padding: "16px 24px 22px",
             display: "grid",
             gap: 4,
+            maxHeight: "calc(100vh - 80px)",
+            overflowY: "auto",
           }}
         >
           {navItems.map((item, index) => {
