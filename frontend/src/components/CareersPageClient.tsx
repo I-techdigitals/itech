@@ -5,84 +5,26 @@ import API_URL from "@/config/api";
 import PageHeroImage from "@/components/PageHeroImage";
 import { mediaUrl } from "@/lib/supabase";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import translations from "@/lib/i18n/translations";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
 
-const JOBS = [
-  {
-    title: "Frontend Developer",
-    location: "Kuwait / Remote",
-    type: "Full-time",
-    category: "Development",
-    description: "Build polished, responsive web experiences with React, Next.js, and modern frontend tooling.",
-  },
-  {
-    title: "Backend Developer",
-    location: "Kuwait / Remote",
-    type: "Full-time",
-    category: "Development",
-    description: "Design APIs, integrations, and database workflows that power reliable digital products.",
-  },
-  {
-    title: "UI/UX Designer",
-    location: "Kuwait",
-    type: "Full-time",
-    category: "Design",
-    description: "Create user-centered interfaces, wireframes, prototypes, and design systems for client projects.",
-  },
-  {
-    title: "Digital Marketing Specialist",
-    location: "Kuwait / Hybrid",
-    type: "Full-time",
-    category: "Marketing",
-    description: "Plan campaigns, manage channels, and translate brand strategy into measurable growth.",
-  },
-  {
-    title: "Sales Executive",
-    location: "Kuwait",
-    type: "Full-time",
-    category: "Sales",
-    description: "Build client relationships, qualify opportunities, and help businesses discover the right digital solutions.",
-  },
-];
-
-const BENEFITS = [
-  "Growth-focused projects",
-  "Collaborative creative team",
-  "Modern tools and workflows",
-  "Flexible work culture",
-  "Learning and mentorship",
-  "Performance recognition",
-];
-
-const WHY_ITEMS = [
-  {
-    title: "Work That Ships",
-    text: "Join a team building websites, campaigns, products, and brand systems for real businesses.",
-    icon: (
+const WHY_ICONS = [
+  (
       <svg width="36" height="36" fill="none" stroke="var(--primary)" strokeWidth="1.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.63 8.41a14.97 14.97 0 0 0-6.16 12.12c2.44-.06 4.7-.88 6.54-2.28m5.58-3.88c-.62-.62-1.5-.62-2.12 0l-5.36 5.36M15 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
       </svg>
-    ),
-  },
-  {
-    title: "Creative Ownership",
-    text: "We value sharp ideas, thoughtful execution, and people who care about the details.",
-    icon: (
+  ),
+  (
       <svg width="36" height="36" fill="none" stroke="var(--primary)" strokeWidth="1.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-3h.01M9 9a3 3 0 1 1 6 0c0 .997-.4 1.83-1.042 2.458C13.344 12.062 13 12.72 13 13.5v.5h-2v-.5c0-.78-.344-1.438-.958-2.042A3.978 3.978 0 0 1 9 9Zm-1 12h8v-2H8v2Z" />
       </svg>
-    ),
-  },
-  {
-    title: "Room To Grow",
-    text: "You will work across disciplines and keep developing your craft with each client challenge.",
-    icon: (
+  ),
+  (
       <svg width="36" height="36" fill="none" stroke="var(--primary)" strokeWidth="1.5" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M12 8c2-3 5-3 5-3v4c0 3-5 5-5 5M12 12c-2-2.5-5-2.5-5-2.5v3.5c0 2.5 5 4 5 4" />
       </svg>
-    ),
-  },
+  ),
 ];
 
 const EMPTY_FORM = {
@@ -123,7 +65,7 @@ export default function CareersPageClient() {
 
     if (!resume) {
       setStatus("error");
-      setMessage("Please upload your resume/CV.");
+      setMessage(t.careersPage.resumeRequired);
       return;
     }
 
@@ -139,7 +81,7 @@ export default function CareersPageClient() {
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(data.error || "Application could not be submitted.");
+        throw new Error(data.error || t.careersPage.submitError);
       }
 
       setSubmittedDetails({
@@ -148,13 +90,13 @@ export default function CareersPageClient() {
         email: form.email,
       });
       setStatus("success");
-      setMessage(data.message || "Application submitted successfully.");
+      setMessage(data.message || t.careersPage.submitSuccess);
       setForm(EMPTY_FORM);
       setResume(null);
       formEl?.reset();
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Application could not be submitted.");
+      setMessage(error instanceof Error ? error.message : t.careersPage.submitError);
     }
   };
 
@@ -196,10 +138,10 @@ export default function CareersPageClient() {
             {t.careersPage.heroHeading} <span style={{ color: "#fff" }}>{t.careersPage.heroHeadingSpan}</span>
           </h1>
           <p className="section-subtitle" style={{ margin: "0 auto", color: "rgba(255,255,255,0.85)" }}>
-            We are always looking for passionate, creative, and driven individuals to join our team and help us build impactful digital solutions.
+            {t.careersPage.heroSub}
           </p>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center", marginTop: 34 }}>
-            <a href="#application-form" className="btn-on-brand">Apply Now</a>
+            <a href="#application-form" className="btn-on-brand">{t.careersPage.applyNow}</a>
           </div>
         </div>
       </section>
@@ -207,14 +149,14 @@ export default function CareersPageClient() {
       <section className="section-py" style={{ background: "#fff", scrollMarginTop: "100px" }} id="why-us">
         <div className="container">
           <div style={sectionHeaderStyle}>
-            <div className="section-tag">Why Work With Us</div>
-            <h2 className="section-title">A place for builders, designers, and growth-minded people.</h2>
+            <div className="section-tag">{t.careersPage.whyTag}</div>
+            <h2 className="section-title">{t.careersPage.whyHeading}</h2>
             <p className="section-subtitle" style={{ margin: "0 auto" }}>
-              We keep the team practical, curious, and close to the work. You will have space to contribute, learn, and make visible impact.
+              {t.careersPage.whySub}
             </p>
           </div>
           <div style={threeColumnGridStyle}>
-            {WHY_ITEMS.map((item, index) => (
+            {t.careersPage.whyItems.map((item, index) => (
               <article key={item.title} style={{ ...featureCardStyle, animationDelay: `${index * 80}ms` }}>
                 <div style={{
                   width: 80,
@@ -226,7 +168,7 @@ export default function CareersPageClient() {
                   justifyContent: "center",
                   margin: "0 auto 22px",
                 }}>
-                  {item.icon}
+                  {WHY_ICONS[index]}
                 </div>
                 <h3 style={cardTitleStyle}>{item.title}</h3>
                 <p style={cardTextStyle}>{item.text}</p>
@@ -241,14 +183,14 @@ export default function CareersPageClient() {
         <div className="container">
           <div className="careers-application-layout" style={applicationLayoutStyle}>
             <div>
-              <div className="section-tag">Application Form</div>
-              <h2 className="section-title">Tell us where you can make an impact.</h2>
+              <div className="section-tag">{t.careersPage.formTag}</div>
+              <h2 className="section-title">{t.careersPage.formHeading}</h2>
               <p className="section-subtitle">
-                Upload your CV and share a short note about your experience. Accepted formats: PDF, DOC, DOCX up to 5 MB.
+                {t.careersPage.formSub}
               </p>
               <div style={contactPanelStyle}>
                 <h3 style={{ fontFamily: "'Baskervville', serif", color: "#fff", fontSize: "1.3rem", fontWeight: 700, margin: "0 0 24px" }}>
-                  Contact Information
+                  {t.careersPage.contactInfo}
                 </h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
@@ -258,7 +200,7 @@ export default function CareersPageClient() {
                       </svg>
                     </div>
                     <div>
-                      <div style={contactLabelStyle}>Email Address</div>
+                      <div style={contactLabelStyle}>{t.careersPage.emailLabel}</div>
                       <div style={contactValueStyle}>business.itechdigitals@gmail.com</div>
                     </div>
                   </div>
@@ -270,7 +212,7 @@ export default function CareersPageClient() {
                       </svg>
                     </div>
                     <div>
-                      <div style={contactLabelStyle}>Phone Number</div>
+                      <div style={contactLabelStyle}>{t.careersPage.phoneLabel}</div>
                       <div style={contactValueStyle}>+96599402446</div>
                     </div>
                   </div>
@@ -283,8 +225,8 @@ export default function CareersPageClient() {
                       </svg>
                     </div>
                     <div>
-                      <div style={contactLabelStyle}>Office Location</div>
-                      <div style={contactValueStyle}>Kuwait & Islamabad, serving worldwide</div>
+                      <div style={contactLabelStyle}>{t.careersPage.locationLabel}</div>
+                      <div style={contactValueStyle}>{t.careersPage.locationValue}</div>
                     </div>
                   </div>
                 </div>
@@ -317,41 +259,40 @@ export default function CareersPageClient() {
               )}
 
               <div className="careers-form-grid" style={formGridStyle}>
-                <label style={labelStyle}>Full Name
-                  <input name="fullName" required value={form.fullName} onChange={updateField} placeholder="Your full name" style={lightInputStyle} />
+                <label style={labelStyle}>{t.careersPage.fullName}
+                  <input name="fullName" required value={form.fullName} onChange={updateField} placeholder={t.careersPage.namePlaceholder} style={lightInputStyle} />
                 </label>
-                <label style={labelStyle}>Email
-                  <input name="email" type="email" required value={form.email} onChange={updateField} placeholder="you@example.com" style={lightInputStyle} />
+                <label style={labelStyle}>{t.careersPage.email}
+                  <input name="email" type="email" required value={form.email} onChange={updateField} placeholder={t.careersPage.emailPlaceholder} style={lightInputStyle} />
                 </label>
-                <label style={labelStyle}>Phone Number
-                  <input name="phone" type="tel" required value={form.phone} onChange={updateField} placeholder="+965 XXXX XXXX" style={lightInputStyle} />
+                <label style={labelStyle}>{t.careersPage.phone}
+                  <input name="phone" type="tel" required value={form.phone} onChange={updateField} placeholder={t.careersPage.phonePlaceholder} style={lightInputStyle} />
                 </label>
-                <label style={labelStyle}>Position Applying For
+                <label style={labelStyle}>{t.careersPage.position}
                   <select name="position" required value={form.position} onChange={updateField} style={lightInputStyle}>
-                    <option value="">Select a role</option>
-                    {JOBS.map((job) => (
-                      <option key={job.title} value={job.title}>{job.title}</option>
+                    <option value="">{t.careersPage.positionPlaceholder}</option>
+                    {t.careersPage.jobs.map((job, i) => (
+                      <option key={job.title} value={translations.en.careersPage.jobs[i].title}>{job.title}</option>
                     ))}
                   </select>
                 </label>
               </div>
 
-              <label style={labelStyle}>Experience
+              <label style={labelStyle}>{t.careersPage.experience}
                 <select name="experience" required value={form.experience} onChange={updateField} style={lightInputStyle}>
-                  <option value="">Select experience</option>
-                  <option value="0-1 years">0-1 years</option>
-                  <option value="1-3 years">1-3 years</option>
-                  <option value="3-5 years">3-5 years</option>
-                  <option value="5+ years">5+ years</option>
+                  <option value="">{t.careersPage.experiencePlaceholder}</option>
+                  {translations.en.careersPage.experienceOptions.map((val, i) => (
+                    <option key={val} value={val}>{t.careersPage.experienceOptions[i]}</option>
+                  ))}
                 </select>
               </label>
 
-              <label style={labelStyle}>Cover Letter
-                <textarea name="coverLetter" required value={form.coverLetter} onChange={updateField} rows={6} placeholder="Tell us about your work, strengths, and why this role fits you." style={{ ...lightInputStyle, resize: "vertical", lineHeight: 1.6 }} />
+              <label style={labelStyle}>{t.careersPage.coverLetter}
+                <textarea name="coverLetter" required value={form.coverLetter} onChange={updateField} rows={6} placeholder={t.careersPage.coverPlaceholder} style={{ ...lightInputStyle, resize: "vertical", lineHeight: 1.6 }} />
               </label>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <span style={labelStyle}>Resume/CV Upload</span>
+                <span style={labelStyle}>{t.careersPage.resume}</span>
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   onDragOver={(e) => {
@@ -369,7 +310,7 @@ export default function CareersPageClient() {
                         setResume(file);
                       } else {
                         setStatus("error");
-                        setMessage("Invalid file format. Please upload a PDF, DOC, or DOCX file.");
+                        setMessage(t.careersPage.invalidFile);
                       }
                     }
                   }}
@@ -481,10 +422,10 @@ export default function CareersPageClient() {
                       </div>
                       <div>
                         <span style={{ fontWeight: 600, color: "#4b5563", fontSize: "0.92rem", display: "block" }}>
-                          Drag & drop your resume, or <span style={{ color: "var(--primary)", textDecoration: "underline" }}>browse</span>
+                          {t.careersPage.uploadPrompt} <span style={{ color: "var(--primary)", textDecoration: "underline" }}>{t.careersPage.uploadBrowse}</span>
                         </span>
                         <span style={{ color: "#9ca3af", fontSize: "0.78rem", marginTop: 4, display: "block" }}>
-                          Supports PDF, DOC, DOCX up to 5 MB
+                          {t.careersPage.uploadHint}
                         </span>
                       </div>
                     </>
@@ -510,10 +451,10 @@ export default function CareersPageClient() {
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="spinner-anim">
                       <path strokeLinecap="round" d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
                     </svg>
-                    Submitting Application...
+                    {t.careersPage.submitting}
                   </>
                 ) : (
-                  "Submit Application"
+                  t.careersPage.submit
                 )}
               </button>
             </form>
@@ -524,11 +465,11 @@ export default function CareersPageClient() {
       <section className="section-py bg-brand-pattern" style={{ scrollMarginTop: "100px" }} id="benefits">
         <div className="container">
           <div style={{ ...sectionHeaderStyle, marginBottom: 34 }}>
-            <div style={{ ...eyebrowStyle, margin: "0 auto 16px", color: "#ffffff" }}>Company Benefits</div>
-            <h2 className="section-title" style={{ color: "#fff" }}>What you can expect here.</h2>
+            <div style={{ ...eyebrowStyle, margin: "0 auto 16px", color: "#ffffff" }}>{t.careersPage.benefitsSectionTag}</div>
+            <h2 className="section-title" style={{ color: "#fff" }}>{t.careersPage.benefitsSectionHeading}</h2>
           </div>
           <div style={benefitsGridStyle}>
-            {BENEFITS.map((benefit) => (
+            {t.careersPage.benefits.map((benefit) => (
               <div key={benefit} style={benefitItemStyle}>{benefit}</div>
             ))}
           </div>

@@ -1,17 +1,9 @@
 "use client";
 import { useState } from "react";
 import { postJson } from "@/lib/api";
-
-import { serviceFormOptions } from "@/data/services";
-
-const BUDGETS = [
-  "Under $500",
-  "$500 - $1,000",
-  "$1,000 - $5,000",
-  "$5,000 - $10,000",
-  "$10,000+",
-  "Not Sure",
-];
+import { serviceCards } from "@/data/services";
+import translations from "@/lib/i18n/translations";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const TIME_SLOTS = [
   "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
@@ -40,6 +32,7 @@ const EMPTY: FormData = {
 const today = new Date().toISOString().split("T")[0];
 
 export default function BookingSection() {
+  const { t } = useLanguage();
   const [form, setForm] = useState<FormData>(EMPTY);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -108,22 +101,22 @@ export default function BookingSection() {
             color: "#ffffff", letterSpacing: "1.5px", textTransform: "uppercase",
             marginBottom: 20,
           }}>
-            Book a Consultation
+            {t.booking.tag}
           </div>
           <h2 style={{
             fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 800,
             color: "#ffffff", margin: "0 0 16px", lineHeight: 1.15,
           }}>
-            Schedule Your Free{" "}
+            {t.booking.heading}{" "}
             <span style={{ color: "#ffffff" }}>
-              Discovery Call
+              {t.booking.headingSpan}
             </span>
           </h2>
           <p style={{
             color: "rgba(255,255,255,0.65)", fontSize: "1.05rem",
             maxWidth: 580, margin: "0 auto", lineHeight: 1.7,
           }}>
-            Pick a date and time that works for you. We&apos;ll send a confirmation email instantly - no waiting.
+            {t.booking.sub}
           </p>
         </div>
 
@@ -135,6 +128,7 @@ export default function BookingSection() {
               email={submittedEmail}
               emailSent={emailSent}
               message={successMessage}
+              t={t.booking}
             />
           ) : (
             <div style={{
@@ -151,7 +145,7 @@ export default function BookingSection() {
                   color: "#fca5a5", fontSize: "0.9rem", display: "flex", alignItems: "center", gap: 10,
                 }}>
                   <span style={{ fontSize: "1.2rem" }}>⚠️</span>
-                  {errorMsg || "Something went wrong. Please try again."}
+                  {errorMsg || t.booking.errorDefault}
                 </div>
               )}
 
@@ -159,16 +153,16 @@ export default function BookingSection() {
 
                  {/* Row 1 — Name & Email */}
                 <div className="form-row">
-                  <FormField label="Full Name *">
+                  <FormField label={t.booking.fullName}>
                     <input
-                      name="name" type="text" placeholder="John Doe"
+                      name="name" type="text" placeholder={t.booking.namePlaceholder}
                       required value={form.name} onChange={handle}
                       style={inputStyle}
                     />
                   </FormField>
-                  <FormField label="Email Address *">
+                  <FormField label={t.booking.email}>
                     <input
-                      name="email" type="email" placeholder="john@example.com"
+                      name="email" type="email" placeholder={t.booking.emailPlaceholder}
                       required value={form.email} onChange={handle}
                       style={inputStyle}
                     />
@@ -177,41 +171,42 @@ export default function BookingSection() {
 
                 {/* Row 2 — Phone & Service */}
                 <div className="form-row">
-                  <FormField label="Phone Number">
+                  <FormField label={t.booking.phone}>
                     <input
-                      name="phone" type="tel" placeholder="+965 XXXX XXXX"
+                      name="phone" type="tel" placeholder={t.booking.phonePlaceholder}
                       value={form.phone} onChange={handle}
                       style={inputStyle}
                     />
                   </FormField>
-                  <FormField label="Service Required *">
+                  <FormField label={t.booking.service}>
                     <select
                       name="service" required value={form.service} onChange={handle}
                       style={{ ...inputStyle, cursor: "pointer" }}
                     >
-                      <option value="">Select a service...</option>
-                      {serviceFormOptions.map((s) => (
-                        <option key={s} value={s}>{s}</option>
+                      <option value="">{t.booking.servicePlaceholder}</option>
+                      {serviceCards.map((s, i) => (
+                        <option key={s.title} value={s.title}>{t.services.cards[i].title}</option>
                       ))}
+                      <option value="Other">{t.services.formOther}</option>
                     </select>
                   </FormField>
                 </div>
 
                 {/* Row 3 — Date & Time */}
                 <div className="form-row">
-                  <FormField label="Preferred Date *">
+                  <FormField label={t.booking.date}>
                     <input
                       name="preferredDate" type="date"
                       min={today} required value={form.preferredDate} onChange={handle}
                       style={inputStyle}
                     />
                   </FormField>
-                  <FormField label="Preferred Time *">
+                  <FormField label={t.booking.time}>
                     <select
                       name="preferredTime" required value={form.preferredTime} onChange={handle}
                       style={{ ...inputStyle, cursor: "pointer" }}
                     >
-                      <option value="">Select a time slot...</option>
+                      <option value="">{t.booking.timePlaceholder}</option>
                       {TIME_SLOTS.map((t) => (
                         <option key={t} value={t}>{t}</option>
                       ))}
@@ -220,22 +215,22 @@ export default function BookingSection() {
                 </div>
 
                 {/* Row 4 — Budget */}
-                <FormField label="Estimated Budget">
+                <FormField label={t.booking.budget}>
                   <select
                     name="budget" value={form.budget} onChange={handle}
                     style={{ ...inputStyle, cursor: "pointer" }}
                   >
-                    <option value="">Select budget range (optional)...</option>
-                    {BUDGETS.map((b) => (
-                      <option key={b} value={b}>{b}</option>
+                    <option value="">{t.booking.budgetPlaceholder}</option>
+                    {t.booking.budgets.map((b, i) => (
+                      <option key={b} value={translations.en.booking.budgets[i]}>{b}</option>
                     ))}
                   </select>
                 </FormField>
 
                 {/* Row 5 — Message */}
-                <FormField label="Tell Us About Your Project">
+                <FormField label={t.booking.message}>
                   <textarea
-                    name="message" placeholder="Describe what you're looking to achieve..."
+                    name="message" placeholder={t.booking.messagePlaceholder}
                     rows={4} value={form.message} onChange={handle}
                     style={{ ...inputStyle, resize: "vertical", lineHeight: 1.6 }}
                   />
@@ -262,7 +257,7 @@ export default function BookingSection() {
                   >
                     {status === "loading" ? (
                       <>
-                        <Spinner /> Sending Booking...
+                        <Spinner /> {t.booking.submitting}
                       </>
                     ) : (
                       <>
@@ -270,7 +265,7 @@ export default function BookingSection() {
                           <rect x="3" y="4" width="18" height="17" rx="2" />
                           <path d="M8 2v4M16 2v4M3 9h18" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        Book My Consultation
+                        {t.booking.submit}
                       </>
                     )}
                   </button>
@@ -281,7 +276,7 @@ export default function BookingSection() {
                         <path d="M8 10V7a4 4 0 118 0v3" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
-                    Your info is safe. We never spam.
+                    {t.booking.privacy}
                   </p>
                 </div>
 
@@ -296,46 +291,37 @@ export default function BookingSection() {
           maxWidth: 820, margin: "32px auto 0",
         }}>
           {[
-            {
-              icon: (
-                <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
-                  <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              ),
-              title: "Instant Confirmation",
-              desc: "Get a confirmation email the moment you book.",
-            },
-            {
-              icon: (
-                <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
-                  <circle cx="12" cy="12" r="8" />
-                  <circle cx="12" cy="12" r="4" />
-                </svg>
-              ),
-              title: "No Commitment",
-              desc: "A free discovery call — no pressure, no obligation.",
-            },
-            {
-              icon: (
-                <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              ),
-              title: "We're Available Online",
-              desc: "Remote & in-person consultations available.",
-            },
-          ].map((card) => (
+            (
+              <svg key="i" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ),
+            (
+              <svg key="n" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                <circle cx="12" cy="12" r="8" />
+                <circle cx="12" cy="12" r="4" />
+              </svg>
+            ),
+            (
+              <svg key="o" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ),
+          ].map((icon, idx) => {
+            const card = t.booking.infoCards[idx];
+            return (
             <div key={card.title} style={{
               background: "rgba(255,255,255,0.04)",
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: 14, padding: "20px 24px", textAlign: "center",
             }}>
-              <div style={{ color: "#dcd6ff", marginBottom: 8, display: "inline-flex" }}>{card.icon}</div>
+              <div style={{ color: "#dcd6ff", marginBottom: 8, display: "inline-flex" }}>{icon}</div>
               <div style={{ color: "#fff", fontWeight: 600, fontSize: "0.9rem", marginBottom: 6 }}>{card.title}</div>
               <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", lineHeight: 1.5 }}>{card.desc}</div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -360,11 +346,13 @@ function SuccessCard({
   email,
   emailSent,
   message,
+  t,
 }: {
   onReset: () => void;
   email: string;
   emailSent: boolean;
   message: string;
+  t: (typeof translations)["en"]["booking"] | (typeof translations)["ar"]["booking"];
 }) {
   return (
     <div style={{
@@ -375,27 +363,27 @@ function SuccessCard({
     }}>
       <div style={{ fontSize: "4rem", marginBottom: 20 }}>🎉</div>
       <h3 style={{ color: "#fff", fontSize: "1.8rem", fontWeight: 800, margin: "0 0 12px" }}>
-        Booking Confirmed!
+        {t.successTitle}
       </h3>
       <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem", lineHeight: 1.7, margin: "0 0 12px" }}>
         {emailSent ? (
           <>
-            We&apos;ve sent a confirmation email to{" "}
+            {t.successEmail}{" "}
             <strong style={{ color: "#d2c6ff" }}>{email}</strong>.
           </>
         ) : (
-          message || "Your booking was received, but email confirmation could not be sent."
+          message || t.successNoEmail
         )}
       </p>
       <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9rem", margin: "0 0 36px" }}>
-        Our team will be in touch within 24 hours to finalize your appointment.
+        {t.successFollowUp}
       </p>
       <button
         onClick={onReset}
         className="btn-on-brand"
         style={{ padding: "14px 36px", fontFamily: "inherit" }}
       >
-        Book Another Consultation
+        {t.bookAnother}
       </button>
     </div>
   );

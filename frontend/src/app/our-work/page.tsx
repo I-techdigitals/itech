@@ -16,16 +16,29 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
 
+function categoryLabel(
+  cat: PortfolioCategoryFilter | PortfolioProject["cat"],
+  labels: Record<string, string>,
+  allLabel: string,
+) {
+  if (cat === "All") return allLabel;
+  return labels[cat] ?? cat;
+}
+
 function OurWorkCard({
   project,
   hovered,
   onHover,
   isRTL,
+  catLabels,
+  allCategory,
 }: {
   project: PortfolioProject;
   hovered: boolean;
   onHover: (title: string | null) => void;
   isRTL: boolean;
+  catLabels: Record<string, string>;
+  allCategory: string;
 }) {
   const isVideo = /\.(mp4|webm|ogg)$/i.test(project.img);
 
@@ -97,7 +110,7 @@ function OurWorkCard({
             color: project.color,
           }}
         >
-          {project.cat}
+          {categoryLabel(project.cat, catLabels, allCategory)}
         </div>
         <div
           style={{
@@ -217,7 +230,7 @@ export default function OurWorkPage() {
                   transition: "all 0.25s ease",
                 }}
               >
-                {cat}
+                {categoryLabel(cat, t.portfolio.categoryLabels, t.portfolio.allCategory)}
               </button>
             ))}
           </div>
@@ -231,7 +244,7 @@ export default function OurWorkPage() {
             ) : (
               <>
                 {t.ourWorkPage.showing} <strong style={{ color: "var(--primary)" }}>{totalVisible}</strong>{" "}
-                {totalVisible === 1 ? t.ourWorkPage.project : t.ourWorkPage.projects} {t.ourWorkPage.in} <strong style={{ color: "var(--primary)" }}>{active}</strong>
+                {totalVisible === 1 ? t.ourWorkPage.project : t.ourWorkPage.projects} {t.ourWorkPage.in} <strong style={{ color: "var(--primary)" }}>{categoryLabel(active, t.portfolio.categoryLabels, t.portfolio.allCategory)}</strong>
               </>
             )}
           </p>
@@ -241,7 +254,7 @@ export default function OurWorkPage() {
               <section key={category} id={`work-${slug}`} className="portfolio-page-category">
                 <header className="portfolio-page-category__header" style={{ direction: isRTL ? "rtl" : "ltr" }}>
                   <div style={{ textAlign: isRTL ? "right" : "left" }}>
-                    <h2>{category}</h2>
+                    <h2>{categoryLabel(category, t.portfolio.categoryLabels, t.portfolio.allCategory)}</h2>
                     <p className="portfolio-page-category__count">
                       {projects.length} {projects.length === 1 ? t.ourWorkPage.project : t.ourWorkPage.projects}
                     </p>
@@ -249,7 +262,7 @@ export default function OurWorkPage() {
                 </header>
                 <div className="portfolio-page-grid">
                   {projects.map((p) => (
-                    <OurWorkCard key={p.title} project={p} hovered={hovered === p.title} onHover={setHovered} isRTL={isRTL} />
+                    <OurWorkCard key={p.title} project={p} hovered={hovered === p.title} onHover={setHovered} isRTL={isRTL} catLabels={t.portfolio.categoryLabels} allCategory={t.portfolio.allCategory} />
                   ))}
                 </div>
               </section>

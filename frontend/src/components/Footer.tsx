@@ -17,15 +17,7 @@ const itServiceHrefs = [
   "/services#interior-design",
   "/services#digital-marketing",
 ];
-const itServiceKeys = [
-  "Web & App Development",
-  "Social Media Account Management",
-  "Photography & Videography",
-  "3D Design",
-  "Animation",
-  "Interior Design",
-  "Digital Marketing",
-];
+const footerServiceIndices = [0, 1, 2, 3, 4, 6, 8];
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -88,15 +80,15 @@ export default function Footer() {
             <div>
               <h4 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: 20 }}>{t.footer.itServices}</h4>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12 }}>
-                {itServiceKeys.map((key, i) => (
-                  <li key={key}>
+                {footerServiceIndices.map((serviceIdx, i) => (
+                  <li key={serviceIdx}>
                     <Link href={itServiceHrefs[i]} style={{ color: "rgba(255,255,255,0.75)", textDecoration: "none", fontSize: "0.95rem", display: "flex", alignItems: "center", gap: 8 }}>
                       <span style={{ color: "rgba(255,255,255,0.6)", display: "inline-flex" }}>
                         <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
                           <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </span>
-                      {key}
+                      {t.services.cards[serviceIdx].title}
                     </Link>
                   </li>
                 ))}

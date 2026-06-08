@@ -4,7 +4,7 @@ import { postJson } from "@/lib/api";
 import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { serviceFormOptions } from "@/data/services";
+import { serviceCards } from "@/data/services";
 
 const CONTACT_IMAGE_SRC = mediaUrl("/images/4d40ec48-1229-4a4d-9afc-874fcc654642.png");
 
@@ -75,9 +75,12 @@ export default function ContactSection() {
                 <input name="phone" type="tel" placeholder={t.contact.phonePlaceholder} value={form.phone} onChange={handle} style={inputStyle} />
                 <select name="service" value={form.service} onChange={handle} style={inputStyle}>
                   <option value="">{t.contact.servicePlaceholder}</option>
-                  {serviceFormOptions.map((service) => (
-                    <option key={service} value={service}>{service}</option>
+                  {serviceCards.map((service, i) => (
+                    <option key={service.title} value={service.title}>
+                      {t.services.cards[i].title}
+                    </option>
                   ))}
+                  <option value="Other">{t.services.formOther}</option>
                 </select>
                 <textarea name="message" placeholder={t.contact.messagePlaceholder} required rows={5} value={form.message} onChange={handle} style={{ ...inputStyle, resize: "vertical" }} />
                 <div>

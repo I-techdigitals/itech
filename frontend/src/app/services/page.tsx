@@ -14,7 +14,7 @@ const SERVICE_PREFETCH_IMAGES = serviceDetails
   .slice(0, 6);
 
 export default function ServicesPage() {
-  const { t, isRTL, lang } = useLanguage();
+  const { t, isRTL } = useLanguage();
 
   return (
     <div style={{ direction: isRTL ? "rtl" : "ltr" }}>
@@ -54,7 +54,8 @@ export default function ServicesPage() {
         <div className="container">
           <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
             {serviceDetails.map((s, i) => {
-              const serviceTitle = (lang === "ar" && t.nav.subWhatWeDo[i]) ? t.nav.subWhatWeDo[i] : s.title;
+              const localized = t.serviceDetails[i];
+              const serviceTitle = t.services.cards[i].title;
 
               return (
                 <div key={s.num}
@@ -81,9 +82,9 @@ export default function ServicesPage() {
                   <div className="services-page-card-content" style={{ order: isRTL ? (i % 2 !== 0 ? 1 : 2) : (i % 2 !== 0 ? 2 : undefined), display: "flex", flexDirection: "column", justifyContent: "center", textAlign: isRTL ? "right" : "left", alignItems: isRTL ? "flex-end" : "flex-start" }}>
                     <div style={{ fontSize: "0.72rem", fontWeight: 700, color: s.color, letterSpacing: "0.1em", marginBottom: 6 }}>{s.num}</div>
                     <h2 style={{ fontSize: "1.7rem", color: "var(--text-dark)", marginBottom: 14 }}>{serviceTitle}</h2>
-                    <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.8, marginBottom: 20, textAlign: isRTL ? "right" : "left" }}>{s.description}</p>
+                    <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.8, marginBottom: 20, textAlign: isRTL ? "right" : "left" }}>{localized.description}</p>
                     <ul className="services-page-card-features" style={{ listStyle: "none", marginBottom: 24, padding: 0, width: "100%" }}>
-                      {s.features.map(f => (
+                      {localized.features.map(f => (
                         <li key={f} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.82rem", color: "var(--text-dark)", flexDirection: isRTL ? "row-reverse" : "row", justifyContent: isRTL ? "flex-end" : "flex-start", marginBottom: 8 }}>
                           <span style={{ width: 16, height: 16, background: `${s.color}20`, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                             <svg width="9" height="9" fill={s.color} viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke={s.color} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>

@@ -3,9 +3,12 @@
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import { type PortfolioProject, getCuratedPortfolioProjects } from "@/data/portfolio";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function PortfolioCard({ project }: { project: PortfolioProject }) {
+  const { t } = useLanguage();
   const isVideo = /\.(mp4|webm|ogg)$/i.test(project.img);
+  const categoryLabel = t.portfolio.categoryLabels[project.cat as keyof typeof t.portfolio.categoryLabels] ?? project.cat;
 
   return (
     <article
@@ -49,53 +52,51 @@ function PortfolioCard({ project }: { project: PortfolioProject }) {
       </div>
       <div className="portfolio-card__body">
         <h3>{project.title}</h3>
-        <p>{project.cat}</p>
+        <p>{categoryLabel}</p>
       </div>
     </article>
   );
 }
 
 export default function PortfolioSection() {
+  const { t } = useLanguage();
   const featuredProjects = getCuratedPortfolioProjects().slice(0, 6);
 
   return (
-    <>
-      <section id="portfolio" className="bg-brand-pattern section-py" style={{ paddingBottom: 60 }}>
-        <div className="container">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-              marginBottom: 32,
-              flexWrap: "wrap",
-              gap: 20,
-            }}
-          >
-            <div>
-              <div className="section-tag" style={{ color: "#fff" }}>
-                Our Portfolio
-              </div>
-              <h2 className="section-title" style={{ color: "#fff", margin: 0 }}>
-                Explore Our Featured <span style={{ color: "#fff" }}>Projects</span>
-              </h2>
+    <section id="portfolio" className="bg-brand-pattern section-py" style={{ paddingBottom: 60 }}>
+      <div className="container">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            marginBottom: 32,
+            flexWrap: "wrap",
+            gap: 20,
+          }}
+        >
+          <div>
+            <div className="section-tag" style={{ color: "#fff" }}>
+              {t.portfolio.tag}
             </div>
-            <Link href="/our-work" className="btn-on-brand">
-              See More
-              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+            <h2 className="section-title" style={{ color: "#fff", margin: 0 }}>
+              {t.portfolio.heading} <span style={{ color: "#fff" }}>{t.portfolio.headingSpan}</span>
+            </h2>
           </div>
-
-          <div className="portfolio-grid">
-            {featuredProjects.map((p) => (
-              <PortfolioCard key={p.title} project={p} />
-            ))}
-          </div>
+          <Link href="/our-work" className="btn-on-brand">
+            {t.portfolio.seeMore}
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
         </div>
-      </section>
 
-    </>
+        <div className="portfolio-grid">
+          {featuredProjects.map((p) => (
+            <PortfolioCard key={p.title} project={p} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
