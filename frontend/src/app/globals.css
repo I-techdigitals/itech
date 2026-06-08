@@ -627,6 +627,16 @@ select:focus {
 /* ── Full Website Responsiveness System ── */
 
 /* Header & Navbar */
+.navbar-cta {
+  margin-inline-start: 8px;
+  padding-inline-start: 16px;
+  gap: 20px;
+}
+
+.navbar-cta .lang-toggle {
+  margin-inline-start: 10px;
+}
+
 @media (max-width: 992px) {
   .navbar-container {
     display: flex !important;
@@ -1240,4 +1250,46 @@ select:focus {
   background-color: transparent !important;
   color: var(--primary) !important;
   transform: translateY(-1.5px);
+}
+
+/* ── Arabic / RTL Support ───────────────────────────────────────────── */
+
+/* Arabic font */
+[lang="ar"] body,
+[lang="ar"] h1,
+[lang="ar"] h2,
+[lang="ar"] h3,
+[lang="ar"] h4,
+[lang="ar"] p,
+[lang="ar"] a,
+[lang="ar"] button,
+[lang="ar"] span,
+[lang="ar"] li,
+[lang="ar"] input,
+[lang="ar"] textarea,
+[lang="ar"] select,
+[lang="ar"] label {
+  font-family: 'Noto Kufi Arabic', 'Inter', sans-serif;
+  letter-spacing: 0;
+}
+
+/* Lang toggle button */
+.lang-toggle {
+  background: none;
+  border: 1.5px solid currentColor;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  line-height: 1;
+}
+.lang-toggle:hover {
+  opacity: 0.75;
 }

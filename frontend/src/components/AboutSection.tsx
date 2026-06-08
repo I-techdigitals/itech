@@ -2,11 +2,14 @@
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const TEAM_IMAGE_SRC = mediaUrl("/images/4d40ec48-1229-4a4d-9afc-874fcc654642.png");
 const PROFESSIONAL_IMAGE_SRC = mediaUrl("/images/creatopy-M35xxKGb_tA-unsplash.jpg");
 
 export default function AboutSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="about" className="section-py" style={{ background: "var(--bg)" }}>
       <div className="container">
@@ -15,7 +18,6 @@ export default function AboutSection() {
           {/* Left - Visual */}
           <div style={{ position: "relative" }}>
             <div className="about-images-grid">
-              {/* Image 1 */}
               <div className="about-img-1" style={{ borderRadius: 24, overflow: "hidden", position: "relative", boxShadow: "var(--shadow-lg)" }}>
                 <OptimizedImage
                   src={TEAM_IMAGE_SRC}
@@ -27,7 +29,6 @@ export default function AboutSection() {
                   style={{ objectFit: "cover" }}
                 />
               </div>
-              {/* Image 2 */}
               <div className="about-img-2" style={{ borderRadius: 24, overflow: "hidden", position: "relative", boxShadow: "var(--shadow-lg)" }}>
                 <OptimizedImage
                   src={PROFESSIONAL_IMAGE_SRC}
@@ -40,25 +41,21 @@ export default function AboutSection() {
                 />
               </div>
             </div>
-
-            {/* Orange decorative dot pattern */}
             <div style={{ position: "absolute", top: -20, left: -20, width: 100, height: 100, backgroundImage: "radial-gradient(var(--primary) 2px, transparent 2px)", backgroundSize: "16px 16px", zIndex: -1 }} />
           </div>
 
           {/* Right - Text */}
           <div>
-            <div className="section-tag">About Us</div>
+            <div className="section-tag">{t.about.tag}</div>
             <h2 className="section-title">
-              Essential IT Solutions For Modern <span>Businesses.</span>
+              {t.about.heading} <span>{t.about.headingSpan}</span>
             </h2>
-            <p className="section-subtitle">
-              I-TECH Digitals is a leading tech & design agency. We blend technical expertise with creative artistry to craft experiences that captivate, convert, and endure across Kuwait and Pakistan.
-            </p>
+            <p className="section-subtitle">{t.about.sub}</p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 40 }}>
               {[
-                { title: "Innovation", desc: "Pushing boundaries with cutting-edge solutions." },
-                { title: "Precision", desc: "Meticulous attention to quality and pixel-perfect work." }
+                { title: t.about.innovation, desc: t.about.innovationDesc },
+                { title: t.about.precision, desc: t.about.precisionDesc }
               ].map((item, idx) => (
                 <div key={idx} style={{ display: "flex", gap: 16 }}>
                   <div style={{ width: 24, height: 24, borderRadius: "50%", background: "rgba(83, 80, 162,0.12)", color: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 4 }}>
@@ -72,9 +69,7 @@ export default function AboutSection() {
               ))}
             </div>
 
-            <Link href="/about" className="btn-primary">
-              Discover More
-            </Link>
+            <Link href="/about" className="btn-primary">{t.about.discoverMore}</Link>
           </div>
         </div>
       </div>

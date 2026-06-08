@@ -1,18 +1,16 @@
-import type { Metadata } from "next";
+"use client";
 import ContactSection from "@/components/ContactSection";
 import PageHeroImage from "@/components/PageHeroImage";
 import { mediaUrl } from "@/lib/supabase";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
 
-export const metadata: Metadata = {
-  title: "Contact I-TECH Digitals",
-  description: "Send us a message. I-TECH Digitals responds within 24 hours. Based in Kuwait, serving clients worldwide.",
-};
-
 export default function ContactPage() {
+  const { t, isRTL } = useLanguage();
+
   return (
-    <div>
+    <div style={{ direction: isRTL ? "rtl" : "ltr" }}>
       {/* Page Hero */}
       <div style={{
         background: "var(--hero-bg)",
@@ -31,14 +29,14 @@ export default function ContactPage() {
             marginBottom: 20
           }}>
             <span style={{ color: "#fff", fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-              Contact
+              {t.contactPage.heroTag}
             </span>
           </div>
           <h1 className="section-title" style={{ color: "#fff" }}>
-            Let&apos;s <span style={{ color: "#fff" }}>Work Together</span>
+            {t.contactPage.heroHeading}
           </h1>
           <p className="section-subtitle" style={{ margin: "0 auto", color: "rgba(255,255,255,0.85)" }}>
-            Send us a message. We&apos;d love to hear from you.
+            {t.contactPage.heroSub}
           </p>
         </div>
       </div>

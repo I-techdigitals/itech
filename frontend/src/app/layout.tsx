@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { mediaUrl } from "@/lib/supabase";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 const LOGO_SRC = mediaUrl("/images/Logo.png");
 const BRAND_LOGO_SRC = mediaUrl("/images/Logo_brand.png");
@@ -15,12 +16,8 @@ export const metadata: Metadata = {
   keywords:
     "I-TECH Digitals, digital agency Kuwait, web development, branding, social media, animations, videography, app development",
   icons: {
-    icon: [
-      { url: BRAND_LOGO_SRC, type: "image/png" },
-    ],
-    apple: [
-      { url: LOGO_SRC, type: "image/png" },
-    ],
+    icon: [{ url: BRAND_LOGO_SRC, type: "image/png" }],
+    apple: [{ url: LOGO_SRC, type: "image/png" }],
     shortcut: BRAND_LOGO_SRC,
   },
   openGraph: {
@@ -40,12 +37,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body suppressHydrationWarning>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </LanguageProvider>
       </body>
     </html>
   );

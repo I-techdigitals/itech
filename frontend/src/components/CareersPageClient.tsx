@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import API_URL from "@/config/api";
 import PageHeroImage from "@/components/PageHeroImage";
 import { mediaUrl } from "@/lib/supabase";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const PAGE_HERO_IMAGE_SRC = mediaUrl("/images/bernd-dittrich-pYlBAu3de0w-unsplash.jpg");
 
@@ -98,6 +99,7 @@ type FormState = typeof EMPTY_FORM;
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function CareersPageClient() {
+  const { t, isRTL } = useLanguage();
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [resume, setResume] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>("idle");
@@ -157,7 +159,7 @@ export default function CareersPageClient() {
   };
 
   return (
-    <main style={{ background: "#ffffff" }}>
+    <main style={{ background: "#ffffff", direction: isRTL ? "rtl" : "ltr" }}>
       <section
         style={{
           background: "var(--hero-bg)",
@@ -187,11 +189,11 @@ export default function CareersPageClient() {
                 textTransform: "uppercase",
               }}
             >
-              Careers
+              {t.careersPage.heroTag}
             </span>
           </div>
           <h1 className="section-title" style={{ color: "#fff" }}>
-            Join Our Team & <span style={{ color: "#fff" }}>Grow With Us</span>
+            {t.careersPage.heroHeading} <span style={{ color: "#fff" }}>{t.careersPage.heroHeadingSpan}</span>
           </h1>
           <p className="section-subtitle" style={{ margin: "0 auto", color: "rgba(255,255,255,0.85)" }}>
             We are always looking for passionate, creative, and driven individuals to join our team and help us build impactful digital solutions.

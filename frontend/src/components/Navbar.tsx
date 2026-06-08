@@ -4,65 +4,46 @@ import Link from "next/link";
 import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164 } from "@/config/site";
 import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const LOGO_SRC = mediaUrl("/images/Logo.png");
 
-const navItems = [
-  {
-    label: "WHAT WE DO",
-    href: "/services",
-    submenu: [
-      { label: "Web & App Development", href: "/services#web-app-development" },
-      { label: "Social Media Management", href: "/services#social-media-account-management" },
-      { label: "Photography & Videography", href: "/services#photography-videography" },
-      { label: "3D Design", href: "/services#3d-design" },
-      { label: "Animation", href: "/services#animation" },
-      { label: "Illustration", href: "/services#illustration" },
-      { label: "Interior Design", href: "/services#interior-design" },
-      { label: "Printing", href: "/services#printing" },
-      { label: "Digital Marketing", href: "/services#digital-marketing" },
-    ],
-  },
-  {
-    label: "WHO WE HELP",
-    href: "/our-work",
-    submenu: [
-      { label: "Web & App Projects", href: "/our-work?category=Web+%26+App+Development" },
-      { label: "Social Media Campaigns", href: "/our-work?category=Social+Media+Account+Manage" },
-      { label: "Photography & Video", href: "/our-work?category=Photography+%26+Videography" },
-      { label: "3D Design & Rendering", href: "/our-work?category=3D+Design" },
-      { label: "Animation & Motion", href: "/our-work?category=Animation" },
-      { label: "Illustration & Art", href: "/our-work?category=Illustration" },
-      { label: "Interior Spaces", href: "/our-work?category=Interior+Design" },
-      { label: "Digital Marketing & SEO", href: "/our-work?category=Digital+Marketing" },
-      { label: "Branding & Identity", href: "/our-work?category=Branding" },
-    ],
-  },
-  {
-    label: "WHO WE ARE",
-    href: "/about",
-    submenu: [
-      { label: "Our Story", href: "/about" },
-      { label: "Our Mission", href: "/about#our-mission" },
-      { label: "Our Vision", href: "/about#our-vision" },
-      { label: "Our Values", href: "/about#our-values" },
-    ],
-  },
-  {
-    label: "JOIN I-TECH",
-    href: "/careers",
-    submenu: [
-      { label: "Job Openings", href: "/careers#application-form" },
-      { label: "Benefits & Perks", href: "/careers#benefits" },
-      { label: "Why Work With Us", href: "/careers#why-us" },
-    ],
-  },
-];
+const navHrefs = {
+  whatWeDo: "/services",
+  whoWeHelp: "/our-work",
+  whoWeAre: "/about",
+  joinITech: "/careers",
+  subWhatWeDo: [
+    "/services#web-app-development",
+    "/services#social-media-account-management",
+    "/services#photography-videography",
+    "/services#3d-design",
+    "/services#animation",
+    "/services#illustration",
+    "/services#interior-design",
+    "/services#printing",
+    "/services#digital-marketing",
+  ],
+  subWhoWeHelp: [
+    "/our-work?category=Web+%26+App+Development",
+    "/our-work?category=Social+Media+Account+Manage",
+    "/our-work?category=Photography+%26+Videography",
+    "/our-work?category=3D+Design",
+    "/our-work?category=Animation",
+    "/our-work?category=Illustration",
+    "/our-work?category=Interior+Design",
+    "/our-work?category=Digital+Marketing",
+    "/our-work?category=Branding",
+  ],
+  subWhoWeAre: ["/about", "/about#our-mission", "/about#our-vision", "/about#our-values"],
+  subJoinITech: ["/careers#application-form", "/careers#benefits", "/careers#why-us"],
+};
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<number | null>(null);
+  const { lang, setLang, t, isRTL } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -71,6 +52,29 @@ export default function Navbar() {
   }, []);
 
   const isDarkBg = !scrolled && !menuOpen;
+
+  const navItems = [
+    {
+      label: t.nav.whatWeDo,
+      href: navHrefs.whatWeDo,
+      submenu: t.nav.subWhatWeDo.map((label, i) => ({ label, href: navHrefs.subWhatWeDo[i] })),
+    },
+    {
+      label: t.nav.whoWeHelp,
+      href: navHrefs.whoWeHelp,
+      submenu: t.nav.subWhoWeHelp.map((label, i) => ({ label, href: navHrefs.subWhoWeHelp[i] })),
+    },
+    {
+      label: t.nav.whoWeAre,
+      href: navHrefs.whoWeAre,
+      submenu: t.nav.subWhoWeAre.map((label, i) => ({ label, href: navHrefs.subWhoWeAre[i] })),
+    },
+    {
+      label: t.nav.joinITech,
+      href: navHrefs.joinITech,
+      submenu: t.nav.subJoinITech.map((label, i) => ({ label, href: navHrefs.subJoinITech[i] })),
+    },
+  ];
 
   return (
     <header
@@ -93,6 +97,7 @@ export default function Navbar() {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr auto 1fr",
+          columnGap: 32,
           alignItems: "center",
           position: "relative",
           zIndex: 1,
@@ -114,7 +119,7 @@ export default function Navbar() {
               width: "auto",
               objectFit: "contain",
               transform: "scale(var(--logo-scale))",
-              transformOrigin: "left center",
+              transformOrigin: isRTL ? "right center" : "left center",
               filter: isDarkBg ? "brightness(0) invert(1)" : "none",
               transition: "all 0.3s ease"
             }}
@@ -125,24 +130,16 @@ export default function Navbar() {
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 28, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
           {navItems.map((item) => {
             const isGrid = item.submenu && item.submenu.length > 4;
-
             return (
               <div key={item.label} className="nav-item">
                 <Link
                   href={item.href}
                   className="nav-link"
-                  style={{
-                    color: isDarkBg ? "#ffffff" : "#1f2937",
-                  }}
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setExpandedMobile(null);
-                  }}
+                  style={{ color: isDarkBg ? "#ffffff" : "#1f2937" }}
+                  onClick={() => { setMenuOpen(false); setExpandedMobile(null); }}
                 >
                   {item.label}
                 </Link>
-
-                {/* Submenu Dropdown */}
                 {item.submenu && (
                   <div className={`dropdown-menu ${isGrid ? "dropdown-col-2" : "dropdown-col-1"}`}>
                     <div style={{ display: "grid", gridTemplateColumns: isGrid ? "1fr 1fr" : "1fr", gap: "8px 12px" }}>
@@ -151,10 +148,7 @@ export default function Navbar() {
                           key={sub.label}
                           href={sub.href}
                           className="dropdown-link"
-                          onClick={() => {
-                            setMenuOpen(false);
-                            setExpandedMobile(null);
-                          }}
+                          onClick={() => { setMenuOpen(false); setExpandedMobile(null); }}
                         >
                           {sub.label}
                         </Link>
@@ -167,8 +161,8 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right CTA */}
-        <div className="desktop-nav" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 12 }}>
+        {/* Right CTA + Language Toggle */}
+        <div className="desktop-nav navbar-cta" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
           <a
             href={`tel:${COMPANY_PHONE_E164}`}
             style={{
@@ -176,17 +170,13 @@ export default function Navbar() {
               fontWeight: 700,
               color: isDarkBg ? "#ffffff" : "var(--text-dark)",
               textDecoration: "none",
-              marginRight: 8,
+              marginInlineStart: 12,
               transition: "color 0.25s ease",
               whiteSpace: "nowrap",
               lineHeight: 1,
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#5350a2";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = isDarkBg ? "#ffffff" : "var(--text-dark)";
-            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#5350a2"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = isDarkBg ? "#ffffff" : "var(--text-dark)"; }}
           >
             {COMPANY_PHONE_DISPLAY}
           </a>
@@ -209,8 +199,21 @@ export default function Navbar() {
               lineHeight: 1,
             }}
           >
-            Let&apos;s Talk Business
+            {t.nav.letsTalkBusiness}
           </Link>
+
+          {/* Language Toggle */}
+          <button
+            className="lang-toggle"
+            onClick={() => setLang(lang === "en" ? "ar" : "en")}
+            title={lang === "en" ? "Switch to Arabic" : "Switch to English"}
+            style={{ color: isDarkBg ? "#ffffff" : "var(--text-dark)" }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            {lang === "en" ? "عربي" : "EN"}
+          </button>
         </div>
 
         {/* Hamburger */}
@@ -279,19 +282,21 @@ export default function Navbar() {
                     padding: "14px 0",
                     cursor: "pointer",
                     textTransform: "uppercase",
+                    textAlign: isRTL ? "right" : "left",
                   }}
                 >
                   {item.label}
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden style={{ transform: isExpanded ? "rotate(180deg)" : "none", transition: "transform 0.2s", flexShrink: 0 }}>
+                    <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </button>
-                
-                {/* Mobile Submenu Accordion */}
                 {isExpanded && (
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       gap: 12,
-                      padding: "0 0 16px 12px",
+                      padding: isRTL ? "0 12px 16px 0" : "0 0 16px 12px",
                       animation: "mobileFadeIn 0.25s ease",
                     }}
                   >
@@ -299,15 +304,13 @@ export default function Navbar() {
                       <Link
                         key={sub.label}
                         href={sub.href}
-                        onClick={() => {
-                          setMenuOpen(false);
-                          setExpandedMobile(null);
-                        }}
+                        onClick={() => { setMenuOpen(false); setExpandedMobile(null); }}
                         style={{
                           color: "var(--text-muted)",
                           textDecoration: "none",
                           fontSize: "0.85rem",
                           fontWeight: 600,
+                          textAlign: isRTL ? "right" : "left",
                         }}
                       >
                         {sub.label}
@@ -321,6 +324,18 @@ export default function Navbar() {
 
           {/* Mobile CTA Buttons */}
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 16 }}>
+            {/* Language switch in mobile */}
+            <button
+              className="lang-toggle"
+              onClick={() => setLang(lang === "en" ? "ar" : "en")}
+              style={{ color: "var(--text-dark)", justifyContent: "center", border: "1.5px solid var(--border)", borderRadius: 50, padding: "10px" }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              {lang === "en" ? "التبديل إلى العربية" : "Switch to English"}
+            </button>
+
             <a
               href={`tel:${COMPANY_PHONE_E164}`}
               onClick={() => setMenuOpen(false)}
@@ -357,7 +372,7 @@ export default function Navbar() {
                 textAlign: "center",
               }}
             >
-              Let&apos;s Talk Business
+              {t.nav.letsTalkBusiness}
             </Link>
           </div>
         </nav>
