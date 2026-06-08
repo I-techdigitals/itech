@@ -9,7 +9,6 @@ export const PORTFOLIO_CATEGORIES = [
   "Animation",
   "Illustration",
   "Interior Design",
-  "Printing",
   "Digital Marketing",
   "Branding",
 ] as const;
@@ -87,7 +86,6 @@ const rawPortfolioProjects: PortfolioProject[] = [
   { title: "SEO & Growth Campaign", cat: "Digital Marketing", desc: "Deep technical search engine optimization driving keywords to ranking spot #1.", img: "/images/portfolio/SEO Campaign.avif", color: "#6c6bb0", year: "2024" },
   { title: "Story Book Illustrations", cat: "Illustration", desc: "Full book illustrations, cover art, and digital publishing format setup.", img: "/images/portfolio/Story Book Illustrations.png", color: "#5d5ca3", year: "2023" },
   { title: "Teni Time Branding", cat: "Branding", desc: "Vibrant visual identity, mascot concept design, and business branding package.", img: "/images/portfolio/Teni Time Branding.png", color: "#6c6bb0", year: "2023" },
-  { title: "Teni Time Printing", cat: "Printing", desc: "Full print collateral package including branded stationery, packaging, and promotional materials for the Teni Time identity.", img: "/images/portfolio/Teni Time Branding.png", color: "#5d5ca3", year: "2023" },
   { title: "Timeless Engagements", cat: "Photography & Videography", desc: "Capturing love, joy, and delicate details of engagement ceremonies.", img: "/images/portfolio/Timeless Engagements Photography.png", color: "#5d5ca3", year: "2023" },
   { title: "Twins Birthday Photography", cat: "Photography & Videography", desc: "Fun-filled, colorful outdoor double birthday bash coverage.", img: "/images/portfolio/Twins Birthday Photography.png", color: "#6c6bb0", year: "2024" },
 ];

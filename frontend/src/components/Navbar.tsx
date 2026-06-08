@@ -34,7 +34,6 @@ const navItems = [
       { label: "Animation & Motion", href: "/our-work?category=Animation" },
       { label: "Illustration & Art", href: "/our-work?category=Illustration" },
       { label: "Interior Spaces", href: "/our-work?category=Interior+Design" },
-      { label: "Print & Collaterals", href: "/our-work?category=Printing" },
       { label: "Digital Marketing & SEO", href: "/our-work?category=Digital+Marketing" },
       { label: "Branding & Identity", href: "/our-work?category=Branding" },
     ],
