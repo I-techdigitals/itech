@@ -52,7 +52,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 function applyLang(lang: Lang) {
   const html = document.documentElement;
   html.setAttribute("lang", lang);
-  html.setAttribute("dir", "ltr"); // Force layout to stay LTR always
+  html.setAttribute("dir", "ltr");
 }
 
 export function useLanguage() {

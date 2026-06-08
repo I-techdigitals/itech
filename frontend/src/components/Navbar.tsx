@@ -127,7 +127,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 28, position: "relative", zIndex: 2, pointerEvents: "auto" }} className="desktop-nav">
+        <nav className="desktop-nav navbar-links">
           {navItems.map((item) => {
             const isGrid = item.submenu && item.submenu.length > 4;
             return (

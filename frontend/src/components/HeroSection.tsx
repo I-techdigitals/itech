@@ -56,25 +56,25 @@ export default function HeroSection() {
             />
             {/* Floating cards */}
             <div className="floating-card-1">
-              <div className="icon-brand-chip" style={{ width: 40, height: 40, borderRadius: 8 }}>
+              <div className="icon-brand-chip floating-card__icon">
                 <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden>
                   <path d="M8 4h8v3a4 4 0 01-8 0V4z" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M6 7H4a2 2 0 002 2M18 7h2a2 2 0 01-2 2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 11v4M9 19h6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <div>
-                <div style={{ fontWeight: 800, fontSize: "1.2rem" }}>100%</div>
-                <div style={{ fontSize: "0.8rem", opacity: 0.9 }}>{t.hero.clientSatisfaction}</div>
+              <div className="floating-card__content">
+                <div className="floating-card__stat">100%</div>
+                <div className="floating-card__label" style={{ opacity: 0.9 }}>{t.hero.clientSatisfaction}</div>
               </div>
             </div>
             <div className="floating-card-2">
-              <div className="icon-brand-chip" style={{ width: 40, height: 40, borderRadius: 8 }}>
+              <div className="icon-brand-chip floating-card__icon">
                 <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
               </div>
-              <div>
-                <div style={{ fontWeight: 800, color: "var(--secondary)", fontSize: "1.2rem" }}>99%</div>
-                <div style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>{t.hero.successRate}</div>
+              <div className="floating-card__content">
+                <div className="floating-card__stat" style={{ color: "var(--secondary)" }}>99%</div>
+                <div className="floating-card__label" style={{ color: "var(--text-muted)" }}>{t.hero.successRate}</div>
               </div>
             </div>
           </div>
