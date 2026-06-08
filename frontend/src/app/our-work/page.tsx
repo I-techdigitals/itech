@@ -157,7 +157,7 @@ export default function OurWorkPage() {
   const totalVisible = displayedGroups.reduce((sum, g) => sum + g.projects.length, 0);
 
   return (
-    <div style={{ paddingTop: 72 }}>
+    <div>
       <div
         style={{
           background: "var(--hero-bg)",

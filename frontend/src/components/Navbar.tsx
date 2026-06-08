@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164 } from "@/config/site";
 import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
@@ -65,7 +64,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<number | null>(null);
-  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -73,7 +71,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isDarkBg = !scrolled && pathname === "/";
+  const isDarkBg = !scrolled;
 
   return (
     <header
@@ -91,7 +89,17 @@ export default function Navbar() {
         padding: scrolled ? "10px 0" : "20px 0",
       }}
     >
-      <div className="container" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", position: "relative", zIndex: 1, pointerEvents: "auto" }}>
+      <div
+        className="container"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr auto 1fr",
+          alignItems: "center",
+          position: "relative",
+          zIndex: 1,
+          pointerEvents: "auto",
+        }}
+      >
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
           <OptimizedImage

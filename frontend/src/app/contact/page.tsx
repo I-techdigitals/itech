@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div style={{ paddingTop: 72 }}>
+    <div>
       {/* Page Hero */}
       <div style={{
         background: "var(--hero-bg)",

@@ -157,7 +157,7 @@ export default function CareersPageClient() {
   };
 
   return (
-    <main style={{ background: "#ffffff", paddingTop: 72 }}>
+    <main style={{ background: "#ffffff" }}>
       <section
         style={{
           background: "var(--hero-bg)",

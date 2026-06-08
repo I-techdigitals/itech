@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div style={{ paddingTop: 72 }}>
+    <div>
       {/* Hero */}
       <div style={{ 
         background: "var(--hero-bg)",
