@@ -43,10 +43,6 @@ export const serviceCards: ServiceCard[] = [
     description: "Functional, beautiful spaces for offices, retail, and commercial environments.",
   },
   {
-    title: "Printing",
-    description: "High-quality business printing solutions for marketing, branding, packaging, and events.",
-  },
-  {
     title: "Digital Marketing",
     description: "SEO and paid media campaigns that grow visibility, traffic, and qualified leads.",
   },
@@ -59,7 +55,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "01",
     title: "Web & App Development",
     color: "#6c6bb0",
-    image: "/images/portfolio/Afreya Website Development.png",
+    image: "/images/portfolio/web.png",
     description:
       "We craft high-performance websites and mobile applications tailored to your business goals. From landing pages to complex enterprise platforms, we deliver scalable solutions using modern technologies.",
     features: [
@@ -75,7 +71,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "02",
     title: "Social Media Account Management",
     color: "#5d5ca3",
-    image: "/images/portfolio/Afreya Social Media Management.png",
+    image: "/images/portfolio/Socail media.jpeg",
     description:
       "We manage your brand's social presence end to end — content planning, creative design, publishing, engagement, and reporting so your accounts stay active and on-brand.",
     features: [
@@ -91,7 +87,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "03",
     title: "Photography & Videography",
     color: "#6c6bb0",
-    image: "/images/portfolio/Afreya Scented Product Photography.png",
+    image: "/images/portfolio/Photography.jpeg",
     description:
       "Our visual team captures your story through professional photography and cinematic video — from product shoots and events to full brand campaigns.",
     features: [
@@ -107,8 +103,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "04",
     title: "3D Design",
     color: "#5d5ca3",
-    image: "/images/portfolio/Afreya Product Illustration.png",
-    video: "/images/portfolio/video/Duffle Bag.mp4",
+    image: "/images/portfolio/Design1.png",
     description:
       "From product renders to environment visualizations, we create high-quality 3D assets that elevate your presentations, campaigns, and digital experiences.",
     features: [
@@ -158,7 +153,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "07",
     title: "Interior Design",
     color: "#6c6bb0",
-    image: "/images/portfolio/Bavaria Tower.jpg",
+    image: "/images/portfolio/Interior.png",
     description:
       "We design inspiring interiors that reflect your brand — balancing aesthetics, flow, and practicality for offices, retail, and commercial spaces.",
     features: [
@@ -172,25 +167,9 @@ const rawServiceDetails: ServiceDetail[] = [
   },
   {
     num: "08",
-    title: "Printing",
-    color: "#5350a2",
-    image: "/images/portfolio/Teni Time Branding.png",
-    description:
-      "From everyday business materials to large-format promotional assets, we deliver professional printing that keeps your brand consistent and impactful.",
-    features: [
-      "Business Cards & Stationery",
-      "Brochures, Flyers & Menus",
-      "Posters, Banners & Signage",
-      "Packaging & Label Printing",
-      "Branded Merchandise Support",
-      "Large Format Printing",
-    ],
-  },
-  {
-    num: "09",
     title: "Digital Marketing",
     color: "#5d5ca3",
-    image: "/images/portfolio/SEO Campaign.avif",
+    image: "/images/portfolio/Seo.png",
     description:
       "We combine technical SEO with paid media strategy to improve rankings, increase quality traffic, and deliver measurable lead growth across search and social platforms.",
     features: [

@@ -21,7 +21,6 @@ const SERVICES = [
   "Photography & Videography",
   "Animations",
   "Interior Design",
-  "Printing",
   "Studio Rental",
   "Other",
 ];

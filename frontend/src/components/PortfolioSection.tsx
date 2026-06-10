@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import OptimizedImage from "@/components/OptimizedImage";
-import { type PortfolioProject, getCuratedPortfolioProjects } from "@/data/portfolio";
+import { type PortfolioProject, getFeaturedPortfolioProjects } from "@/data/portfolio";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function PortfolioCard({ project }: { project: PortfolioProject }) {
@@ -60,7 +60,7 @@ function PortfolioCard({ project }: { project: PortfolioProject }) {
 
 export default function PortfolioSection() {
   const { t } = useLanguage();
-  const featuredProjects = getCuratedPortfolioProjects().slice(0, 6);
+  const featuredProjects = getFeaturedPortfolioProjects(6);
 
   return (
     <section id="portfolio" className="bg-brand-pattern section-py" style={{ paddingBottom: 60 }}>

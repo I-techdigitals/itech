@@ -44,11 +44,6 @@ const SERVICE_ICONS: React.ReactNode[] = [
   ),
   (
     <svg key="7" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M6 9V4h12v5" /><rect x="4" y="9" width="16" height="8" rx="2" /><rect x="7" y="13" width="10" height="7" rx="1" /><path d="M8 16h8" />
-    </svg>
-  ),
-  (
-    <svg key="8" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <line x1="6" y1="19" x2="6" y2="12" /><line x1="12" y1="19" x2="12" y2="8" /><line x1="18" y1="19" x2="18" y2="5" /><path d="M3 20h18" />
     </svg>
   ),

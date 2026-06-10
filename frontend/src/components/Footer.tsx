@@ -17,7 +17,7 @@ const itServiceHrefs = [
   "/services#interior-design",
   "/services#digital-marketing",
 ];
-const footerServiceIndices = [0, 1, 2, 3, 4, 6, 8];
+const footerServiceIndices = [0, 1, 2, 3, 4, 6, 7];
 
 export default function Footer() {
   const { t } = useLanguage();

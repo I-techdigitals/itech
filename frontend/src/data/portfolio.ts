@@ -95,6 +95,38 @@ export const portfolioProjects: PortfolioProject[] = rawPortfolioProjects.map((p
   img: mediaUrl(project.img),
 }));
 
+function isAfreyaProject(project: PortfolioProject) {
+  return project.title.toLowerCase().includes("afreya");
+}
+
+function rankForFeaturedSelection(a: PortfolioProject, b: PortfolioProject) {
+  const aAfreya = isAfreyaProject(a) ? 1 : 0;
+  const bAfreya = isAfreyaProject(b) ? 1 : 0;
+  if (aAfreya !== bAfreya) return aAfreya - bAfreya;
+  return projectYearValue(b) - projectYearValue(a);
+}
+
+/** Homepage featured grid: one project per category, diverse clients, non-Afreya preferred. */
+export function getFeaturedPortfolioProjects(limit = 6) {
+  const categories = PORTFOLIO_CATEGORIES.filter((c): c is PortfolioServiceType => c !== "All");
+  const picked: PortfolioProject[] = [];
+  const usedClients = new Set<string>();
+
+  for (const category of categories) {
+    const inCategory = portfolioProjects.filter((p) => p.cat === category);
+    if (inCategory.length === 0) continue;
+
+    const sorted = [...inCategory].sort(rankForFeaturedSelection);
+    const chosen =
+      sorted.find((p) => !usedClients.has(extractNicheKey(p))) ?? sorted[0];
+
+    picked.push(chosen);
+    usedClients.add(extractNicheKey(chosen));
+  }
+
+  return picked.slice(0, limit);
+}
+
 export function getCuratedPortfolioProjects() {
   const bestByCategoryAndNiche = new Map<string, PortfolioProject>();
 

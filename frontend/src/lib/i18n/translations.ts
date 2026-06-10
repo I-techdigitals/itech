@@ -11,12 +11,13 @@ const translations = {
   en: {
     // ── Navbar ──────────────────────────────────────────────────────────
     nav: {
-      whatWeDo: "WHAT WE DO",
-      whoWeHelp: "WHO WE HELP",
-      whoWeAre: "WHO WE ARE",
+      home: "HOME",
+      about: "ABOUT",
+      services: "SERVICES",
+      portfolio: "PORTFOLIO",
       joinITech: "JOIN I-TECH",
       letsTalkBusiness: "Let's Talk Business",
-      subWhatWeDo: [
+      subServices: [
         "Web & App Development",
         "Social Media Management",
         "Photography & Videography",
@@ -24,22 +25,10 @@ const translations = {
         "Animation",
         "Illustration",
         "Interior Design",
-        "Printing",
         "Digital Marketing",
       ],
-      subWhoWeHelp: [
-        "Web & App Projects",
-        "Social Media Campaigns",
-        "Photography & Video",
-        "3D Design & Rendering",
-        "Animation & Motion",
-        "Illustration & Art",
-        "Interior Spaces",
-        "Digital Marketing & SEO",
-        "Branding & Identity",
-      ],
-      subWhoWeAre: ["Our Story", "Our Mission", "Our Vision", "Our Values"],
-      subJoinITech: ["Job Openings", "Benefits & Perks", "Why Work With Us"],
+      viewAllServices: "View All Services",
+      viewAllPortfolio: "View All Portfolio",
     },
 
     // ── Hero ─────────────────────────────────────────────────────────────
@@ -316,12 +305,13 @@ const translations = {
   ar: {
     // ── Navbar ──────────────────────────────────────────────────────────
     nav: {
-      whatWeDo: "خدماتنا",
-      whoWeHelp: "أعمالنا",
-      whoWeAre: "من نحن",
+      home: "الرئيسية",
+      about: "من نحن",
+      services: "خدماتنا",
+      portfolio: "أعمالنا",
       joinITech: "انضم إلينا",
       letsTalkBusiness: "تحدث معنا",
-      subWhatWeDo: [
+      subServices: [
         "تطوير الويب والتطبيقات",
         "إدارة وسائل التواصل الاجتماعي",
         "التصوير الفوتوغرافي والفيديو",
@@ -329,22 +319,10 @@ const translations = {
         "الرسوم المتحركة",
         "الرسم التوضيحي",
         "التصميم الداخلي",
-        "الطباعة",
         "التسويق الرقمي",
       ],
-      subWhoWeHelp: [
-        "مشاريع الويب والتطبيقات",
-        "حملات التواصل الاجتماعي",
-        "التصوير والفيديو",
-        "التصميم ثلاثي الأبعاد",
-        "الرسوم المتحركة",
-        "الرسم الفني",
-        "المساحات الداخلية",
-        "التسويق الرقمي وتحسين محركات البحث",
-        "العلامة التجارية والهوية",
-      ],
-      subWhoWeAre: ["قصتنا", "مهمتنا", "رؤيتنا", "قيمنا"],
-      subJoinITech: ["الوظائف المتاحة", "المزايا والامتيازات", "لماذا العمل معنا"],
+      viewAllServices: "عرض جميع الخدمات",
+      viewAllPortfolio: "عرض جميع الأعمال",
     },
 
     // ── Hero ─────────────────────────────────────────────────────────────

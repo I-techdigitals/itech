@@ -5,39 +5,21 @@ import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164 } from "@/config/site";
 import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-
 const LOGO_SRC = mediaUrl("/images/Logo.png");
 
-const navHrefs = {
-  whatWeDo: "/services",
-  whoWeHelp: "/our-work",
-  whoWeAre: "/about",
-  joinITech: "/careers",
-  subWhatWeDo: [
-    "/services#web-app-development",
-    "/services#social-media-account-management",
-    "/services#photography-videography",
-    "/services#3d-design",
-    "/services#animation",
-    "/services#illustration",
-    "/services#interior-design",
-    "/services#printing",
-    "/services#digital-marketing",
-  ],
-  subWhoWeHelp: [
-    "/our-work?category=Web+%26+App+Development",
-    "/our-work?category=Social+Media+Account+Manage",
-    "/our-work?category=Photography+%26+Videography",
-    "/our-work?category=3D+Design",
-    "/our-work?category=Animation",
-    "/our-work?category=Illustration",
-    "/our-work?category=Interior+Design",
-    "/our-work?category=Digital+Marketing",
-    "/our-work?category=Branding",
-  ],
-  subWhoWeAre: ["/about", "/about#our-mission", "/about#our-vision", "/about#our-values"],
-  subJoinITech: ["/careers#application-form", "/careers#benefits", "/careers#why-us"],
-};
+const SERVICE_HREFS = [
+  "/services#web-app-development",
+  "/services#social-media-account-management",
+  "/services#photography-videography",
+  "/services#3d-design",
+  "/services#animation",
+  "/services#illustration",
+  "/services#interior-design",
+  "/services#digital-marketing",
+];
+
+type NavSubItem = { label: string; href: string };
+type NavItem = { label: string; href: string; submenu?: NavSubItem[] };
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -53,28 +35,25 @@ export default function Navbar() {
 
   const isDarkBg = !scrolled && !menuOpen;
 
-  const navItems = [
+  const navItems: NavItem[] = [
+    { label: t.nav.home, href: "/" },
+    { label: t.nav.about, href: "/about" },
     {
-      label: t.nav.whatWeDo,
-      href: navHrefs.whatWeDo,
-      submenu: t.nav.subWhatWeDo.map((label, i) => ({ label, href: navHrefs.subWhatWeDo[i] })),
+      label: t.nav.services,
+      href: "/services",
+      submenu: t.nav.subServices.map((label, i) => ({
+        label,
+        href: SERVICE_HREFS[i],
+      })),
     },
-    {
-      label: t.nav.whoWeHelp,
-      href: navHrefs.whoWeHelp,
-      submenu: t.nav.subWhoWeHelp.map((label, i) => ({ label, href: navHrefs.subWhoWeHelp[i] })),
-    },
-    {
-      label: t.nav.whoWeAre,
-      href: navHrefs.whoWeAre,
-      submenu: t.nav.subWhoWeAre.map((label, i) => ({ label, href: navHrefs.subWhoWeAre[i] })),
-    },
-    {
-      label: t.nav.joinITech,
-      href: navHrefs.joinITech,
-      submenu: t.nav.subJoinITech.map((label, i) => ({ label, href: navHrefs.subJoinITech[i] })),
-    },
+    { label: t.nav.portfolio, href: "/our-work" },
+    { label: t.nav.joinITech, href: "/careers" },
   ];
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setExpandedMobile(null);
+  };
 
   return (
     <header
@@ -136,7 +115,7 @@ export default function Navbar() {
                   href={item.href}
                   className="nav-link"
                   style={{ color: isDarkBg ? "#ffffff" : "#1f2937" }}
-                  onClick={() => { setMenuOpen(false); setExpandedMobile(null); }}
+                  onClick={closeMenu}
                 >
                   {item.label}
                 </Link>
@@ -145,10 +124,10 @@ export default function Navbar() {
                     <div style={{ display: "grid", gridTemplateColumns: isGrid ? "1fr 1fr" : "1fr", gap: "8px 12px" }}>
                       {item.submenu.map((sub) => (
                         <Link
-                          key={sub.label}
+                          key={sub.href}
                           href={sub.href}
                           className="dropdown-link"
-                          onClick={() => { setMenuOpen(false); setExpandedMobile(null); }}
+                          onClick={closeMenu}
                         >
                           {sub.label}
                         </Link>
@@ -202,7 +181,6 @@ export default function Navbar() {
             {t.nav.letsTalkBusiness}
           </Link>
 
-          {/* Language Toggle */}
           <button
             className="lang-toggle"
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
@@ -264,6 +242,31 @@ export default function Navbar() {
         >
           {navItems.map((item, index) => {
             const isExpanded = expandedMobile === index;
+            const hasSubmenu = Boolean(item.submenu?.length);
+
+            if (!hasSubmenu) {
+              return (
+                <div key={item.label} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                  <Link
+                    href={item.href}
+                    onClick={closeMenu}
+                    style={{
+                      display: "block",
+                      color: "var(--text-dark)",
+                      fontWeight: 700,
+                      fontSize: "0.92rem",
+                      padding: "14px 0",
+                      textDecoration: "none",
+                      textTransform: "uppercase",
+                      textAlign: isRTL ? "right" : "left",
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                </div>
+              );
+            }
+
             return (
               <div key={item.label} style={{ borderBottom: "1px solid #f1f5f9" }}>
                 <button
@@ -300,11 +303,24 @@ export default function Navbar() {
                       animation: "mobileFadeIn 0.25s ease",
                     }}
                   >
-                    {item.submenu.map((sub) => (
+                    <Link
+                      href={item.href}
+                      onClick={closeMenu}
+                      style={{
+                        color: "var(--primary)",
+                        textDecoration: "none",
+                        fontSize: "0.85rem",
+                        fontWeight: 700,
+                        textAlign: isRTL ? "right" : "left",
+                      }}
+                    >
+                      {t.nav.viewAllServices}
+                    </Link>
+                    {item.submenu!.map((sub) => (
                       <Link
-                        key={sub.label}
+                        key={sub.href}
                         href={sub.href}
-                        onClick={() => { setMenuOpen(false); setExpandedMobile(null); }}
+                        onClick={closeMenu}
                         style={{
                           color: "var(--text-muted)",
                           textDecoration: "none",
@@ -322,9 +338,7 @@ export default function Navbar() {
             );
           })}
 
-          {/* Mobile CTA Buttons */}
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 16 }}>
-            {/* Language switch in mobile */}
             <button
               className="lang-toggle"
               onClick={() => setLang(lang === "en" ? "ar" : "en")}
@@ -338,7 +352,7 @@ export default function Navbar() {
 
             <a
               href={`tel:${COMPANY_PHONE_E164}`}
-              onClick={() => setMenuOpen(false)}
+              onClick={closeMenu}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -357,7 +371,7 @@ export default function Navbar() {
             </a>
             <Link
               href="/contact"
-              onClick={() => setMenuOpen(false)}
+              onClick={closeMenu}
               style={{
                 display: "flex",
                 alignItems: "center",

@@ -30,10 +30,6 @@ export const serviceCardsEn = [
     description: "Functional, beautiful spaces for offices, retail, and commercial environments.",
   },
   {
-    title: "Printing",
-    description: "High-quality business printing solutions for marketing, branding, packaging, and events.",
-  },
-  {
     title: "Digital Marketing",
     description: "SEO and paid media campaigns that grow visibility, traffic, and qualified leads.",
   },
@@ -67,10 +63,6 @@ export const serviceCardsAr = [
   {
     title: "التصميم الداخلي",
     description: "مساحات عملية وجميلة للمكاتب والمتاجر والبيئات التجارية.",
-  },
-  {
-    title: "الطباعة",
-    description: "حلول طباعة تجارية عالية الجودة للتسويق والعلامة التجارية والتغليف والفعاليات.",
   },
   {
     title: "التسويق الرقمي",
@@ -162,18 +154,6 @@ export const serviceDetailsEn = [
       "Space Planning",
       "Material & Furniture Selection",
       "Project Coordination",
-    ],
-  },
-  {
-    description:
-      "From everyday business materials to large-format promotional assets, we deliver professional printing that keeps your brand consistent and impactful.",
-    features: [
-      "Business Cards & Stationery",
-      "Brochures, Flyers & Menus",
-      "Posters, Banners & Signage",
-      "Packaging & Label Printing",
-      "Branded Merchandise Support",
-      "Large Format Printing",
     ],
   },
   {
@@ -280,18 +260,6 @@ export const serviceDetailsAr = [
       "تخطيط المساحات",
       "اختيار المواد والأثاث",
       "تنسيق المشاريع",
-    ],
-  },
-  {
-    description:
-      "من المواد التجارية اليومية إلى اللوحات الترويجية كبيرة الحجم، نقدم طباعة احترافية تحافظ على اتساق علامتك التجارية وتأثيرها.",
-    features: [
-      "بطاقات العمل والقرطاسية",
-      "كتيبات ومنشورات وقوائم",
-      "ملصقات ولافتات ولوحات",
-      "طباعة التغليف والملصقات",
-      "دعم المنتجات الترويجية",
-      "الطباعة كبيرة الحجم",
     ],
   },
   {
