@@ -709,9 +709,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
             <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <div style={{
                 borderRadius: 24, overflow: "hidden",
-                boxShadow: `0 32px 80px ${C}25, 0 8px 24px rgba(0,0,0,0.08)`,
                 width: "100%", maxWidth: 520,
-                background: "#fff",
               }}>
                 {service.video ? (
                   <video src={service.video}
@@ -726,16 +724,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
                   />
                 )}
               </div>
-              {/* Floating badge */}
-              <div style={{
-                position: "absolute", bottom: -16, left: "50%", transform: "translateX(-50%)",
-                background: "#fff", borderRadius: 50, padding: "10px 20px",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-                display: "flex", alignItems: "center", gap: 10, whiteSpace: "nowrap",
-              }}>
-                <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 0 3px #22c55e30" }} />
-                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#111" }}>Available Now — Let's Talk</span>
-              </div>
+
             </div>
           </div>
         </div>
