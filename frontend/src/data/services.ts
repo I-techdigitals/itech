@@ -55,7 +55,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "01",
     title: "Web & App Development",
     color: "#6c6bb0",
-    image: "/images/portfolio/web.png",
+    image: "/images/portfolio/website (1).png",
     description:
       "We craft high-performance websites and mobile applications tailored to your business goals. From landing pages to complex enterprise platforms, we deliver scalable solutions using modern technologies.",
     features: [
@@ -71,7 +71,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "02",
     title: "Social Media Account Management",
     color: "#5d5ca3",
-    image: "/images/portfolio/Socail media.jpeg",
+    image: "/images/portfolio/Socail media.png",
     description:
       "We manage your brand's social presence end to end — content planning, creative design, publishing, engagement, and reporting so your accounts stay active and on-brand.",
     features: [
@@ -87,7 +87,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "03",
     title: "Photography & Videography",
     color: "#6c6bb0",
-    image: "/images/portfolio/Photography.jpeg",
+    image: "/images/portfolio/photograpy.png",
     description:
       "Our visual team captures your story through professional photography and cinematic video — from product shoots and events to full brand campaigns.",
     features: [

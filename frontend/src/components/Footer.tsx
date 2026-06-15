@@ -7,15 +7,15 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const LOGO_SRC = mediaUrl("/images/Logo.png");
 
-const quickLinkHrefs = ["/about", "/our-work", "/contact", "/", "/"];
+const quickLinkHrefs = ["/about", "/#portfolio", "/contact", "/", "/"];
 const itServiceHrefs = [
-  "/services#web-app-development",
-  "/services#social-media-account-management",
-  "/services#photography-videography",
-  "/services#3d-design",
-  "/services#animation",
-  "/services#interior-design",
-  "/services#digital-marketing",
+  "/services/web-app-development",
+  "/services/social-media-account-management",
+  "/services/photography-videography",
+  "/services/3d-design",
+  "/services/animation",
+  "/services/interior-design",
+  "/services/digital-marketing",
 ];
 const footerServiceIndices = [0, 1, 2, 3, 4, 6, 7];
 

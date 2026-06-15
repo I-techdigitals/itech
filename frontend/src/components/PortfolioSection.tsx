@@ -83,12 +83,6 @@ export default function PortfolioSection() {
               {t.portfolio.heading} <span style={{ color: "#fff" }}>{t.portfolio.headingSpan}</span>
             </h2>
           </div>
-          <Link href="/our-work" className="btn-on-brand">
-            {t.portfolio.seeMore}
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
         </div>
 
         <div className="portfolio-grid">

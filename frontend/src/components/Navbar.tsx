@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { COMPANY_PHONE_DISPLAY, COMPANY_PHONE_E164 } from "@/config/site";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -8,14 +9,14 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 const LOGO_SRC = mediaUrl("/images/Logo.png");
 
 const SERVICE_HREFS = [
-  "/services#web-app-development",
-  "/services#social-media-account-management",
-  "/services#photography-videography",
-  "/services#3d-design",
-  "/services#animation",
-  "/services#illustration",
-  "/services#interior-design",
-  "/services#digital-marketing",
+  "/services/web-app-development",
+  "/services/social-media-account-management",
+  "/services/photography-videography",
+  "/services/3d-design",
+  "/services/animation",
+  "/services/illustration",
+  "/services/interior-design",
+  "/services/digital-marketing",
 ];
 
 type NavSubItem = { label: string; href: string };
@@ -26,6 +27,10 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<number | null>(null);
   const { lang, setLang, t, isRTL } = useLanguage();
+  const pathname = usePathname();
+
+  // Service detail pages have white hero — force navbar into light mode
+  const isServiceDetailPage = /^\/services\/.+/.test(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -33,7 +38,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isDarkBg = !scrolled && !menuOpen;
+  const isDarkBg = !scrolled && !menuOpen && !isServiceDetailPage;
 
   const navItems: NavItem[] = [
     { label: t.nav.home, href: "/" },
@@ -46,7 +51,6 @@ export default function Navbar() {
         href: SERVICE_HREFS[i],
       })),
     },
-    { label: t.nav.portfolio, href: "/our-work" },
     { label: t.nav.joinITech, href: "/careers" },
   ];
 
@@ -111,14 +115,23 @@ export default function Navbar() {
             const isGrid = item.submenu && item.submenu.length > 4;
             return (
               <div key={item.label} className="nav-item">
-                <Link
-                  href={item.href}
-                  className="nav-link"
-                  style={{ color: isDarkBg ? "#ffffff" : "#1f2937" }}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
+                {item.submenu ? (
+                  <span
+                    className="nav-link"
+                    style={{ color: isDarkBg ? "#ffffff" : "#1f2937", cursor: "pointer" }}
+                  >
+                    {item.label}
+                  </span>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="nav-link"
+                    style={{ color: isDarkBg ? "#ffffff" : "#1f2937" }}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                )}
                 {item.submenu && (
                   <div className={`dropdown-menu ${isGrid ? "dropdown-col-2" : "dropdown-col-1"}`}>
                     <div style={{ display: "grid", gridTemplateColumns: isGrid ? "1fr 1fr" : "1fr", gap: "8px 12px" }}>
@@ -303,19 +316,7 @@ export default function Navbar() {
                       animation: "mobileFadeIn 0.25s ease",
                     }}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={closeMenu}
-                      style={{
-                        color: "var(--primary)",
-                        textDecoration: "none",
-                        fontSize: "0.85rem",
-                        fontWeight: 700,
-                        textAlign: isRTL ? "right" : "left",
-                      }}
-                    >
-                      {t.nav.viewAllServices}
-                    </Link>
+
                     {item.submenu!.map((sub) => (
                       <Link
                         key={sub.href}
