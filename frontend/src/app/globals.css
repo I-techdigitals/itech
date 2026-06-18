@@ -570,7 +570,8 @@ select:focus {
 }
 
 .portfolio-card__image {
-  height: 240px;
+  aspect-ratio: 4 / 3;
+  min-height: 280px;
   position: relative;
   overflow: hidden;
 }
@@ -580,6 +581,41 @@ select:focus {
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+}
+
+.portfolio-media-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #111;
+}
+
+.portfolio-media-carousel__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.025);
+  z-index: 1;
+  transition:
+    opacity 1.4s ease-in-out,
+    transform 5s ease;
+  will-change: opacity, transform;
+}
+
+.portfolio-media-carousel__image--active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 3;
+}
+
+.portfolio-media-carousel__image--previous {
+  opacity: 1;
+  z-index: 2;
+  transition: none;
 }
 
 .portfolio-card__body {

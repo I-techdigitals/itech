@@ -21,6 +21,7 @@ export interface PortfolioProject {
   cat: PortfolioServiceType;
   desc: string;
   img: string;
+  images?: string[];
   color: string;
   year: string;
 }
@@ -51,8 +52,70 @@ const rawPortfolioProjects: PortfolioProject[] = [
   { title: "Ambrose Abayas Photography", cat: "Photography & Videography", desc: "High-fashion editorial photoshoot showcasing seasonal designer abayas.", img: "/images/portfolio/Ambrose Abayas Photography.png", color: "#6c6bb0", year: "2023" },
   { title: "Ambrose Abayas Social Media", cat: "Social Media Account Manage", desc: "Aesthetic grids, story designs, and customer interactions for a premium fashion house.", img: "/images/portfolio/Ambrose Abayas Social Media Management.png", color: "#5d5ca3", year: "2024" },
   { title: "Ambrose Abayas E-Commerce", cat: "Web & App Development", desc: "A fast, fully responsive shop with advanced filtering, lookbook, and cart workflows.", img: "/images/portfolio/Ambrose Abayas Website Development.png", color: "#6c6bb0", year: "2023" },
-  { title: "Ambrose Juniors Interior Design", cat: "Interior Design", desc: "Interior concept and styling direction designed to create a practical, elegant, and brand-aligned retail environment.", img: "/images/portfolio/Ambrose Juniors.JPG", color: "#5d5ca3", year: "2024" },
-  { title: "Bavaria Tower Interior Design", cat: "Interior Design", desc: "Modern interior planning and visual styling for a refined commercial tower experience with functional flow and premium finishes.", img: "/images/portfolio/Bavaria Tower.jpg", color: "#6c6bb0", year: "2024" },
+  { title: "I-Tech Office Design", cat: "Interior Design", desc: "Interior concept and styling direction designed to create a practical, elegant, and brand-aligned office environment.", img: "/video/IMG_1416.mp4", color: "#5d5ca3", year: "2024" },
+  {
+    title: "Living Rooms Interior Design",
+    cat: "Interior Design",
+    desc: "Elegant living room concepts with refined seating plans, statement lighting, and warm residential detail.",
+    img: "/images/portfolio/Living_Rooms/Classical-Living-Room-Crystal-Chandelier.jpg",
+    images: [
+      "/images/portfolio/Living_Rooms/Classical-Living-Room-Crystal-Chandelier.jpg",
+      "/images/portfolio/Living_Rooms/Living-Room-Navy-Sofas-Fireplace.jpg",
+    ],
+    color: "#6c6bb0",
+    year: "2024",
+  },
+  {
+    title: "Dining Rooms Interior Design",
+    cat: "Interior Design",
+    desc: "Formal and modern dining room styling with balanced materials, lighting, and polished hospitality-ready layouts.",
+    img: "/images/portfolio/Dining_Rooms/Formal-Dining-Room-Neoclassical.jpg",
+    images: [
+      "/images/portfolio/Dining_Rooms/Formal-Dining-Room-Neoclassical.jpg",
+      "/images/portfolio/Dining_Rooms/Modern-Dining-Room-Marble-Stone-Wall.jpg",
+    ],
+    color: "#5d5ca3",
+    year: "2024",
+  },
+  {
+    title: "Commercial & Hospitality Spaces",
+    cat: "Interior Design",
+    desc: "Commercial cafe and restaurant concepts shaped around atmosphere, guest flow, and memorable brand experience.",
+    img: "/images/portfolio/Commercial_Hospitality_Spaces/Industrial-Cafe-Coffee-Bar.jpg",
+    images: [
+      "/images/portfolio/Commercial_Hospitality_Spaces/Industrial-Cafe-Coffee-Bar.jpg",
+      "/images/portfolio/Commercial_Hospitality_Spaces/Industrial-Restaurant-Station.jpg",
+    ],
+    color: "#6c6bb0",
+    year: "2024",
+  },
+  {
+    title: "Bedrooms Interior Design",
+    cat: "Interior Design",
+    desc: "Comfort-focused bedroom interiors with layered textures, sculptural details, and calm luxury finishes.",
+    img: "/images/portfolio/Bedrooms/Modern-Luxury-Bedroom-Sculptural-Art.jpg",
+    images: [
+      "/images/portfolio/Bedrooms/Modern-Luxury-Bedroom-Sculptural-Art.jpg",
+      "/images/portfolio/Bedrooms/Wood-Paneled-Bedroom-Sitting-Area.jpg",
+    ],
+    color: "#5d5ca3",
+    year: "2024",
+  },
+  {
+    title: "Bavaria Tower Interior Design",
+    cat: "Interior Design",
+    desc: "Modern interior planning and visual styling for a refined commercial tower experience with functional flow and premium finishes.",
+    img: "/images/portfolio/Bavaria Tower/PHOTO-2024-11-05-23-28-44 2.jpg",
+    images: [
+      "/images/portfolio/Bavaria Tower/PHOTO-2024-11-05-23-28-44 2.jpg",
+      "/images/portfolio/Bavaria Tower/PHOTO-2024-11-05-23-28-44.jpg",
+      "/images/portfolio/Bavaria Tower/PHOTO-2024-11-09-05-29-33 3.jpg",
+      "/images/portfolio/Bavaria Tower/PHOTO-2024-11-09-05-29-33.jpg",
+      "/images/portfolio/Bavaria Tower/Render  (5).jpg",
+    ],
+    color: "#6c6bb0",
+    year: "2024",
+  },
   { title: "Bavaria Group Social Media", cat: "Social Media Account Manage", desc: "Corporate communications and social marketing strategy for Bavaria Group.", img: "/images/portfolio/Bavaria Group Social Media Management.png", color: "#5d5ca3", year: "2024" },
   { title: "Birthday Bliss Photography", cat: "Photography & Videography", desc: "Capturing candid family moments, joy, and custom details at a themed birthday celebration.", img: "/images/portfolio/Birthday Bliss Photography.png", color: "#6c6bb0", year: "2024" },
   { title: "Carly Vehicle Rental App", cat: "Web & App Development", desc: "End-to-end design and cross-platform mobile app development for a smart car-rental service.", img: "/images/portfolio/Carly Vehicle Rental App Development.png", color: "#5d5ca3", year: "2024" },
@@ -93,6 +156,7 @@ const rawPortfolioProjects: PortfolioProject[] = [
 export const portfolioProjects: PortfolioProject[] = rawPortfolioProjects.map((project) => ({
   ...project,
   img: mediaUrl(project.img),
+  images: project.images?.map((image) => mediaUrl(image)),
 }));
 
 function isAfreyaProject(project: PortfolioProject) {

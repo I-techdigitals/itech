@@ -55,7 +55,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "01",
     title: "Web & App Development",
     color: "#6c6bb0",
-    image: "/images/portfolio/website (1).png",
+    image: "/images/portfolio/weband app.png",
     description:
       "We craft high-performance websites and mobile applications tailored to your business goals. From landing pages to complex enterprise platforms, we deliver scalable solutions using modern technologies.",
     features: [
@@ -103,7 +103,7 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "04",
     title: "3D Design",
     color: "#5d5ca3",
-    image: "/images/portfolio/Design1.png",
+    image: "/images/portfolio/3ddesign.png",
     description:
       "From product renders to environment visualizations, we create high-quality 3D assets that elevate your presentations, campaigns, and digital experiences.",
     features: [
@@ -121,7 +121,7 @@ const rawServiceDetails: ServiceDetail[] = [
     title: "Animation",
     color: "#5d5ca3",
     image: "/images/portfolio/Protect Me Illustration Design.png",
-    video: "/images/portfolio/video/KDIPA.mp4",
+    video: "/images/portfolio/video/Snooze_Sleeping_Pod.mp4",
     description:
       "We produce motion-first content that helps brands communicate clearly and capture attention across digital platforms.",
     features: [

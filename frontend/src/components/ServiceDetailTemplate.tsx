@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import OptimizedImage from "@/components/OptimizedImage";
+import PortfolioMedia from "@/components/PortfolioMedia";
 import { serviceDetails } from "@/data/services";
-import { mediaTransformUrl } from "@/lib/supabase";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { portfolioProjects } from "@/data/portfolio";
 
@@ -713,8 +713,7 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
               }}>
                 {service.video ? (
                   <video src={service.video}
-                    poster={mediaTransformUrl(service.image, { width: 760, height: 570 })}
-                    autoPlay muted loop playsInline preload="metadata"
+                    autoPlay muted loop playsInline preload="auto"
                     style={{ width: "100%", aspectRatio: "4/3", objectFit: imageFit, display: "block" }}
                   />
                 ) : (
@@ -901,12 +900,11 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
               {svc.portfolioTitle}
             </h2>
             <p style={{ fontSize: "1rem", color: "#666", maxWidth: 480, margin: "0 auto", lineHeight: 1.75 }}>
-              A selection of real work we're proud of — delivered on time and beyond expectations.
+              A selection of real work we&apos;re proud of — delivered on time and beyond expectations.
             </p>
           </div>
           <div className="slug-portfolio-grid">
             {activeProjects.map((project) => {
-              const isVideo = /\.(mp4|webm|ogg)$/i.test(project.img);
               return (
                 <div key={project.title} style={{
                   display: "block", borderRadius: 18, overflow: "hidden",
@@ -924,25 +922,14 @@ export default function ServiceDetailTemplate({ slug }: ServiceDetailTemplatePro
                     e.currentTarget.style.borderColor = "#e8e8e8";
                   }}
                 >
-                  <div style={{ height: 200, background: `${C}06`, position: "relative", overflow: "hidden", borderBottom: "1px solid #e8e8e8" }}>
-                    {isVideo ? (
-                      <video src={project.img} muted loop autoPlay playsInline preload="metadata"
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    ) : (
-                      <OptimizedImage src={project.img} alt={project.title} width={400} height={300}
-                        sizes="(max-width: 768px) 100vw, 360px"
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    )}
-                    <div style={{
-                      position: "absolute", top: 12, right: 12,
-                      background: "#fff", borderRadius: 8, padding: "4px 10px",
-                      fontSize: "0.68rem", fontWeight: 700, color: C,
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-                    }}>
-                      {project.year}
-                    </div>
+                  <div style={{ aspectRatio: "4 / 3", minHeight: 260, background: `${C}06`, position: "relative", overflow: "hidden", borderBottom: "1px solid #e8e8e8" }}>
+                    <PortfolioMedia
+                      project={project}
+                      width={520}
+                      height={390}
+                      sizes="(max-width: 768px) 100vw, 360px"
+                      imageStyle={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
                   </div>
                   <div style={{ padding: "18px 20px" }}>
                     <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "#111", marginBottom: 6 }}>{project.title}</div>

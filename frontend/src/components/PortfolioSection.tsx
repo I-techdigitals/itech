@@ -1,13 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import OptimizedImage from "@/components/OptimizedImage";
+import PortfolioMedia from "@/components/PortfolioMedia";
 import { type PortfolioProject, getFeaturedPortfolioProjects } from "@/data/portfolio";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function PortfolioCard({ project }: { project: PortfolioProject }) {
   const { t } = useLanguage();
-  const isVideo = /\.(mp4|webm|ogg)$/i.test(project.img);
   const categoryLabel = t.portfolio.categoryLabels[project.cat as keyof typeof t.portfolio.categoryLabels] ?? project.cat;
 
   return (
@@ -23,32 +21,12 @@ function PortfolioCard({ project }: { project: PortfolioProject }) {
       }}
     >
       <div className="portfolio-card__image">
-        {isVideo ? (
-          <video
-            src={project.img}
-            muted
-            loop
-            autoPlay
-            playsInline
-            preload="metadata"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        ) : (
-          <OptimizedImage
-            src={project.img}
-            alt={project.title}
-            width={640}
-            height={480}
-            loading="lazy"
-            sizes="(max-width: 640px) 100vw, (max-width: 991px) 50vw, 33vw"
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-            }}
-          />
-        )}
+        <PortfolioMedia
+          project={project}
+          width={640}
+          height={480}
+          sizes="(max-width: 640px) 100vw, (max-width: 991px) 50vw, 33vw"
+        />
       </div>
       <div className="portfolio-card__body">
         <h3>{project.title}</h3>

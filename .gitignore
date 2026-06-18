@@ -28,6 +28,9 @@ backend/data/
 # User uploads
 backend/uploads/
 
+# Local source media too large for GitHub
+frontend/public/video/IMG_1416.MOV
+
 # OS files
 .DS_Store
 Thumbs.db
