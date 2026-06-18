@@ -120,8 +120,8 @@ const rawServiceDetails: ServiceDetail[] = [
     num: "05",
     title: "Animation",
     color: "#5d5ca3",
-    image: "/images/portfolio/Protect Me Illustration Design.png",
-    video: "/images/portfolio/video/Snooze_Sleeping_Pod.mp4",
+    image: "/images/portfolio/",
+    video: "/images/portfolio/video/KDIPA.mp4",
     description:
       "We produce motion-first content that helps brands communicate clearly and capture attention across digital platforms.",
     features: [
