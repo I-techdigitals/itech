@@ -26,6 +26,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<number | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { lang, setLang, t, isRTL } = useLanguage();
   const pathname = usePathname();
 
@@ -57,6 +58,7 @@ export default function Navbar() {
   const closeMenu = () => {
     setMenuOpen(false);
     setExpandedMobile(null);
+    setOpenDropdown(null);
   };
 
   return (
@@ -113,15 +115,31 @@ export default function Navbar() {
         <nav className="desktop-nav navbar-links">
           {navItems.map((item) => {
             const isGrid = item.submenu && item.submenu.length > 4;
+            const isOpen = openDropdown === item.label;
             return (
-              <div key={item.label} className="nav-item">
+              <div
+                key={item.label}
+                className={`nav-item ${isOpen ? "is-open" : ""}`}
+                onMouseEnter={() => item.submenu && setOpenDropdown(item.label)}
+                onMouseLeave={() => item.submenu && setOpenDropdown(null)}
+                onBlur={(e) => {
+                  if (item.submenu && !e.currentTarget.contains(e.relatedTarget)) {
+                    setOpenDropdown(null);
+                  }
+                }}
+              >
                 {item.submenu ? (
-                  <span
+                  <Link
+                    href={item.href}
                     className="nav-link"
+                    aria-haspopup="menu"
+                    aria-expanded={isOpen}
+                    onFocus={() => setOpenDropdown(item.label)}
+                    onClick={closeMenu}
                     style={{ color: isDarkBg ? "#ffffff" : "#1f2937", cursor: "pointer" }}
                   >
                     {item.label}
-                  </span>
+                  </Link>
                 ) : (
                   <Link
                     href={item.href}
@@ -133,13 +151,15 @@ export default function Navbar() {
                   </Link>
                 )}
                 {item.submenu && (
-                  <div className={`dropdown-menu ${isGrid ? "dropdown-col-2" : "dropdown-col-1"}`}>
+                  <div className={`dropdown-menu ${isGrid ? "dropdown-col-2" : "dropdown-col-1"}`} role="menu">
                     <div style={{ display: "grid", gridTemplateColumns: isGrid ? "1fr 1fr" : "1fr", gap: "8px 12px" }}>
                       {item.submenu.map((sub) => (
                         <Link
                           key={sub.href}
                           href={sub.href}
                           className="dropdown-link"
+                          role="menuitem"
+                          onFocus={() => setOpenDropdown(item.label)}
                           onClick={closeMenu}
                         >
                           {sub.label}

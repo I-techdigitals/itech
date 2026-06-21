@@ -1239,7 +1239,9 @@ select:focus {
   transition: color 0.25s ease;
 }
 
-.nav-item:hover .nav-link {
+.nav-item:hover .nav-link,
+.nav-item:focus-within .nav-link,
+.nav-item.is-open .nav-link {
   color: var(--primary) !important;
 }
 
@@ -1259,7 +1261,9 @@ select:focus {
   z-index: 10001;
 }
 
-.nav-item:hover .dropdown-menu {
+.nav-item:hover .dropdown-menu,
+.nav-item:focus-within .dropdown-menu,
+.nav-item.is-open .dropdown-menu {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
