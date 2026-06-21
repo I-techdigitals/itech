@@ -102,7 +102,7 @@ const rawPortfolioProjects: PortfolioProject[] = [
     year: "2024",
   },
   {
-    title: "Bavaria Tower Interior Design",
+    title: "Bavaria Tower Architecture Design",
     cat: "Interior and Architecture Design",
     desc: "Modern interior planning and visual styling for a refined commercial tower experience with functional flow and premium finishes.",
     img: "/images/portfolio/Bavaria Tower/PHOTO-2024-11-05-23-28-44 2.jpg",
