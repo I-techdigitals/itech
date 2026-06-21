@@ -247,7 +247,7 @@ const PORTFOLIO_CAT_MAPPING: Record<string, string> = {
   "3d-design": "3D Design",
   animation: "Animation",
   illustration: "Illustration",
-  "interior-design": "Interior Design",
+  "interior-design": "Interior and Architecture Design",
   "digital-marketing": "Digital Marketing",
 };
 

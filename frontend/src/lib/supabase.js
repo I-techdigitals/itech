@@ -11,6 +11,7 @@ export const supabase =
 
 const imageExtensions = /\.(avif|bmp|gif|ico|jpe?g|png|tiff?|webp)$/i
 const storagePathPattern = /\/storage\/v1\/(?:object\/public|render\/image\/public)\/([^/]+)\/([^?#]+)/
+const localPublicVideoPattern = /^\/?video\//i
 
 function getStorageObjectPath(path) {
   if (!path) return null
@@ -35,6 +36,7 @@ export function isResizableMediaImage(path) {
 
 export function mediaUrl(path, transform = undefined) {
   if (!path || /^https?:\/\//i.test(path)) return path
+  if (localPublicVideoPattern.test(path)) return path.startsWith('/') ? path : `/${path}`
   if (!supabaseUrl) return path
 
   const cleanPath = path.replace(/^\/+/, '')

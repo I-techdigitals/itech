@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
-import OptimizedImage from "@/components/OptimizedImage";
 import { mediaUrl } from "@/lib/supabase";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const INTRO_VIDEO_SRC = mediaUrl("/video/I-Tech.mp4");
-const HERO_IMAGE_SRC = mediaUrl("/images/hero.webp");
 
 export default function HeroSection() {
   const { t } = useLanguage();
@@ -24,7 +22,7 @@ export default function HeroSection() {
         <div style={{ position: "absolute", top: -100, right: -100, width: 400, height: 400, background: "var(--primary)", opacity: 0.1, filter: "blur(80px)", borderRadius: "50%", pointerEvents: "none", zIndex: 1 }} />
         <div style={{ position: "absolute", bottom: -50, left: -50, width: 300, height: 300, background: "#fff", opacity: 0.05, filter: "blur(60px)", borderRadius: "50%", pointerEvents: "none", zIndex: 1 }} />
 
-        <div className="container hero-grid" style={{ position: "relative", zIndex: 2 }}>
+        <div className="container hero-grid hero-grid--text-only" style={{ position: "relative", zIndex: 2 }}>
           {/* Left Content */}
           <div>
             <div className="section-tag" style={{ color: "#fff" }}>{t.hero.tag}</div>
@@ -45,39 +43,6 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Content (Image) */}
-          <div className="hero-image-container">
-            <div style={{ position: "absolute", inset: 0, border: "2px dashed rgba(255,255,255,0.1)", borderRadius: "50%", transform: "scale(0.95)", pointerEvents: "none" }} />
-            <div style={{ position: "absolute", inset: 0, border: "1px solid rgba(83, 80, 162,0.3)", borderRadius: "50%", transform: "scale(0.75)", pointerEvents: "none" }} />
-            <OptimizedImage
-              src={HERO_IMAGE_SRC} alt="IT Expert" width={1023} height={1537}
-              preload fetchPriority="high" sizes="(max-width: 991px) 0px, 50vw"
-              style={{ position: "absolute", top: "-8%", bottom: "0%", left: "50%", transform: "translateX(-50%)", height: "138%", width: "138%", objectFit: "contain", objectPosition: "bottom center", zIndex: 1, filter: "drop-shadow(0 20px 30px rgba(83, 80, 162,0.5))", pointerEvents: "none" }}
-            />
-            {/* Floating cards */}
-            <div className="floating-card-1">
-              <div className="icon-brand-chip floating-card__icon">
-                <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden>
-                  <path d="M8 4h8v3a4 4 0 01-8 0V4z" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M6 7H4a2 2 0 002 2M18 7h2a2 2 0 01-2 2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 11v4M9 19h6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="floating-card__content">
-                <div className="floating-card__stat">100%</div>
-                <div className="floating-card__label" style={{ opacity: 0.9 }}>{t.hero.clientSatisfaction}</div>
-              </div>
-            </div>
-            <div className="floating-card-2">
-              <div className="icon-brand-chip floating-card__icon">
-                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
-              </div>
-              <div className="floating-card__content">
-                <div className="floating-card__stat" style={{ color: "var(--secondary)" }}>99%</div>
-                <div className="floating-card__label" style={{ color: "var(--text-muted)" }}>{t.hero.successRate}</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 

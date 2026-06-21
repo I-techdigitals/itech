@@ -708,6 +708,10 @@ select:focus {
   align-items: center;
 }
 
+.hero-grid--text-only {
+  grid-template-columns: minmax(0, 760px);
+}
+
 .hero-image-container {
   position: relative;
   height: 480px;

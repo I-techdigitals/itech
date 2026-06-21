@@ -8,7 +8,7 @@ export const PORTFOLIO_CATEGORIES = [
   "3D Design",
   "Animation",
   "Illustration",
-  "Interior Design",
+  "Interior and Architecture Design",
   "Digital Marketing",
   "Branding",
 ] as const;
@@ -52,10 +52,10 @@ const rawPortfolioProjects: PortfolioProject[] = [
   { title: "Ambrose Abayas Photography", cat: "Photography & Videography", desc: "High-fashion editorial photoshoot showcasing seasonal designer abayas.", img: "/images/portfolio/Ambrose Abayas Photography.png", color: "#6c6bb0", year: "2023" },
   { title: "Ambrose Abayas Social Media", cat: "Social Media Account Manage", desc: "Aesthetic grids, story designs, and customer interactions for a premium fashion house.", img: "/images/portfolio/Ambrose Abayas Social Media Management.png", color: "#5d5ca3", year: "2024" },
   { title: "Ambrose Abayas E-Commerce", cat: "Web & App Development", desc: "A fast, fully responsive shop with advanced filtering, lookbook, and cart workflows.", img: "/images/portfolio/Ambrose Abayas Website Development.png", color: "#6c6bb0", year: "2023" },
-  { title: "I-Tech Office Design", cat: "Interior Design", desc: "Interior concept and styling direction designed to create a practical, elegant, and brand-aligned office environment.", img: "/video/IMG_1416.mp4", color: "#5d5ca3", year: "2024" },
+  { title: "I-Tech Office Design", cat: "Interior and Architecture Design", desc: "Interior concept and styling direction designed to create a practical, elegant, and brand-aligned office environment.", img: "/video/IMG_1416.mp4", color: "#5d5ca3", year: "2024" },
   {
     title: "Living Rooms Interior Design",
-    cat: "Interior Design",
+    cat: "Interior and Architecture Design",
     desc: "Elegant living room concepts with refined seating plans, statement lighting, and warm residential detail.",
     img: "/images/portfolio/Living_Rooms/Classical-Living-Room-Crystal-Chandelier.jpg",
     images: [
@@ -67,7 +67,7 @@ const rawPortfolioProjects: PortfolioProject[] = [
   },
   {
     title: "Dining Rooms Interior Design",
-    cat: "Interior Design",
+    cat: "Interior and Architecture Design",
     desc: "Formal and modern dining room styling with balanced materials, lighting, and polished hospitality-ready layouts.",
     img: "/images/portfolio/Dining_Rooms/Formal-Dining-Room-Neoclassical.jpg",
     images: [
@@ -79,7 +79,7 @@ const rawPortfolioProjects: PortfolioProject[] = [
   },
   {
     title: "Commercial & Hospitality Spaces",
-    cat: "Interior Design",
+    cat: "Interior and Architecture Design",
     desc: "Commercial cafe and restaurant concepts shaped around atmosphere, guest flow, and memorable brand experience.",
     img: "/images/portfolio/Commercial_Hospitality_Spaces/Industrial-Cafe-Coffee-Bar.jpg",
     images: [
@@ -91,7 +91,7 @@ const rawPortfolioProjects: PortfolioProject[] = [
   },
   {
     title: "Bedrooms Interior Design",
-    cat: "Interior Design",
+    cat: "Interior and Architecture Design",
     desc: "Comfort-focused bedroom interiors with layered textures, sculptural details, and calm luxury finishes.",
     img: "/images/portfolio/Bedrooms/Modern-Luxury-Bedroom-Sculptural-Art.jpg",
     images: [
@@ -103,7 +103,7 @@ const rawPortfolioProjects: PortfolioProject[] = [
   },
   {
     title: "Bavaria Tower Interior Design",
-    cat: "Interior Design",
+    cat: "Interior and Architecture Design",
     desc: "Modern interior planning and visual styling for a refined commercial tower experience with functional flow and premium finishes.",
     img: "/images/portfolio/Bavaria Tower/PHOTO-2024-11-05-23-28-44 2.jpg",
     images: [
@@ -170,14 +170,28 @@ function rankForFeaturedSelection(a: PortfolioProject, b: PortfolioProject) {
   return projectYearValue(b) - projectYearValue(a);
 }
 
+const HOMEPAGE_FEATURED_EXCLUDED_CATEGORIES = new Set<PortfolioServiceType>([
+  "3D Design",
+  "Animation",
+]);
+
+const HOMEPAGE_FEATURED_EXCLUDED_TITLES = new Set([
+  "I-Tech Office Design",
+  "Google Ads Campaign",
+]);
+
 /** Homepage featured grid: one project per category, diverse clients, non-Afreya preferred. */
 export function getFeaturedPortfolioProjects(limit = 6) {
-  const categories = PORTFOLIO_CATEGORIES.filter((c): c is PortfolioServiceType => c !== "All");
+  const categories = PORTFOLIO_CATEGORIES.filter((c): c is PortfolioServiceType => (
+    c !== "All" && !HOMEPAGE_FEATURED_EXCLUDED_CATEGORIES.has(c)
+  ));
   const picked: PortfolioProject[] = [];
   const usedClients = new Set<string>();
 
   for (const category of categories) {
-    const inCategory = portfolioProjects.filter((p) => p.cat === category);
+    const inCategory = portfolioProjects.filter((p) => (
+      p.cat === category && !HOMEPAGE_FEATURED_EXCLUDED_TITLES.has(p.title)
+    ));
     if (inCategory.length === 0) continue;
 
     const sorted = [...inCategory].sort(rankForFeaturedSelection);

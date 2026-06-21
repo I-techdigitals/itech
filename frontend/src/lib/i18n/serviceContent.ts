@@ -26,7 +26,7 @@ export const serviceCardsEn = [
     description: "Creative custom illustrations for brands, campaigns, packaging, and visual storytelling.",
   },
   {
-    title: "Interior Design",
+    title: "Interior and Architecture Design",
     description: "Functional, beautiful spaces for offices, retail, and commercial environments.",
   },
   {
