@@ -78,7 +78,7 @@ export default function ServicesSection() {
                 <div className="service-card__icon">{SERVICE_ICONS[i]}</div>
                 <h3 className="service-card__title">{card.title}</h3>
                 <p className="service-card__desc">{card.description}</p>
-                <Link href="/services" className="service-card__link">
+                <Link href={`/services/${serviceCards[i].slug}`} className="service-card__link">
                   {t.services.readMore}
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
                     <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />

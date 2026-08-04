@@ -3,6 +3,7 @@ import { mediaUrl } from "@/lib/supabase";
 export interface ServiceCard {
   title: string;
   description: string;
+  slug: string;
 }
 
 export interface ServiceDetail extends ServiceCard {
@@ -17,34 +18,42 @@ export const serviceCards: ServiceCard[] = [
   {
     title: "Web & App Development",
     description: "Custom websites, mobile apps, and e-commerce platforms built for performance and scale.",
+    slug: "web-app-development",
   },
   {
     title: "Social Media Account Management",
     description: "Strategy, content creation, posting, and community growth across your social channels.",
+    slug: "social-media-account-management",
   },
   {
     title: "Photography & Videography",
     description: "Professional photo and video production for brands, products, events, and campaigns.",
+    slug: "photography-videography",
   },
   {
     title: "3D Design",
     description: "High-quality 3D modeling, rendering, and visual assets that bring your concepts to life.",
+    slug: "3d-design",
   },
   {
     title: "Animation",
     description: "Engaging motion graphics and animated content crafted for campaigns, products, and brand stories.",
+    slug: "animation",
   },
   {
     title: "Illustration",
     description: "Creative custom illustrations for brands, campaigns, packaging, and visual storytelling.",
+    slug: "illustration",
   },
   {
     title: "Interior and Architecture Design",
     description: "Functional, beautiful spaces for offices, retail, and commercial environments.",
+    slug: "interior-design",
   },
   {
     title: "Digital Marketing",
     description: "SEO and paid media campaigns that grow visibility, traffic, and qualified leads.",
+    slug: "digital-marketing",
   },
 ];
 
@@ -54,6 +63,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "01",
     title: "Web & App Development",
+    slug: "web-app-development",
     color: "#6c6bb0",
     image: "/images/portfolio/weband app.png",
     description:
@@ -70,6 +80,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "02",
     title: "Social Media Account Management",
+    slug: "social-media-account-management",
     color: "#5d5ca3",
     image: "/images/portfolio/Socail media.png",
     description:
@@ -86,6 +97,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "03",
     title: "Photography & Videography",
+    slug: "photography-videography",
     color: "#6c6bb0",
     image: "/images/portfolio/photograpy.png",
     description:
@@ -102,6 +114,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "04",
     title: "3D Design",
+    slug: "3d-design",
     color: "#5d5ca3",
     image: "/images/portfolio/3ddesign.png",
     description:
@@ -119,6 +132,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "05",
     title: "Animation",
+    slug: "animation",
     color: "#5d5ca3",
     image: "/images/portfolio/",
     video: "/images/portfolio/video/KDIPA.mp4",
@@ -136,6 +150,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "06",
     title: "Illustration",
+    slug: "illustration",
     color: "#6c6bb0",
     image: "/images/portfolio/Story Book Illustrations.png",
     description:
@@ -152,6 +167,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "07",
     title: "Interior and Architecture Design",
+    slug: "interior-design",
     color: "#6c6bb0",
     image: "/images/portfolio/Interior.png",
     description:
@@ -168,6 +184,7 @@ const rawServiceDetails: ServiceDetail[] = [
   {
     num: "08",
     title: "Digital Marketing",
+    slug: "digital-marketing",
     color: "#5d5ca3",
     image: "/images/portfolio/Seo.png",
     description:
